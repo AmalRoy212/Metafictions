@@ -1,0 +1,40 @@
+POST http://localhost:5000/api/users/register
+Content-Type: application/json
+
+{
+  "name" : "akhil",
+  "email" : "akhil@gmail.com",
+  "password" : "12345"
+}
+
+###
+
+POST http://localhost:5000/api/users/auth
+Content-Type: application/json
+
+{
+  "email" : "akhil@gmail.com",
+  "password" : "12345"
+}
+
+###
+
+GET http://localhost:5000/api/users/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDhhZGEwYzk3YTYyZGFhMzFiMWQ0ZjgiLCJpYXQiOjE2ODY4Mjg4MDd9.S_dWd0KM3VHaCbbpNEeFC5ShTMrdF9GmLCFXEPFj420
+
+###
+
+PUT http://localhost:5000/api/users/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDhhZGEwYzk3YTYyZGFhMzFiMWQ0ZjgiLCJpYXQiOjE2ODY4MjkyNDJ9.53RPV5SKqTQ6AGxm6JPngWas_Bv4GkmTW66YID5LhI0
+Content-Type: application/json
+
+{
+  "name" : "Akhil",
+  "email" : "akhil@gemail.com",
+  "imgSrc" : "nothing12"
+}
+
+###
+
+PATCH http://localhost:5000/api/users/logout
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDhhZGEwYzk3YTYyZGFhMzFiMWQ0ZjgiLCJpYXQiOjE2ODY4Mjg0MTV9.9wA9T1RbRls6-WFztI8rJcEU7V4hgz_pn-CJovwXOf4
