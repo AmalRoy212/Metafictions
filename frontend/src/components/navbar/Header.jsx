@@ -21,14 +21,14 @@ function Header() {
             <Navbar.Toggle aria-controls='basic-navbar-nav' />
             <Navbar.Collapse id='basic-navbar-nav'>
               <Nav className='ms-auto'>
-                <Nav.Link href=''>
-                  <FaAvianex size={30} style={{ fontWeight: 'bold' }} /> 
+                <Nav.Link href='#about'>
+                  <FaAvianex size={30} style={{ fontWeight: 'bold' }} /> Explore
                 </Nav.Link>
                 <Nav.Link href=''>
-                  <FaBattleNet size={30} style={{ fontWeight: 'bold' }} /> 
+                  <FaBattleNet size={30} style={{ fontWeight: 'bold' }} /> Account
                 </Nav.Link>
                 <Nav.Link href=''>
-                  <FaSistrix size={30} style={{ fontWeight: 'bold' }} /> 
+                  <FaSistrix size={30} style={{ fontWeight: 'bold' }} /> Search
                 </Nav.Link>
               </Nav>
             </Navbar.Collapse>
