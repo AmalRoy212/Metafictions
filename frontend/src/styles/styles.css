@@ -34,3 +34,11 @@
   background: #7aebfb;
   filter: blur(190px);
 }
+.hero-gradient {
+  background: linear-gradient(
+    97.86deg,
+    #a509ff 0%,
+    #34acc7 53.65%,
+    #a134c7 100%
+  );
+}

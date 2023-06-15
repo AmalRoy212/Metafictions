@@ -1,9 +1,7 @@
 import React from 'react';
 import { motion } from "framer-motion";
-import "../../utils/styles.css";
+import "../../styles/styles.css";
 import { slideIn, staggerContainer, textVariant} from "../../utils/motions";
-
-
 
 function Hero() {
   return (
@@ -46,7 +44,7 @@ function Hero() {
               /> 
             </div>
           </a>
-          <div className="gradient02" />
+          <div className="gradient03" />
       </motion.div>
       </div>
     </motion.div>

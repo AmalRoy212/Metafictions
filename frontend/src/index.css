@@ -5,4 +5,5 @@
   height: 100vh;
   background: rgb(36, 36, 36);
   overflow-y: auto;
+  overflow-x: hidden;
 }

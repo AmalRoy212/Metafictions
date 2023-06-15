@@ -3,7 +3,7 @@ import { Navbar, Nav, Container } from 'react-bootstrap';
 import { FaAvianex, FaBattleNet, FaSistrix } from 'react-icons/fa';
 import { motion } from "framer-motion";
 import { navVariants } from "../../utils/motions"
-import "../../utils/styles.css"
+import "../../styles/styles.css";
 
 function Header() {
   return (
