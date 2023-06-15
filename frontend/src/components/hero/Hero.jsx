@@ -34,7 +34,7 @@ function Hero() {
         style={{height:'100%',width:"70%"}}
       >
         <div className="absolute w-full h-[300px] hero-gradient rounded-tl-[140px] z-[0] -top-[30px]" />
-          <img src="images/cover.png" alt="cover" 
+          <img src="https://images.pexels.com/photos/3165335/pexels-photo-3165335.jpeg?cs=srgb&dl=pexels-lucie-liz-3165335.jpg&fm=jpg" alt="cover" 
             style={{width:'100%',height:"100%",objectFit:"cover",marginTop:'-5rem',zIndex:1,borderRadius:"50px"}}
           />
           <a href="">

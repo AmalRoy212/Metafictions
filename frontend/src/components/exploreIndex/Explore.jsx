@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import  ExploreCard  from "../exploreCards/ExploreCards";
 import { TypingText, TitleText } from "../typingText/TypingText";
-// import styles from "../../styles/style.css";
+import "../../styles/styles.css";
 import { fadeIn, staggerContainer } from "../../utils/motions";
 import { exploreWorlds } from "../../constants/index"
 
@@ -19,24 +19,27 @@ const Explore = () => {
       >
         <TypingText title="| The World" textStyles="text-center" />
         <TitleText title={<>Choose the world you want
-          <br className="md:block hidden" />to explore</>} textStyles="text-center" />
-        <div className="mt-[50px] flex lg:flex-row flex-col min-h-[70vh] gap-5"
-          style={{}}
+          <br/>to explore</>} textStyles="text-center" />
+        <div 
+          style={{height:"90vh",width:"100%",display:"flex",justifyContent:"center",alignItems:"center"}}
         >
           {
             exploreWorlds.map((world, index) => (
+              <div style={{height:"20rem",width:"18rem",margin:"1%"}}
+              >
               <ExploreCard
                 key={world.id}
                 {...world}
                 index={index}
                 active={active}
                 handleClick={setActive}
-              />
+                />
+                </div>
             ))
           }
         </div>
       </motion.div>
-      Explore section
+      <div className="gradient002_Orenge" />
     </section>
   )
 };

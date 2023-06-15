@@ -10,6 +10,7 @@ export const TypingText = ({ title, textStyles }) => (
       Array.from(title).map((letter,index)=>(
         <motion.span
           variants={textVariant2} key={index}
+          style={{color:'white'}}
         >
           {
             letter === ' ' ? '\u00A0' : letter
