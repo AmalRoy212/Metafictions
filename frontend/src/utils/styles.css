@@ -1,0 +1,36 @@
+.gradient01 {
+  background-image: linear-gradient(270deg, hsl(295, 76%, 51%) 0%, hsl(284, 70%, 73%) 26%, hsl(257, 70%, 86%) 39%, hsl(202, 92%, 90%) 50%, hsl(215, 77%, 81%) 61%, hsl(221, 73%, 70%) 74%, hsl(220, 76%, 51%) 100%);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100px;
+  z-index: 1;
+  filter: blur(200px);
+}
+.gradient02 {
+  background-image: linear-gradient(97.86deg, #a509ff 0%, #34acc7 53.65%, #a134c7 100%);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100px;
+  z-index: 1;
+  filter: blur(200px);
+}
+.gradient03 {
+  position: absolute;
+  width: 200px;
+  height: 438px;
+  top: 0px;
+  right: 0px;
+
+  background: #7aebfb;
+  filter: blur(190px);
+}
