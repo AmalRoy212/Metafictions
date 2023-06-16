@@ -20,9 +20,12 @@ function Hero() {
         >
           <span style={{fontSize:'5rem',color:"white",fontWeight:'bolder'}}>META FICTION</span>
         </motion.h1>
+        <motion.h1 
+        variants={textVariant(3)}
+        style={{display:'flex',justifyContent:"center",alignItems:"center",fontSize:'4rem',color:"black",fontWeight:'bolder',marginLeft:'15rem',marginTop:'-2rem'}}>IS A</motion.h1>
         <motion.div
           variants={textVariant(2.2)}
-          style={{display:'flex',justifyContent:'center'}}
+          style={{display:'flex',justifyContent:'center',marginTop:'-3rem'}}
         >
           <span style={{fontSize:'7rem',color:"white",fontWeight:'bolder'}}>MA</span>
           <div style={{ border: "20px solid white", width: "200px", height: "128px", borderRadius: "0 30px 30px 0" }}></div>

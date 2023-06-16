@@ -6,7 +6,7 @@ import { fadeIn, staggerContainer } from "../../utils/motions";
 
 function Discription() {
   return (
-    <section style={{ padding: '5%' }} id="about">
+    <section style={{ padding: '5%' }} id="discription">
       <motion.div variants={staggerContainer}
         initial="hidden"
         whileInView="show"

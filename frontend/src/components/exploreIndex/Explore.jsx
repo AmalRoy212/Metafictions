@@ -21,11 +21,13 @@ const Explore = () => {
         <TitleText title={<>Choose the world you want
           <br/>to explore</>} textStyles="text-center" />
         <div 
+          
           style={{height:"90vh",width:"100%",display:"flex",justifyContent:"center",alignItems:"center"}}
         >
           {
             exploreWorlds.map((world, index) => (
               <div style={{height:"20rem",width:"18rem",margin:"1%"}}
+                key={index}
               >
               <ExploreCard
                 key={world.id}

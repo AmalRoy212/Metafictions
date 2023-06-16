@@ -1,6 +1,7 @@
 import React from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
-import { FaAvianex, FaBattleNet, FaSistrix } from 'react-icons/fa';
+import { FaAvianex, FaBattleNet, FaPhoenixSquadron } from 'react-icons/fa';
+import { LinkContainer } from "react-router-bootstrap";
 import { motion } from "framer-motion";
 import { navVariants } from "../../utils/motions"
 import "../../styles/styles.css";
@@ -17,19 +18,25 @@ function Header() {
       <header style={{position:"absolute",top:5,width:"100%"}}>
         <Navbar bg='transperent' variant='dark' expand='lg' collapseOnSelect>
           <Container>
-            <Navbar.Brand style={{fontWeight:'bold'}} href='/'>METAFICTION</Navbar.Brand>
+            <LinkContainer to={'/'}>
+              <Navbar.Brand style={{fontWeight:'bold'}} href='/'>METAFICTION</Navbar.Brand>
+            </LinkContainer>
             <Navbar.Toggle aria-controls='basic-navbar-nav' />
             <Navbar.Collapse id='basic-navbar-nav'>
               <Nav className='ms-auto'>
                 <Nav.Link href='#about'>
                   <FaAvianex size={30} style={{ fontWeight: 'bold' }} /> Explore
                 </Nav.Link>
-                <Nav.Link href=''>
-                  <FaBattleNet size={30} style={{ fontWeight: 'bold' }} /> Account
-                </Nav.Link>
-                <Nav.Link href=''>
-                  <FaSistrix size={30} style={{ fontWeight: 'bold' }} /> Search
-                </Nav.Link>
+                <LinkContainer to={'/login'}>
+                  <Nav.Link>
+                    <FaBattleNet size={30} style={{ fontWeight: 'bold' }} /> Account
+                  </Nav.Link>
+                </LinkContainer> 
+                <LinkContainer to={'/'}>
+                  <Nav.Link>
+                    <FaPhoenixSquadron size={30} style={{ fontWeight: 'bold' }} /> Service
+                  </Nav.Link>
+                </LinkContainer> 
               </Nav>
             </Navbar.Collapse>
           </Container>

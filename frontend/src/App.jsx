@@ -1,9 +1,10 @@
-import Index from "./pages/Index"
+import { Outlet } from "react-router-dom";
+
 
 function App() {
   return (
     <>
-      <Index />
+      <Outlet />
     </>
   )
 }
