@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import { MDBCol, MDBContainer, MDBRow, MDBCard } from 'mdb-react-ui-kit';
-
+import { motion } from "framer-motion"
+import { zoomIn } from "../../../utils/motions"
+import { toast } from 'react-toastify';
+import axios from '../../../configs/axios';
+import { FirebaseContext } from '../../../contexts/firebaseContexts';
 
 function Signup() {
   const [name, setName] = useState('');
@@ -11,21 +15,62 @@ function Signup() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [image, setImage] = useState('');
 
-  const navigae = useNavigate();
-
+  const { firebase } = useContext(FirebaseContext)
+  const navigate = useNavigate();
 
   const submitHandler = async function (e) {
-    
+    e.preventDefault();
+    if (password !== confirmPassword) {
+      toast.error('Password doesnt not match');
+    } else {
+      firebase
+        .storage()
+        .ref(`/image/${image.name}`)
+        .put(image)
+        .then(({ ref }) => {
+          ref.getDownloadURL().then(async (url) => {
+            let imgSrc = url;
+            localStorage.setItem('userImg', url);
+            try {
+              axios
+                .post("/users/register", {
+                  name,
+                  email,
+                  password,
+                  imgSrc
+                })
+                .then((res) => {
+                  console.log(res.data);
+                  navigate('/login');
+                })
+                .catch((error) =>
+                  toast.error(error?.data?.message || error.error)
+                );
+            } catch (error) {
+              toast.error(error.message);
+            }
+          });
+        })
+        .catch((error) => {
+          toast.error("Error uploading image. Please try again.");
+          console.error(error);
+        });
+    }
   };
 
   return (
-    <>
-      <MDBContainer className="py-5 h-100">
+    <motion.div
+      variants={zoomIn(0.5,.5)}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once : false, amount : 0.25 }}
+    >
+      <MDBContainer className="h-100 w-60" style={{marginTop:'-4rem'}}>
         <MDBRow className="justify-content-center align-items-center h-100">
           <MDBCol lg="9" xl="6">
-            <MDBCard className='p-5' style={{ boxShadow: '0 5px 15px rgba(0, 0, 0, .5)', marginTop: '5rem', borderRadius: '10px', background: '#DDDDDE' }}>
-              <h1>Sign Up</h1>
-              <Form onSubmit={submitHandler}>
+            <MDBCard className='p-5' style={{ boxShadow: '0 5px 15px rgba(0, 0, 0, .5)', marginTop: '5rem',background:"none", border:'3px solid grey', backdropFilter: 'blur(5px)', borderRadius:'20px' }}>
+              <h3 style={{color:"white", display:'flex',justifyContent:'center'}}>Sign Up</h3>
+              <Form onSubmit={submitHandler} style={{color:'white'}}>
                 <Form.Group className='my-2' controlId='name'>
                   <br />
                   <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -76,13 +121,15 @@ function Signup() {
                   </Form.Control>
                 </Form.Group>
 
-                <Button type='submit' variant='primary' className='mt-3'>
-                  Sign Up
-                </Button>
+                <div style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
+                  <Button type='submit' variant='primary' className='mt-3'>
+                    Sign Up
+                  </Button>
+                </div>
 
                 <Row className='py-3'>
-                  <Col>
-                    Already have an account? <Link to={'/login'}>Register</Link>
+                  <Col style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
+                    <span style={{color:'white'}}> Already have an account? </span><Link to={'/login'}>Log in</Link>
                   </Col>
                 </Row>
               </Form>
@@ -90,7 +137,7 @@ function Signup() {
           </MDBCol>
         </MDBRow>
       </MDBContainer>
-    </>
+    </motion.div>
   )
 }
 

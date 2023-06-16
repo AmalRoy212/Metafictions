@@ -9,56 +9,59 @@ import jwt from 'jsonwebtoken';
 //  route     POST api/users/auth
 //  @access   public
 
-const authenticateUsers = asyncHandler(async function (req, res){
+const authenticateUsers = asyncHandler(async function (req, res) {
   const { email, password } = req.body;
 
-  const user = await UserModel.findOne({email});
+  const user = await UserModel.findOne({ email });
 
-  if(user && (await user.matchPassword(password))){
+  if (user && (await user.matchPassword(password))) {
     const accessToken = await generateToken(user);
-    const updatedUser = await UserModel.findByIdAndUpdate({ _id : user._id},
-      {$set : {accessToken}})
-      if(updatedUser){
-        res.status(200).json({
-          _id : updatedUser._id,
-          name : updatedUser.name,
-          email : updatedUser.email,
-          token : accessToken
-       })
-      }
-  }else{
-     res.status(401);
-     throw new Error("Invalid username or password");
-   }
+    const updatedUser = await UserModel.findByIdAndUpdate({ _id: user._id },
+      { $set: { accessToken } })
+    if (updatedUser) {
+      res.status(200).json({
+        _id: updatedUser._id,
+        name: updatedUser.name,
+        email: updatedUser.email,
+        token: accessToken
+      })
+    }
+  } else {
+    res.status(401);
+    throw new Error("Invalid username or password");
+  }
 })
 
 //  @dis      registering new user
 //  route     POST api/users/register
 //  @access   public
 
-const registerUser = asyncHandler(async function (req, res){
-  const { name, email, password } = req.body;
+const registerUser = asyncHandler(async function (req, res) {
+  const { name, email, password, imgSrc } = req.body;
 
-  const userExist = await UserModel.findOne({email});
-  
-  if(userExist){
+  const userExist = await UserModel.findOne({ email });
+
+  if (userExist) {
     res.status(400);
-    throw new Error("User already exist");
+    throw new Error("User already exists");
   }
 
-  const user = await UserModel.create({
+  const newUser = new UserModel({
     name,
     email,
-    password
-  })
+    password,
+    imgSrc
+  });
 
-  if(user){
-   res.status(200).json({
-      _id : user._id,
-      name : user.name,
-      email : user.email
-   })
-  }else{
+  const user = await newUser.save();
+
+  if (user) {
+    res.status(200).json({
+      _id: user._id,
+      name: user.name,
+      email: user.email
+    });
+  } else {
     res.status(400);
     throw new Error("Invalid User data");
   }
@@ -68,31 +71,31 @@ const registerUser = asyncHandler(async function (req, res){
 //  route     PATCH api/users/logout
 //  @access   Private
 
-const logoutUser = asyncHandler(async function (req, res){
+const logoutUser = asyncHandler(async function (req, res) {
   const { _id } = req.headers;
 
-  const user = await UserModel.findByIdAndUpdate({ _id },{$set : {accessToken : ""}});
+  const user = await UserModel.findByIdAndUpdate({ _id }, { $set: { accessToken: "" } });
 
-  if(user){
+  if (user) {
     res.status(200).json({
-      message : "logout user"
+      message: "logout user"
     });
   }
-  
+
 })
 
 //  @dis      logging out user
 //  route     GET api/users/profile
 //  @access   Private
 
-const getUserProfile = asyncHandler(async function (req, res){
+const getUserProfile = asyncHandler(async function (req, res) {
   const { _id } = req.headers;
   const user = await UserModel.findById(_id);
-  if(user){
+  if (user) {
     res.status(200).json({
-      name : user.name,
-      email : user.email,
-      img : user.imgSrc,
+      name: user.name,
+      email: user.email,
+      img: user.imgSrc,
     });
   }
 })
@@ -101,7 +104,7 @@ const getUserProfile = asyncHandler(async function (req, res){
 //  route     PUT api/users/profile
 //  @access   Private
 
-const updateUserProfile = asyncHandler(async function (req, res){
+const updateUserProfile = asyncHandler(async function (req, res) {
   const { _id } = req.headers;
 
   const user = await UserModel.findById(_id);
