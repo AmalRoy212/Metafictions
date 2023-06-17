@@ -4,6 +4,7 @@ import { findUser } from "../service/middlewareService.js"
 
 export const protecter = asyncHandler(async function (req, res, next) {
   const token = req.headers.authorization.split(' ')[1];
+  // console.log(token,"from auth middleware 7");
   if (token) {
     try {
       const decode = jwt.verify(token, process.env.JWT_SECRET);

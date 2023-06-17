@@ -30,7 +30,6 @@ function Signup() {
         .then(({ ref }) => {
           ref.getDownloadURL().then(async (url) => {
             let imgSrc = url;
-            localStorage.setItem('userImg', url);
             try {
               axios
                 .post("/users/register", {

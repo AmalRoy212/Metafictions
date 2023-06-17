@@ -14,6 +14,8 @@ import './index.css';
 import UserSignUp from './pages/users/UserSignUp.jsx';
 import store from './store/store.js';
 import PrivateRoutes from './components/privateRoutes/PrivateRoutes.jsx';
+import HomeScreen from './pages/users/HomeScreen.jsx';
+import './styles/styles.css';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -23,8 +25,8 @@ const router = createBrowserRouter(
       <Route  path='/signup' element={<UserSignUp />} />
 
       <Route path='' element={<PrivateRoutes/>} >
-          {/* <Route path='/home' element={<UserHome/>} />
-          <Route path='/profile' element={<Profile/>} />
+          <Route path='/home' element={<HomeScreen className="gradient01"/>} />
+          {/* <Route path='/profile' element={<Profile/>} />
           <Route path='/edit/profile' element={<EditUser/>} /> */}
         </Route>
     </Route>

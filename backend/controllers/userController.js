@@ -1,8 +1,6 @@
 import asyncHandler from 'express-async-handler';
-import UserModel from '../models/userSchema.js';
+import UserModel from '../models/userModel.js';
 import { generateToken } from "../utils/generateToken.js";
-import jwt from 'jsonwebtoken';
-
 
 
 //  @dis      Auth user/set token
@@ -127,7 +125,7 @@ const updateUserProfile = asyncHandler(async function (req, res) {
       name: updatedUser.name,
       email: updatedUser.email,
       status: updatedUser.isBlocked,
-      imageSrc: updatedUser.imageSrc,
+      imgSrc: updatedUser.imgSrc,
       message: "Updated Succesfully"
     })
 
@@ -137,10 +135,36 @@ const updateUserProfile = asyncHandler(async function (req, res) {
   }
 })
 
+
+//  @dis      logging out user
+//  route     PUT api/users/profile
+//  @access   Private
+
+const findUser = asyncHandler(async function (req, res) {
+  const { _id } = req.headers;
+
+  const user = await UserModel.findById(_id);
+
+  if(user){
+    res.status(200).json({
+      name: user.name,
+      email: user.email,
+      imgSrc: user.imgSrc,
+    })
+  }else{
+    res.status(401);
+    throw new Error("Invalid user or not autherized")
+  }
+  
+})
+
+
+
 export {
   authenticateUsers,
   registerUser,
   logoutUser,
   getUserProfile,
-  updateUserProfile
+  updateUserProfile,
+  findUser
 }

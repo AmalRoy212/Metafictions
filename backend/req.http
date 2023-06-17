@@ -38,3 +38,19 @@ Content-Type: application/json
 
 PATCH http://localhost:5000/api/users/logout
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDhhZGEwYzk3YTYyZGFhMzFiMWQ0ZjgiLCJpYXQiOjE2ODY4Mjg0MTV9.9wA9T1RbRls6-WFztI8rJcEU7V4hgz_pn-CJovwXOf4
+
+###
+
+POST  http://localhost:5000/api/users/post
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDhkMzJiNjUwZDJjMjM5ZGU5MWM5ZjAiLCJpYXQiOjE2ODY5NzUxODB9.C6914X-vdG75l0Fvxy0ijpLCgyGwIsgee8EDT_EvCzs
+Content-Type: application/json
+
+{
+  "userId" : "648d32b650d2c239de91c9f0",
+  "dateOfPost" : "rw",
+  "discription" : "nothing12",
+  "content" : "nothign",
+  "likes" : 12,
+  "Comments" : "nothing"
+  
+}

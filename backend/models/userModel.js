@@ -15,6 +15,37 @@ const userSchema = new mongoose.Schema({
     type : String,
     required : true
   },
+  followers : {
+    type : Number,
+    default : 0
+  },
+  following : {
+    type : Number,
+    default : 0
+  },
+  friends : [
+    {
+      type : Number,
+      default : 0           
+    }
+  ],
+  post : [
+    {
+      type : String,
+    }
+  ],
+  notifications : [
+    {
+      type : Number,
+      default : ''         
+    }
+  ],
+  messages : [
+    {
+      type : String,
+      default : ''         
+    }
+  ],
   isBlocked : {
     type : Boolean,
     default : false,
