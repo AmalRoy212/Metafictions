@@ -13,15 +13,23 @@ import "../../styles/styles.css"
 function HomeScreen() {
 
   const [user,setUser] = useState({})
+  const [posts,setPosts] = useState([]);
+
   const { token } = useSelector((state) => state.auth)
 
   useEffect(() =>{
+    axios.get('/users/post',{
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then((res) => {
+      setPosts(res.data)
+    })
     axios.get('/users/find', {
       headers: {
         Authorization: `Bearer ${token}`
       }
     }).then((res) => {
-      console.log(res.data);
       setUser(res.data);
     });
     
@@ -41,8 +49,8 @@ function HomeScreen() {
       <div className="container-fluid gedf-wrapper">
         <div className="row">
           <Leftsidebar data={user} />
-          <Maincontent />
-          <Rightsidebar />
+          <Maincontent data={user} posts={posts} />
+          {/* <Rightsidebar /> */}
         </div>
       </div>
     </>

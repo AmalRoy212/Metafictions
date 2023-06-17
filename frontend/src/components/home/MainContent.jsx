@@ -1,21 +1,65 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { toast } from "react-toastify";
 import Feed from "./Feeds";
 import { Form } from 'react-bootstrap';
 import { FaGlobeAmericas, FaUserFriends, FaUserLock } from 'react-icons/fa'
+import axios from "../../configs/axios";
+import { FirebaseContext } from "../../contexts/firebaseContexts"
+import { useSelector } from "react-redux";
 
 
-export default function Maincontent() {
 
-  const [content, setContent] = useState('')
+
+export default function Maincontent({ data, posts }) {
+
+  const { firebase } = useContext(FirebaseContext);
+
+  const { token } = useSelector((state) => state.auth);
+
+  const [discription, setDiscription] = useState('')
   const [media, setMedia] = useState('');
 
-
   const submitHandler = async function (e) {
-    e.preventDefault()
+    e.preventDefault();
+    const userId = data.userId
+    firebase
+      .storage()
+      .ref(`/postContents/${media.name}`)
+      .put(media)
+      .then(({ ref }) => {
+        ref.getDownloadURL().then(async (url) => {
+          let contentUrl = url;
+          try {
+            axios
+              .post("/users/post", {
+                userId,
+                content: contentUrl,
+                discription
+              }, {
+                headers: {
+                  Authorization: `Bearer ${token}`
+                }
+              })
+              .then((res) => {
+                setDiscription('');
+                setMedia('')
+              })
+              .catch((error) =>
+                toast.error(error?.data?.message || error.error)
+              );
+          } catch (error) {
+            toast.error(error.message);
+          }
+        });
+      })
+      .catch((error) => {
+        toast.error("Error uploading image. Please try again.");
+        console.error(error);
+      });
   }
   return (
     <>
-      <div className="col-md-6 gedf-main" style={{marginTop:"3rem"}}>
+      <div className="col-md-6 gedf-main" style={{ marginTop: "3rem" }}>
         <div className="card gedf-card">
           <div className="card-header">
             <ul
@@ -61,13 +105,15 @@ export default function Maincontent() {
                     id="message"
                     rows="3"
                     placeholder="What are you thinking?"
+                    value={discription}
+                    onChange={(e) => setDiscription(e.target.value)}
                   ></textarea>
                 </div>
               </div>
             </div>
             <div className="btn-toolbar justify-content-between">
               <div className="btn-group" style={{ marginTop: '.5rem' }}>
-                <button type="submit" className="btn btn-primary">
+                <button type="submit" className="btn btn-primary" onClick={submitHandler}>
                   share
                 </button>
               </div>
@@ -103,7 +149,7 @@ export default function Maincontent() {
             </div>
           </div>
         </div>
-        <Feed />
+        <Feed posts={posts} />
       </div>
     </>
   );

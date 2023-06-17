@@ -1,7 +1,52 @@
 import asyncHandler from 'express-async-handler';
 import UserModel from '../models/userModel.js';
 import { generateToken } from "../utils/generateToken.js";
+import { generateOTP } from "../utils/generateOtp.js";
+import nodemailer from "nodemailer";
 
+
+let otpChecking ;
+
+
+
+async function sendingVerificationMail(userName, email, userID) {
+  try {
+      const newOtp = await generateOTP();
+      otpChecking = newOtp;
+      const transport = nodemailer.createTransport({
+          host: "smtp.gmail.com",
+          port: 587,
+          secure: false,
+          requireTLS: true,
+          auth: {
+              user: "officialbrotest@gmail.com",
+              pass: "ogzojnuvxzkxeivl",
+          },
+      });
+      const mailOption = {
+          from: "officialbrotest@gmail.com",
+          to: email,
+          subject: "For Mail Verification",
+          html:
+              "<p>Hii <b>" +
+              userName +
+              '</b>, Please click  here to <a href="http://ke4.tech/verify?id=' +
+              userID +
+              '">verify</a> you mail Your One time Password <h5>' +
+              newOtp +
+              "</h5>",
+      };
+      transport.sendMail(mailOption, function (err, info) {
+          if (err) {
+              console.log(err);
+          } else {
+              console.log("mail has been send :-", info.response);
+          }
+      });
+  } catch (error) {
+      console.log(error.message);
+  }
+}
 
 //  @dis      Auth user/set token
 //  route     POST api/users/auth
@@ -52,6 +97,8 @@ const registerUser = asyncHandler(async function (req, res) {
   });
 
   const user = await newUser.save();
+
+  await sendingVerificationMail(user.name,user.email,user._id);
 
   if (user) {
     res.status(200).json({
@@ -147,15 +194,28 @@ const findUser = asyncHandler(async function (req, res) {
 
   if(user){
     res.status(200).json({
+      userId : user._id,
       name: user.name,
       email: user.email,
       imgSrc: user.imgSrc,
+      following : user.following,
+      followers : user.followers
     })
   }else{
     res.status(401);
     throw new Error("Invalid user or not autherized")
   }
   
+})
+
+const verfyOtp = asyncHandler( async function(req,res){
+  const { otp } = req.body;
+
+  if(otp == otpChecking) res.status(200).json({message:"Successfull"})
+  else {
+    res.status(400)
+    throw new Error('Invalid OTP');
+  }
 })
 
 
@@ -166,5 +226,6 @@ export {
   logoutUser,
   getUserProfile,
   updateUserProfile,
-  findUser
+  findUser,
+  verfyOtp
 }

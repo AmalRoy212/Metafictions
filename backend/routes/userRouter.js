@@ -5,10 +5,11 @@ import {
   logoutUser,
   getUserProfile,
   updateUserProfile, 
-  findUser
+  findUser,
+  verfyOtp
 } from "../controllers/userController.js";
 import { protecter } from '../middlewares/authUserMiddleware.js'
-import { createPost } from "../controllers/postController.js";
+import { createPost, getAllPost } from "../controllers/postController.js";
 
 
 const userRouter = express.Router();
@@ -17,9 +18,13 @@ userRouter.get('/find', protecter, findUser);
 userRouter.post('/register', registerUser);
 userRouter.post('/auth', authenticateUsers);
 userRouter.patch('/logout', protecter, logoutUser);
+userRouter.post('/verify', verfyOtp);
 userRouter.
   route('/profile').
     get(protecter,getUserProfile).
-    put(protecter,updateUserProfile)
-userRouter.post('/post',protecter,createPost)
+    put(protecter,updateUserProfile);
+userRouter.route('/post')
+  .get(protecter,getAllPost)
+  .post(protecter,createPost);
+
 export default userRouter

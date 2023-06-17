@@ -40,7 +40,7 @@ function Signup() {
                 })
                 .then((res) => {
                   console.log(res.data);
-                  navigate('/login');
+                  navigate('/verify');
                 })
                 .catch((error) =>
                   toast.error(error?.data?.message || error.error)

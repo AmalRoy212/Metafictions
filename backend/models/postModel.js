@@ -7,7 +7,7 @@ const postSchema = new mongoose.Schema({
   },
   dateOfPost : {
     type : String,
-    required : true
+    default:null
   },
   discription : {
     type : String,
@@ -27,6 +27,14 @@ const postSchema = new mongoose.Schema({
       default : ''          
     }
   ],
+  userName:{
+    type : String,
+    require : true
+  },
+  userDp:{
+    type : String,
+    require : true
+  }
 })
 
 const Post = mongoose.model('post',postSchema);

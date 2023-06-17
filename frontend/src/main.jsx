@@ -16,6 +16,7 @@ import store from './store/store.js';
 import PrivateRoutes from './components/privateRoutes/PrivateRoutes.jsx';
 import HomeScreen from './pages/users/HomeScreen.jsx';
 import './styles/styles.css';
+import OtpVerify from './pages/users/OtpVerify.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -23,6 +24,7 @@ const router = createBrowserRouter(
       <Route index={true} path='/' element={<Index />} />
       <Route  path='/login' element={<UserLogin />} />
       <Route  path='/signup' element={<UserSignUp />} />
+      <Route  path='/verify' element={<OtpVerify />} />
 
       <Route path='' element={<PrivateRoutes/>} >
           <Route path='/home' element={<HomeScreen className="gradient01"/>} />
