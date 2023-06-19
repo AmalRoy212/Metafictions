@@ -6,9 +6,9 @@ import { notFount, errorHandler } from "./middlewares/errorMiddleware.js";
 import connectDB from "./configs/db.js";
 
 dotenv.config();
-connectDB();
 
 const app = express();
+connectDB();
 const port = process.env.PORT || 5000
 
 app.use(cors())

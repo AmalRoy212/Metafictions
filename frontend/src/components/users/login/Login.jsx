@@ -35,7 +35,7 @@ function Login() {
           dispatch(login(res.data.token));
           navigate('/home');
           setLoading(false);
-        })
+        }).catch((error) => toast.error("Credential issues"))
       } catch (error) {
         toast.error("Cannection issuse",error);
       }

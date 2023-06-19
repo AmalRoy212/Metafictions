@@ -5,9 +5,9 @@ const postSchema = new mongoose.Schema({
     type : String,
     required : true
   },
-  dateOfPost : {
-    type : String,
-    default:null
+  dateOfPost: {
+    type: Date,
+    default: Date.now
   },
   discription : {
     type : String,
@@ -27,14 +27,6 @@ const postSchema = new mongoose.Schema({
       default : ''          
     }
   ],
-  userName:{
-    type : String,
-    require : true
-  },
-  userDp:{
-    type : String,
-    require : true
-  }
 })
 
 const Post = mongoose.model('post',postSchema);

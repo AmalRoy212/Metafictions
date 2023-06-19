@@ -1,4 +1,7 @@
 import React from "react";
+import { motion } from "framer-motion"
+import { FaSafari } from "react-icons/fa"
+import { zoomIn } from "../../utils/motions"
 import '../../styles/styles.css'
 
 
@@ -6,9 +9,9 @@ export default function Feed({ posts }) {
   console.log(posts);
   return (
     <>
-      {posts?.map((post, index) => (<>
-        <div className="gradient02" />
-        <div key={index} className="card gedf-card" style={{ marginTop: '-4rem' }}>
+      {posts?.map((post, index) => (<div key={index}>
+        <motion.div variants={zoomIn(0.5,.06)} className="gradient02" />
+        <div className="card gedf-card" style={{ marginTop: '-4rem' }}>
           <div className="card-header">
             <div className="d-flex justify-content-between align-items-center">
               <div className="d-flex justify-content-between align-items-center">
@@ -23,8 +26,7 @@ export default function Feed({ posts }) {
                   />
                 </div>
                 <div className="ml-2">
-                  <div className="h5 m-0">@{post?.userName}</div>
-                  <div className="h7 text-muted">Miracles Lee Cross</div>
+                  <div className="h5 m-0 text-white m-1">@{post?.userName}</div>
                 </div>
               </div>
               {/* <div>
@@ -59,9 +61,9 @@ export default function Feed({ posts }) {
             </div>
           </div>
           <div className="card-body">
-            <div className="text-muted h7 mb-2">
+            <div className="h7 mb-2" style={{color:"white"}}>
               {" "}
-              <i className="fa fa-clock-o"></i>10 min ago
+              <FaSafari /> <span style={{fontSize:"small"}}> {post?.date}</span>
             </div>
             {/* <a className="card-link" href="#">
               <h5 className="card-title">
@@ -96,7 +98,7 @@ export default function Feed({ posts }) {
             </a>
           </div>
         </div>
-      </>))}
+      </div>))}
     </>
   );
 }

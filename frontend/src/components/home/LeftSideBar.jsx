@@ -20,7 +20,7 @@ export default function Leftsidebar({ data }) {
               </div>
               <div style={{ display: 'flex', alignItems: "center", backgroundColor: 'grey', borderRadius: '10px', padding: "5px" }}>
                 <h6 style={{  width: "50%", display: 'flex', alignItems: "center",justifyContent:'center',marginTop:'1rem'}}>Followers</h6>
-                <h6 style={{  width: "50%", display: 'flex', alignItems: "center",justifyContent:'center',marginTop:'1rem'}}>Followers</h6>
+                <h6 style={{  width: "50%", display: 'flex', alignItems: "center",justifyContent:'center',marginTop:'1rem'}}>following</h6>
               </div>
               <div style={{ display: 'flex', alignItems: "center", backgroundColor: 'grey', borderRadius: '10px', padding: "5px" }}>
                 <h4 style={{  width: "50%", display: 'flex', alignItems: "center",justifyContent:'center'}}>{data?.followers}</h4>
