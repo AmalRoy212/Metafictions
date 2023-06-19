@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import { MDBCol, MDBContainer, MDBRow, MDBCard } from 'mdb-react-ui-kit';
 import { motion } from "framer-motion"
+import { useDispatch } from "react-redux"
+import { setLoading, clearLoading } from "../../../redux-toolkit/loadingSlice";
 import { zoomIn } from "../../../utils/motions"
 import { toast } from 'react-toastify';
 import axios from '../../../configs/axios';
@@ -17,9 +19,11 @@ function Signup() {
 
   const { firebase } = useContext(FirebaseContext)
   const navigate = useNavigate();
+  const dispatch = useDispatch()
 
   const submitHandler = async function (e) {
     e.preventDefault();
+    useDispatch(setLoading())
     if (password !== confirmPassword) {
       toast.error('Password doesnt not match');
     } else {
@@ -39,7 +43,7 @@ function Signup() {
                   imgSrc
                 })
                 .then((res) => {
-                  console.log(res.data);
+                  dispatch(clearLoading());
                   navigate('/verify');
                 })
                 .catch((error) =>

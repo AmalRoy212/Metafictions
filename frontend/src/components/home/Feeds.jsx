@@ -6,7 +6,6 @@ import '../../styles/styles.css'
 
 
 export default function Feed({ posts }) {
-  console.log(posts);
   return (
     <>
       {posts?.map((post, index) => (<div key={index}>

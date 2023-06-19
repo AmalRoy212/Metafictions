@@ -46,7 +46,6 @@ const getAllPost = asyncHandler(async function (req, res) {
       if (hoursAgo > 12) {
         timeAgo = postTime.format('MMM D, YYYY');
       } else if (hoursAgo > 0 && hoursAgo < 12) {
-        console.log("hrs");
         timeAgo = `${hoursAgo} hours ago`;
       } else if (hoursAgo < 12) {
         timeAgo = `${minutesAgo} minutes ago`;

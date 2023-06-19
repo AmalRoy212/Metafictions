@@ -3,9 +3,11 @@ import { toast } from "react-toastify";
 import Feed from "./Feeds";
 import { Form } from 'react-bootstrap';
 import { FaGlobeAmericas, FaUserFriends, FaUserLock } from 'react-icons/fa'
+import { useDispatch, useSelector } from "react-redux";
+import { incrementPostCount } from "../../redux-toolkit/postSlice";
 import axios from "../../configs/axios";
 import { FirebaseContext } from "../../contexts/firebaseContexts"
-import { useSelector } from "react-redux";
+
 
 
 
@@ -14,7 +16,10 @@ export default function Maincontent({ data, posts }) {
 
   const { firebase } = useContext(FirebaseContext);
 
+  const dispatch = useDispatch();
+
   const { token } = useSelector((state) => state.auth);
+  const post  = useSelector((state) => state.post.count);
 
   const [discription, setDiscription] = useState('')
   const [media, setMedia] = useState('');
@@ -22,40 +27,43 @@ export default function Maincontent({ data, posts }) {
   const submitHandler = async function (e) {
     e.preventDefault();
     const userId = data.userId
-    firebase
-      .storage()
-      .ref(`/postContents/${media.name}`)
-      .put(media)
-      .then(({ ref }) => {
-        ref.getDownloadURL().then(async (url) => {
-          let contentUrl = url;
-          try {
-            axios
-              .post("/users/post", {
-                userId,
-                content: contentUrl,
-                discription
-              }, {
-                headers: {
-                  Authorization: `Bearer ${token}`
-                }
-              })
-              .then((res) => {
-                setDiscription('');
-                setMedia('')
-              })
-              .catch((error) =>
-                toast.error(error?.data?.message || error.error)
-              );
-          } catch (error) {
-            toast.error(error.message);
-          }
+    if (discription !== '') {
+      firebase
+        .storage()
+        .ref(`/postContents/${media.name}`)
+        .put(media)
+        .then(({ ref }) => {
+          ref.getDownloadURL().then(async (url) => {
+            let contentUrl = url;
+            try {
+              axios
+                .post("/users/post", {
+                  userId,
+                  content: contentUrl,
+                  discription
+                }, {
+                  headers: {
+                    Authorization: `Bearer ${token}`
+                  }
+                })
+                .then((res) => {
+                  dispatch(incrementPostCount())
+                  setDiscription('');
+                  setMedia('')
+                })
+                .catch((error) =>
+                  toast.error(error?.data?.message || error.error)
+                );
+            } catch (error) {
+              toast.error(error.message);
+            }
+          });
+        })
+        .catch((error) => {
+          toast.error("Error uploading image. Please try again.");
+          console.error(error);
         });
-      })
-      .catch((error) => {
-        toast.error("Error uploading image. Please try again.");
-        console.error(error);
-      });
+    }
   }
   return (
     <>
