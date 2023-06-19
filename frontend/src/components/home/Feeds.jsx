@@ -6,11 +6,15 @@ import '../../styles/styles.css'
 
 
 export default function Feed({ posts }) {
+  let delT;
+  let dura
   return (
     <>
       {posts?.map((post, index) => (<div key={index}>
-        <motion.div variants={zoomIn(0.5,.06)} className="gradient02" />
-        <div className="card gedf-card" style={{ marginTop: '-4rem' }}>
+        <motion.div variants={zoomIn(0.5,0.5)} initial="hidden" whileInView="show" viewport={{once : false, amount:0.24}} className="gradient02" />
+        { delT = (index + 1) % 2 === 0 ? 0.2 : 0}
+        { dura = (index + 1) % 2 === 0 ? 0.2 : 0}
+        <motion.div variants={zoomIn(delT,dura)} initial="hidden" whileInView="show" viewport={{once : false, amount:0.24}} className="card gedf-card" style={{ marginTop: '-4rem' }}>
           <div className="card-header">
             <div className="d-flex justify-content-between align-items-center">
               <div className="d-flex justify-content-between align-items-center">
@@ -96,7 +100,7 @@ export default function Feed({ posts }) {
               <i className="fa fa-mail-forward"></i> Share
             </a>
           </div>
-        </div>
+        </motion.div>
       </div>))}
     </>
   );

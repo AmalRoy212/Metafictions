@@ -18,6 +18,7 @@ function Loader() {
       justifyContent: "center",
       alignItems: "center",
       backgroundColor: "rgba(28, 28, 28, 0.32)",
+      overflow: "hidden"
     }}>
       <div style={{
         width: "40%",

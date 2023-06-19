@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { motion } from 'framer-motion';
-import { setPostCount } from "../../redux-toolkit/postSlice";
 import { zoomIn } from "../../utils/motions"
-import axios from "../../configs/axios"
 import Leftsidebar from "../../components/home/LeftSideBar";
 import Maincontent from "../../components/home/MainContent";
 import HomeNavbar from "../../components/home/HomeNavbar";
 import Rightsidebar from "../../components/home/RightSide";
-import Loader from "../../components/loader/Loader";
-import { setLoading, clearLoading } from "../../redux-toolkit/loadingSlice"
+import { setLoading, clearLoading } from "../../redux-toolkit/loadingSlice";
+import { loadHome } from "../../functionalities/userApiFunctionalities"
 import "../../styles/styles.css";
 // import "./styles.css";
 
@@ -22,25 +20,12 @@ function HomeScreen() {
   const post = useSelector((state) => state.post.count);
   const dispatch = useDispatch();
 
+  async function getData(){
+    await loadHome({ token, setPosts, setUser, dispatch })
+  }
+
   useEffect(() =>{
-    dispatch(setLoading())
-    axios.get('/users/post',{
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    }).then((res) => {
-      setPosts(res.data);
-      dispatch(setPostCount(res.data.length));
-    })
-    axios.get('/users/find', {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    }).then((res) => {
-      setUser(res.data);
-      dispatch(clearLoading());
-    });
-    
+    getData()
   },[post,token])
 
   return (
@@ -58,7 +43,7 @@ function HomeScreen() {
         <div className="row">
           <Leftsidebar data={user} />
           <Maincontent data={user} posts={posts} />
-          {/* <Rightsidebar /> */}
+          <Rightsidebar />
         </div>
       </div>
     </>

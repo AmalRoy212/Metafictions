@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { fadeIn } from "../../utils/motions"
+import { fadeIn, zoomIn } from "../../utils/motions"
 import { FaNutritionix, FaMailchimp, FaMandalorian, FaTelegram, FaBomb } from "react-icons/fa"
 import '../../styles/styles.css';
 
@@ -11,7 +11,12 @@ export default function Leftsidebar({ data }) {
       <div className="col-md-3" style={{ marginTop: "3rem" }}>
         <div className="card">
           <div className="card-body">
-            <div style={{backgroundColor: 'grey', borderRadius: '10px', padding: "5px"}}>
+            <motion.div
+              variants={zoomIn(0.5,0.3)}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once:false , amount:0.25 }}
+             style={{backgroundColor: 'grey', borderRadius: '10px', padding: "5px"}}>
               <div style={{ display: 'flex', alignItems: "center", backgroundColor: 'grey', borderRadius: '10px', padding: "5px" }}>
                 <div style={{ height: "50px", width: "50px", borderRadius: "50%" }}>
                   <img style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%", marginLeft: "3px" }} src={data?.imgSrc} alt="" />
@@ -26,11 +31,11 @@ export default function Leftsidebar({ data }) {
                 <h4 style={{  width: "50%", display: 'flex', alignItems: "center",justifyContent:'center'}}>{data?.followers}</h4>
                 <h4 style={{  width: "50%", display: 'flex', alignItems: "center",justifyContent:'center'}}>{data?.following}</h4>
               </div>
-            </div>
+            </motion.div>
             <div>
             </div>
             <motion.div
-              variants={fadeIn('right', 'tween', 0.5, 0.5)}
+              variants={fadeIn('right', 'tween', 0.3, 0.3)}
               initial="hidden"
               whileInView="show"
               viewport={{ once: false, amount: 0.25 }}
@@ -41,46 +46,46 @@ export default function Leftsidebar({ data }) {
               <div style={{ marginLeft: "10%", marginTop: "5px", color: "white", fontSize: 15 }} className="h5">Feeds</div>
             </motion.div>
             <motion.div
-              variants={fadeIn('right', 'tween', 0.5, 0.5)}
+              variants={fadeIn('right', 'tween', 0.3, 0.3)}
               initial="hidden"
               whileInView="show"
               viewport={{ once: false, amount: 0.25 }}
               style={{ display: 'flex', alignItems: "center", backgroundColor: 'grey', borderRadius: '10px', padding: "5px", marginTop: "2%", cursor: "pointer" }}>
               <div style={{ height: "30px", width: "30px", borderRadius: "50%" }}>
-                <FaMailchimp style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%", marginLeft: "3px" }} src={data?.imgSrc} alt="" />
+                <FaMailchimp style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%", marginLeft: "3px" }} src={data?.imgSrc} />
               </div>
               <div style={{ marginLeft: "10%", marginTop: "5px", color: "white", fontSize: 15 }} className="h5">Profile</div>
             </motion.div>
             <motion.div
-              variants={fadeIn('right', 'tween', 0.5, 0.5)}
+              variants={fadeIn('right', 'tween', 0.3, 0.3)}
               initial="hidden"
               whileInView="show"
               viewport={{ once: false, amount: 0.25 }}
               style={{ display: 'flex', alignItems: "center", backgroundColor: 'grey', borderRadius: '10px', padding: "5px", marginTop: "2%", cursor: "pointer" }}>
               <div style={{ height: "30px", width: "30px", borderRadius: "50%" }}>
-                <FaTelegram style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%", marginLeft: "3px" }} src={data?.imgSrc} alt="" />
+                <FaTelegram style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%", marginLeft: "3px" }} src={data?.imgSrc} />
               </div>
               <div style={{ marginLeft: "10%", marginTop: "5px", color: "white", fontSize: 15 }} className="h5">Inbox</div>
             </motion.div>
             <motion.div
-              variants={fadeIn('right', 'tween', 0.5, 0.5)}
+              variants={fadeIn('right', 'tween', 0.3, 0.3)}
               initial="hidden"
               whileInView="show"
               viewport={{ once: false, amount: 0.25 }}
               style={{ display: 'flex', alignItems: "center", backgroundColor: 'grey', borderRadius: '10px', padding: "5px", marginTop: "2%", cursor: "pointer" }}>
               <div style={{ height: "30px", width: "30px", borderRadius: "50%" }}>
-                <FaBomb style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%", marginLeft: "3px" }} src={data?.imgSrc} alt="" />
+                <FaBomb style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%", marginLeft: "3px" }} src={data?.imgSrc} />
               </div>
               <div style={{ marginLeft: "10%", marginTop: "5px", color: "white", fontSize: 15 }} className="h5">Notifications</div>
             </motion.div>
             <motion.div
-              variants={fadeIn('right', 'tween', 0.5, 0.5)}
+              variants={fadeIn('right', 'tween', 0.3, 0.3)}
               initial="hidden"
               whileInView="show"
               viewport={{ once: false, amount: 0.25 }}
               style={{ display: 'flex', alignItems: "center", backgroundColor: 'grey', borderRadius: '10px', padding: "5px", marginTop: "2%", cursor: "pointer" }}>
               <div style={{ height: "30px", width: "30px", borderRadius: "50%" }}>
-                <FaMandalorian style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%", marginLeft: "3px" }} src={data?.imgSrc} alt="" />
+                <FaMandalorian style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%", marginLeft: "3px" }} src={data?.imgSrc}/>
               </div>
               <div style={{ marginLeft: "10%", marginTop: "5px", color: "white", fontSize: 15 }} className="h5">Friends</div>
             </motion.div>

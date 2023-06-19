@@ -4,6 +4,7 @@ import Feed from "./Feeds";
 import { Form } from 'react-bootstrap';
 import { FaGlobeAmericas, FaUserFriends, FaUserLock } from 'react-icons/fa'
 import { useDispatch, useSelector } from "react-redux";
+import { setLoading, clearLoading } from "../../redux-toolkit/loadingSlice";
 import { incrementPostCount } from "../../redux-toolkit/postSlice";
 import axios from "../../configs/axios";
 import { FirebaseContext } from "../../contexts/firebaseContexts"
@@ -28,6 +29,7 @@ export default function Maincontent({ data, posts }) {
     e.preventDefault();
     const userId = data.userId
     if (discription !== '') {
+      dispatch(setLoading());
       firebase
         .storage()
         .ref(`/postContents/${media.name}`)
@@ -47,7 +49,8 @@ export default function Maincontent({ data, posts }) {
                   }
                 })
                 .then((res) => {
-                  dispatch(incrementPostCount())
+                  dispatch(incrementPostCount());
+                  dispatch(clearLoading())
                   setDiscription('');
                   setMedia('')
                 })

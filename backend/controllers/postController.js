@@ -31,6 +31,8 @@ const createPost = asyncHandler(async function (req, res) {
 })
 
 const getAllPost = asyncHandler(async function (req, res) {
+
+  let user;
   const allPosts = await PostModel.find().sort({ dateOfPost: -1 }).lean();
 
   await Promise.all(

@@ -1,32 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from "react-router-dom";
-import { Form, Button, Row, Col } from "react-bootstrap";
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
+import { Form, Button } from "react-bootstrap";
 import { motion } from "framer-motion"
 import { zoomIn, fadeIn } from "../../utils/motions"
-import { toast } from 'react-toastify'
-import axios from '../../configs/axios';
+import { verifyOtp } from "../../functionalities/userApiFunctionalities";
 
 
 function Otp() {
   const [otp,setOtp] = useState();
 
   const navigate = useNavigate();
-  const { token } = useSelector((state) => state.auth)
 
 
-  const submitHander = (e) =>{
+  const submitHander = async (e) =>{
     e.preventDefault();
-      try {
-        axios.post('/users/verify',{
-          otp
-        }).then((res)=>{
-          navigate('/login');
-        })
-      } catch (error) {
-        toast.error("Cannection issuse",error);
-      }
-    
+    await verifyOtp({otp,navigate});
   }
 
   return (

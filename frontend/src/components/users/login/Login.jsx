@@ -4,10 +4,7 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from 'react-redux';
 import { motion } from "framer-motion"
 import { zoomIn, fadeIn } from "../../../utils/motions"
-import { toast } from 'react-toastify'
-import axios from '../../../configs/axios';
-import { login } from '../../../redux-toolkit/authSlice';
-import FormContainer from "../../formContaner/FormContainer";
+import { userLogin } from "../../../functionalities/userApiFunctionalities"
 
 
 function Login() {
@@ -24,22 +21,9 @@ function Login() {
     }
   },[token,navigate])
 
-  const submitHander = (e) =>{
+  const submitHander = async (e) =>{
     e.preventDefault();
-      try {
-        axios.post('/users/auth',{
-          email,
-          password
-        }).then((res)=>{
-          console.log(res.data);
-          dispatch(login(res.data.token));
-          navigate('/home');
-          setLoading(false);
-        }).catch((error) => toast.error("Credential issues"))
-      } catch (error) {
-        toast.error("Cannection issuse",error);
-      }
-    
+    await userLogin(email,password,dispatch,navigate);  
   }
 
   return (

@@ -4,11 +4,9 @@ import { Form, Button, Row, Col } from 'react-bootstrap';
 import { MDBCol, MDBContainer, MDBRow, MDBCard } from 'mdb-react-ui-kit';
 import { motion } from "framer-motion"
 import { useDispatch } from "react-redux"
-import { setLoading, clearLoading } from "../../../redux-toolkit/loadingSlice";
 import { zoomIn } from "../../../utils/motions"
-import { toast } from 'react-toastify';
-import axios from '../../../configs/axios';
-import { FirebaseContext } from '../../../contexts/firebaseContexts';
+import { userSingUp } from '../../../functionalities/userApiFunctionalities';
+import { FirebaseContext } from "../../../contexts/firebaseContexts";
 
 function Signup() {
   const [name, setName] = useState('');
@@ -23,42 +21,16 @@ function Signup() {
 
   const submitHandler = async function (e) {
     e.preventDefault();
-    useDispatch(setLoading())
-    if (password !== confirmPassword) {
-      toast.error('Password doesnt not match');
-    } else {
-      firebase
-        .storage()
-        .ref(`/image/${image.name}`)
-        .put(image)
-        .then(({ ref }) => {
-          ref.getDownloadURL().then(async (url) => {
-            let imgSrc = url;
-            try {
-              axios
-                .post("/users/register", {
-                  name,
-                  email,
-                  password,
-                  imgSrc
-                })
-                .then((res) => {
-                  dispatch(clearLoading());
-                  navigate('/verify');
-                })
-                .catch((error) =>
-                  toast.error(error?.data?.message || error.error)
-                );
-            } catch (error) {
-              toast.error(error.message);
-            }
-          });
-        })
-        .catch((error) => {
-          toast.error("Error uploading image. Please try again.");
-          console.error(error);
-        });
-    }
+    await userSingUp({
+      name,
+      email,
+      password,
+      confirmPassword,
+      image,
+      firebase,
+      dispatch,
+      navigate
+    })
   };
 
   return (
