@@ -13,13 +13,14 @@ function HomeScreen() {
 
   const [user,setUser] = useState({})
   const [posts,setPosts] = useState([]);
+  const [userSugg,setUserSugg] = useState([]);
 
   const { token } = useSelector((state) => state.auth);
   const post = useSelector((state) => state.post.count);
   const dispatch = useDispatch();
 
   async function getData(){
-    await loadHome({ token, setPosts, setUser, dispatch })
+    await loadHome({ token, setPosts, setUser, setUserSugg, dispatch })
   }
 
   useEffect(() =>{
@@ -41,7 +42,7 @@ function HomeScreen() {
         <div className="row">
           <Leftsidebar data={user} />
           <Maincontent data={user} posts={posts} />
-          <Rightsidebar />
+          <Rightsidebar userSugg={userSugg} />
         </div>
       </div>
     </>

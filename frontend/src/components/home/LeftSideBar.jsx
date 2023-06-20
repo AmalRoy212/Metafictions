@@ -48,7 +48,7 @@ export default function Leftsidebar({ data }) {
                 <h4 style={{ color:"white", width: "50%", display: 'flex', alignItems: "center",justifyContent:'center'}}>{data?.followers}</h4>
                 <h4 style={{ color:"white", width: "50%", display: 'flex', alignItems: "center",justifyContent:'center'}}>{data?.following}</h4>
               </div>
-              <div style={{ display: 'flex', alignItems: "center",justifyContent:"center", backgroundColor: 'grey', borderRadius: '10px'}}>
+              <div style={{ display: 'flex', alignItems: "center",justifyContent:"center", backgroundColor: 'grey', borderRadius: '10px', marginBottom:"10px"}}>
                 <Button onClick={(e) => submitHandler(e)} className="btn-warning">Log Out</Button>
               </div>
 

@@ -84,7 +84,7 @@ export const verifyOtp = async function ({ otp, navigate }) {
 }
 
 // home screen
-export const loadHome = async function ({ token, setPosts, setUser, dispatch }) {
+export const loadHome = async function ({ token, setPosts, setUser, setUserSugg, dispatch }) {
   dispatch(setLoading());
   axios.get('/users/post', {
     headers: {
@@ -100,21 +100,28 @@ export const loadHome = async function ({ token, setPosts, setUser, dispatch }) 
     }
   }).then((res) => {
     setUser(res.data);
-    dispatch(clearLoading());
   });
+  axios.get('/users', {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }).then((res) => {
+    setUserSugg(res.data);
+    dispatch(clearLoading());
+  })
 }
 
 //post 
-export const userCreatePost = async function ({ 
-    media,
-    firebase,
-    discription,
-    userId,
-    token,
-    dispatch,
-    setDiscription,
-    setMedia
-  }) {
+export const userCreatePost = async function ({
+  media,
+  firebase,
+  discription,
+  userId,
+  token,
+  dispatch,
+  setDiscription,
+  setMedia
+}) {
 
   if (discription !== '') {
     dispatch(setLoading());
@@ -158,16 +165,41 @@ export const userCreatePost = async function ({
 }
 
 //logout 
-export const userLogOut = async function({ token, dispatch, navigate }){
-  dispatch(setLoading());
-  axios.get('/users/logout',{
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  }).then((res) => {
-    console.log(res.data);
-    dispatch(logout());
-    dispatch(clearLoading());
-    navigate('/login');
-  })
+export const userLogOut = async function ({ token, dispatch, navigate }) {
+  try {
+    dispatch(setLoading());
+    axios.get('/users/logout', {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then((res) => {
+      console.log(res.data);
+      dispatch(logout());
+      dispatch(clearLoading());
+      navigate('/login');
+    })
+  } catch (error) {
+
+  }
+}
+
+//follow friends
+
+export const followUser = async function ({ token, followId}) {
+  try {
+    axios.post('/users/follow', {
+      followId
+    },{
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      
+    }).then((res) =>{
+      console.log(res.data);
+    });
+  
+  } catch (error) {
+    toast.error("Error occured"+error.message);
+  }
+  
 }

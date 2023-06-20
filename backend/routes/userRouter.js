@@ -6,7 +6,9 @@ import {
   getUserProfile,
   updateUserProfile, 
   findUser,
-  verfyOtp
+  verfyOtp,
+  findAllUsers,
+  incrementFollow
 } from "../controllers/userController.js";
 import { protecter } from '../middlewares/authUserMiddleware.js'
 import { createPost, getAllPost } from "../controllers/postController.js";
@@ -14,11 +16,13 @@ import { createPost, getAllPost } from "../controllers/postController.js";
 
 const userRouter = express.Router();
 
+userRouter.get('/', protecter, findAllUsers);
 userRouter.get('/find', protecter, findUser);
+userRouter.get('/logout', protecter, logoutUser);
 userRouter.post('/register', registerUser);
 userRouter.post('/auth', authenticateUsers);
-userRouter.get('/logout', protecter, logoutUser);
 userRouter.post('/verify', verfyOtp);
+userRouter.post('/follow', protecter, incrementFollow);
 userRouter.
   route('/profile').
     get(protecter,getUserProfile).

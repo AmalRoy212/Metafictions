@@ -5,46 +5,46 @@ import { generateOTP } from "../utils/generateOtp.js";
 import nodemailer from "nodemailer";
 
 
-let otpChecking ;
+let otpChecking;
 
 
 
 async function sendingVerificationMail(userName, email, userID) {
   try {
-      const newOtp = await generateOTP();
-      otpChecking = newOtp;
-      const transport = nodemailer.createTransport({
-          host: "smtp.gmail.com",
-          port: 587,
-          secure: false,
-          requireTLS: true,
-          auth: {
-              user: process.env.SMTP_MAIL_ID,
-              pass: process.env.SMTP_MAIL_PASSWORD,
-          },
-      });
-      const mailOption = {
-          from: process.env.SMTP_SENDER,
-          to: email,
-          subject: "For Mail Verification",
-          html:
-              "<p>Hii <b>" +
-              userName +
-              '</b>, Please click  here to <a href="http://ke4.tech/verify?id=' +
-              userID +
-              '">verify</a> you mail Your One time Password <h5>' +
-              newOtp +
-              "</h5>",
-      };
-      transport.sendMail(mailOption, function (err, info) {
-          if (err) {
-              console.log(err);
-          } else {
-              console.log("mail has been send :-", info.response);
-          }
-      });
+    const newOtp = await generateOTP();
+    otpChecking = newOtp;
+    const transport = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 587,
+      secure: false,
+      requireTLS: true,
+      auth: {
+        user: process.env.SMTP_MAIL_ID,
+        pass: process.env.SMTP_MAIL_PASSWORD,
+      },
+    });
+    const mailOption = {
+      from: process.env.SMTP_SENDER,
+      to: email,
+      subject: "For Mail Verification",
+      html:
+        "<p>Hii <b>" +
+        userName +
+        '</b>, Please click  here to <a href="http://ke4.tech/verify?id=' +
+        userID +
+        '">verify</a> you mail Your One time Password <h5>' +
+        newOtp +
+        "</h5>",
+    };
+    transport.sendMail(mailOption, function (err, info) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("mail has been send :-", info.response);
+      }
+    });
   } catch (error) {
-      console.log(error.message);
+    console.log(error.message);
   }
 }
 
@@ -98,7 +98,7 @@ const registerUser = asyncHandler(async function (req, res) {
 
   const user = await newUser.save();
 
-  await sendingVerificationMail(user.name,user.email,user._id);
+  await sendingVerificationMail(user.name, user.email, user._id);
 
   if (user) {
     res.status(200).json({
@@ -191,33 +191,56 @@ const findUser = asyncHandler(async function (req, res) {
 
   const user = await UserModel.findById(_id);
 
-  if(user){
+  if (user) {
     res.status(200).json({
-      userId : user._id,
+      userId: user._id,
       name: user.name,
       email: user.email,
       imgSrc: user.imgSrc,
-      following : user.following,
-      followers : user.followers
+      following: user.following,
+      followers: user.followers
     })
-  }else{
+  } else {
     res.status(401);
     throw new Error("Invalid user or not autherized")
   }
-  
+
 })
 
-const verfyOtp = asyncHandler( async function(req,res){
+const verfyOtp = asyncHandler(async function (req, res) {
   const { otp } = req.body;
 
-  if(otp == otpChecking) res.status(200).json({message:"Successfull"})
+  if (otp == otpChecking) res.status(200).json({ message: "Successfull" })
   else {
     res.status(400)
     throw new Error('Invalid OTP');
   }
 })
 
+const findAllUsers = asyncHandler(async function (req, res) {
+  const { _id } = req.headers
+  const users = await UserModel.find({ _id: { $ne: _id } }).limit(10);
 
+  if (users) {
+    res.status(200).json(users);
+  }
+})
+
+const incrementFollow = asyncHandler(async function (req, res) {
+  console.log(re.headers,req.body,'**************************');
+  const { _id } = req.headers;
+  const { followId } = req.body;
+
+  const updatedUser = await UserModel.findByIdAndUpdate(
+    _id,
+    { $push: { following : followId } },
+    { new: true }
+  );
+
+  if(updatedUser){
+    res.status(200).json({message:"success"})
+  }
+})
 
 export {
   authenticateUsers,
@@ -226,5 +249,7 @@ export {
   getUserProfile,
   updateUserProfile,
   findUser,
-  verfyOtp
+  verfyOtp,
+  findAllUsers,
+  incrementFollow
 }
