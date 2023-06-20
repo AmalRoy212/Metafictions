@@ -6,11 +6,11 @@ const loadSlice = createSlice({
     loading : false
   },
   reducers : {
-    setLoading : (state) => {
+    setLoading : (state,actions) => {
       state.loading = true
     },
-    clearLoading : (state) => {
-      state.loading = false
+    clearLoading : (state,actions) => {
+      state.loading = false;
     }
   }
 });

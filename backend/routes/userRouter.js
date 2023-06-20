@@ -17,7 +17,7 @@ const userRouter = express.Router();
 userRouter.get('/find', protecter, findUser);
 userRouter.post('/register', registerUser);
 userRouter.post('/auth', authenticateUsers);
-userRouter.patch('/logout', protecter, logoutUser);
+userRouter.get('/logout', protecter, logoutUser);
 userRouter.post('/verify', verfyOtp);
 userRouter.
   route('/profile').

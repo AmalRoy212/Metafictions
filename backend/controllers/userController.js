@@ -118,7 +118,6 @@ const registerUser = asyncHandler(async function (req, res) {
 
 const logoutUser = asyncHandler(async function (req, res) {
   const { _id } = req.headers;
-
   const user = await UserModel.findByIdAndUpdate({ _id }, { $set: { accessToken: "" } });
 
   if (user) {

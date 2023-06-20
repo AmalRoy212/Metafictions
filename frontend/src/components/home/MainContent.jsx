@@ -1,16 +1,10 @@
 import React, { useContext, useState } from "react";
-import { toast } from "react-toastify";
 import Feed from "./Feeds";
 import { Form } from 'react-bootstrap';
 import { FaGlobeAmericas, FaUserFriends, FaUserLock } from 'react-icons/fa'
 import { useDispatch, useSelector } from "react-redux";
-import { setLoading, clearLoading } from "../../redux-toolkit/loadingSlice";
-import { incrementPostCount } from "../../redux-toolkit/postSlice";
-import axios from "../../configs/axios";
 import { FirebaseContext } from "../../contexts/firebaseContexts"
-
-
-
+import { userCreatePost } from "../../functionalities/userApiFunctionalities";
 
 
 export default function Maincontent({ data, posts }) {
@@ -20,58 +14,29 @@ export default function Maincontent({ data, posts }) {
   const dispatch = useDispatch();
 
   const { token } = useSelector((state) => state.auth);
-  const post  = useSelector((state) => state.post.count);
 
   const [discription, setDiscription] = useState('')
   const [media, setMedia] = useState('');
 
   const submitHandler = async function (e) {
     e.preventDefault();
-    const userId = data.userId
-    if (discription !== '') {
-      dispatch(setLoading());
-      firebase
-        .storage()
-        .ref(`/postContents/${media.name}`)
-        .put(media)
-        .then(({ ref }) => {
-          ref.getDownloadURL().then(async (url) => {
-            let contentUrl = url;
-            try {
-              axios
-                .post("/users/post", {
-                  userId,
-                  content: contentUrl,
-                  discription
-                }, {
-                  headers: {
-                    Authorization: `Bearer ${token}`
-                  }
-                })
-                .then((res) => {
-                  dispatch(incrementPostCount());
-                  dispatch(clearLoading())
-                  setDiscription('');
-                  setMedia('')
-                })
-                .catch((error) =>
-                  toast.error(error?.data?.message || error.error)
-                );
-            } catch (error) {
-              toast.error(error.message);
-            }
-          });
-        })
-        .catch((error) => {
-          toast.error("Error uploading image. Please try again.");
-          console.error(error);
-        });
-    }
+    const userId = data.userId;
+
+    await userCreatePost({
+      media,
+      firebase,
+      discription,
+      userId,
+      token,
+      dispatch,
+      setDiscription,
+      setMedia
+    })
   }
   return (
     <>
-      <div className="col-md-6 gedf-main" style={{ marginTop: "3rem" }}>
-        <div className="card gedf-card">
+      <div className="col-md-6 gedf-main">
+        <div className="card gedf-card" style={{backgroundColor:'white',borderRadius:"20px"}}>
           <div className="card-header">
             <ul
               className="nav nav-tabs card-header-tabs"
@@ -109,6 +74,7 @@ export default function Maincontent({ data, posts }) {
                   </div>
                   <br />
                   <input style={{ width: '99%', border: '1px solid #ced4da', borderRadius: '5px' }} className='m-1 p-1' name='imgSrc' onChange={(e) => setMedia(e.target.files[0])} type="file" />
+                  {/* <button type="file">add</button> */}
                 </Form.Group>
                 <div className="form-group">
                   <textarea

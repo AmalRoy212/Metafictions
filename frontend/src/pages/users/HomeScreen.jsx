@@ -6,10 +6,8 @@ import Leftsidebar from "../../components/home/LeftSideBar";
 import Maincontent from "../../components/home/MainContent";
 import HomeNavbar from "../../components/home/HomeNavbar";
 import Rightsidebar from "../../components/home/RightSide";
-import { setLoading, clearLoading } from "../../redux-toolkit/loadingSlice";
 import { loadHome } from "../../functionalities/userApiFunctionalities"
 import "../../styles/styles.css";
-// import "./styles.css";
 
 function HomeScreen() {
 

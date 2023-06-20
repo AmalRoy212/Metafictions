@@ -14,9 +14,9 @@ export default function Feed({ posts }) {
         <motion.div variants={zoomIn(0.5,0.5)} initial="hidden" whileInView="show" viewport={{once : false, amount:0.24}} className="gradient02" />
         { delT = (index + 1) % 2 === 0 ? 0.2 : 0}
         { dura = (index + 1) % 2 === 0 ? 0.2 : 0}
-        <motion.div variants={zoomIn(delT,dura)} initial="hidden" whileInView="show" viewport={{once : false, amount:0.24}} className="card gedf-card" style={{ marginTop: '-6rem' }}>
+        <motion.div variants={zoomIn(delT,dura)} initial="hidden" whileInView="show" viewport={{once : false, amount:0.24}} className="card gedf-card" style={{ marginTop: '-7rem', borderRadius:"20px", backgroundColor:'white' }}>
           <div className="card-header">
-            <div className="d-flex justify-content-between align-items-center">
+            <div className="d-flex justify-content-between align-items-center" style={{cursor:'pointer'}}>
               <div className="d-flex justify-content-between align-items-center">
                 <div className="mr-2">
                   <img
@@ -29,7 +29,7 @@ export default function Feed({ posts }) {
                   />
                 </div>
                 <div className="ml-2">
-                  <div className="h5 m-0 text-white m-1">@{post?.userName}</div>
+                  <div className="h5 m-0 text-black m-1">{post?.userName}</div>
                 </div>
               </div>
               {/* <div>
@@ -64,7 +64,7 @@ export default function Feed({ posts }) {
             </div>
           </div>
           <div className="card-body">
-            <div className="h7 mb-2" style={{color:"white"}}>
+            <div className="h7 text-black mb-2">
               {" "}
               <FaSafari /> <span style={{fontSize:"small"}}> {post?.date}</span>
             </div>
@@ -74,7 +74,7 @@ export default function Feed({ posts }) {
               </h5>
             </a> */}
 
-            <p className="card-text text-white">
+            <p className="card-text text-black">
               {post?.discription}
             </p>
           </div>
