@@ -21,15 +21,15 @@ export default function Leftsidebar({ data }) {
                 <div style={{ height: "50px", width: "50px", borderRadius: "50%" }}>
                   <img style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%", marginLeft: "3px" }} src={data?.imgSrc} alt="" />
                 </div>
-                <div style={{ marginLeft: "10%", marginTop: "5px" }} className="h5">{data?.name}</div>
+                <div style={{ color:"white", marginLeft: "10%", marginTop: "5px" }} className="h5">{data?.name}</div>
               </div>
               <div style={{ display: 'flex', alignItems: "center", backgroundColor: 'grey', borderRadius: '10px', padding: "5px" }}>
-                <h6 style={{  width: "50%", display: 'flex', alignItems: "center",justifyContent:'center',marginTop:'1rem'}}>Followers</h6>
-                <h6 style={{  width: "50%", display: 'flex', alignItems: "center",justifyContent:'center',marginTop:'1rem'}}>following</h6>
+                <h6 style={{ color:"white", width: "50%", display: 'flex', alignItems: "center",justifyContent:'center',marginTop:'1rem'}}>Followers</h6>
+                <h6 style={{ color:"white", width: "50%", display: 'flex', alignItems: "center",justifyContent:'center',marginTop:'1rem'}}>following</h6>
               </div>
               <div style={{ display: 'flex', alignItems: "center", backgroundColor: 'grey', borderRadius: '10px', padding: "5px" }}>
-                <h4 style={{  width: "50%", display: 'flex', alignItems: "center",justifyContent:'center'}}>{data?.followers}</h4>
-                <h4 style={{  width: "50%", display: 'flex', alignItems: "center",justifyContent:'center'}}>{data?.following}</h4>
+                <h4 style={{ color:"white", width: "50%", display: 'flex', alignItems: "center",justifyContent:'center'}}>{data?.followers}</h4>
+                <h4 style={{ color:"white", width: "50%", display: 'flex', alignItems: "center",justifyContent:'center'}}>{data?.following}</h4>
               </div>
             </motion.div>
             <div>

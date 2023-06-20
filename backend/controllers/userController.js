@@ -19,12 +19,12 @@ async function sendingVerificationMail(userName, email, userID) {
           secure: false,
           requireTLS: true,
           auth: {
-              user: "officialbrotest@gmail.com",
-              pass: "ogzojnuvxzkxeivl",
+              user: process.env.SMTP_MAIL_ID,
+              pass: process.env.SMTP_MAIL_PASSWORD,
           },
       });
       const mailOption = {
-          from: "officialbrotest@gmail.com",
+          from: process.env.SMTP_SENDER,
           to: email,
           subject: "For Mail Verification",
           html:
