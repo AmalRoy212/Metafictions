@@ -3,14 +3,15 @@ import { motion } from "framer-motion";
 import { fadeIn } from "../../utils/motions";
 import { Button } from "react-bootstrap";
 import { followUser } from "../../functionalities/userApiFunctionalities";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Rightsidebar({ userSugg }) {
 
   const { token } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
   const followHandler = async (_id) => {
-    await followUser({ token, _id });
+    await followUser({ token, _id, dispatch });
   }
   return (
     <>

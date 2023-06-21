@@ -2,7 +2,12 @@ import axios from "../configs/axios";
 import { toast } from "react-toastify";
 import { login, logout } from "../redux-toolkit/authSlice";
 import { setLoading, clearLoading } from "../redux-toolkit/loadingSlice";
-import { setPostCount, incrementPostCount } from "../redux-toolkit/postSlice";
+import { 
+  setPostCount, 
+  incrementPostCount, 
+  setFollowCount,
+  incrementFollowCount,
+} from "../redux-toolkit/postSlice";
 
 //login 
 export const userLogin = async function (email, password, dispatch, navigate) {
@@ -18,6 +23,7 @@ export const userLogin = async function (email, password, dispatch, navigate) {
     }).catch((error) => toast.error("Credential issues", error))
   } catch (error) {
     toast.error("Cannection issuse", error);
+    dispatch(clearLoading());
   }
 }
 
@@ -84,7 +90,16 @@ export const verifyOtp = async function ({ otp, navigate }) {
 }
 
 // home screen
-export const loadHome = async function ({ token, setPosts, setUser, setUserSugg, dispatch }) {
+export const loadHome = async function ({
+  token,
+  setPosts,
+  setUser,
+  setUserSugg,
+  dispatch
+}) {
+  let lastUser
+  let lastPost
+  let lastFollow
   dispatch(setLoading());
   axios.get('/users/post', {
     headers: {
@@ -107,8 +122,10 @@ export const loadHome = async function ({ token, setPosts, setUser, setUserSugg,
     }
   }).then((res) => {
     setUserSugg(res.data);
+    dispatch(setFollowCount(res.data.length))
     dispatch(clearLoading());
   })
+
 }
 
 //post 
@@ -185,21 +202,18 @@ export const userLogOut = async function ({ token, dispatch, navigate }) {
 
 //follow friends
 
-export const followUser = async function ({ token, _id}) {
+export const followUser = async function ({ token, _id, dispatch }) {
   console.log(_id);
   try {
-    axios.put('/users/follow', null, {
+    axios.put(`/users/follow?followId=${_id}`, null, {
       headers: {
         Authorization: `Bearer ${token}`
-      },
-      body: {
-        _id
       }
     }).then((res) => {
       toast.success("Request sent " + res.data.message);
-    }).catch((err) => toast.error("Error occured "+err.message))
+      dispatch(incrementFollowCount());
+    }).catch((err) => toast.error("Error occurred " + err.message));
   } catch (error) {
-    toast.error("Error occured"+error.message);
+    toast.error("Error occurred " + error.message);
   }
-  
 }

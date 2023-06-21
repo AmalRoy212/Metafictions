@@ -8,7 +8,7 @@ import {
   findUser,
   verfyOtp,
   findAllUsers,
-  incrementFollow
+  followUser
 } from "../controllers/userController.js";
 import { protecter } from '../middlewares/authUserMiddleware.js'
 import { createPost, getAllPost } from "../controllers/postController.js";
@@ -22,7 +22,7 @@ userRouter.get('/logout', protecter, logoutUser);
 userRouter.post('/register', registerUser);
 userRouter.post('/auth', authenticateUsers);
 userRouter.post('/verify', verfyOtp);
-userRouter.put('/follow',protecter, incrementFollow);
+userRouter.put('/follow',protecter, followUser);
 userRouter.
   route('/profile').
     get(protecter,getUserProfile).

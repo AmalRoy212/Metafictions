@@ -190,6 +190,8 @@ const findUser = asyncHandler(async function (req, res) {
   const { _id } = req.headers;
 
   const user = await UserModel.findById(_id);
+  const following = user.following.length ? user.following.length : 0
+  const followers = user.followers.length ? user.followers.length : 0
 
   if (user) {
     res.status(200).json({
@@ -197,8 +199,8 @@ const findUser = asyncHandler(async function (req, res) {
       name: user.name,
       email: user.email,
       imgSrc: user.imgSrc,
-      following: user.following,
-      followers: user.followers
+      following,
+      followers
     })
   } else {
     res.status(401);
@@ -218,30 +220,76 @@ const verfyOtp = asyncHandler(async function (req, res) {
 })
 
 const findAllUsers = asyncHandler(async function (req, res) {
-  const { _id } = req.headers
-  const users = await UserModel.find({ _id: { $ne: _id } }).limit(10);
+  const { _id } = req.headers;
+  let allUsers = [];
 
-  if (users) {
-    res.status(200).json(users);
+  const users = await UserModel.find({
+    _id: { $ne: _id },
+  }).limit(10);
+
+  const me = await UserModel.findById( _id );
+
+  const meLength = me.following.length;
+  const userLength = users.length;
+
+  for( let i=0;i<userLength;i++){
+    let usersId = users[i]._id;
+    if(!meLength){
+      allUsers = users
+    }else{
+      for( let j=0;j<meLength;j++){
+        if(usersId != me.following[j]){
+          allUsers.push(users[i]);
+        }
+      }
+    }
+  }
+
+  if (allUsers) {
+    res.status(200).json(allUsers);
   }
 })
 
-const incrementFollow = asyncHandler(async function (req, res) {
+const followUser = asyncHandler(async function (req, res) {
   const { _id } = req.headers;
-  const { followId } = req.body;
-
-  console.log(req.data,"****************");
+  const { followId } = req.query;
 
   const updatedUser = await UserModel.findByIdAndUpdate(
-    _id,
-    { $push: { following : followId } },
+    { _id: _id },
+    { $push: { following: followId } },
     { new: true }
   );
-  console.log(updatedUser);
-  if(updatedUser){
-    res.status(200).json({message:"success"})
+
+  const followedUser = await UserModel.findByIdAndUpdate(
+    { _id: followId },
+    { $push: { followers: _id } },
+    { new: true }
+  )
+
+  if (updatedUser && followedUser) {
+    res.status(200).json({ message: "success" });
+  }
+});
+
+const unfollowUser = asyncHandler(async function (req, res) {
+  const { _id } = req.headers;
+  const { followId } = req.query;
+
+  const updatedUser = await UserModel.findByIdAndUpdate(
+    { _id: _id },
+    { $pop: { following: followId } },
+  );
+
+  const followedUser = await UserModel.findByIdAndUpdate(
+    { _id: followId },
+    { $pop: { followers: _id } },
+  )
+
+  if (updatedUser && followedUser) {
+    res.status(200).json({ message: "success" });
   }
 })
+
 
 export {
   authenticateUsers,
@@ -252,5 +300,5 @@ export {
   findUser,
   verfyOtp,
   findAllUsers,
-  incrementFollow
+  followUser
 }
