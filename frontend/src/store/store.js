@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authSlice from '../redux-toolkit/authSlice';
-import postSlice from '../redux-toolkit/postSlice';
+import postSlice from '../redux-toolkit/actionManagerSlice';
 import loadingSlice from '../redux-toolkit/loadingSlice';
 
 const store = configureStore({

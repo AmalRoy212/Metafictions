@@ -65,11 +65,24 @@ const getAllPost = asyncHandler(async function (req, res) {
   }
 });
 
+const deletePost = asyncHandler(async function (req, res) {
+  const { _id } = req.headers;
+  const { id } = req.query;
 
+  const updatedPost = await PostModel.findByIdAndDelete(id);
+
+  const updatedUser = await UserModel.findByIdAndUpdate(
+    _id,
+    { $pull: { post: id } }
+  );
+
+  if(updatedPost && updatedUser) res.status(200).json({message : "Successfully"});
+})
 
 
 
 export {
   createPost,
-  getAllPost
+  getAllPost,
+  deletePost
 }

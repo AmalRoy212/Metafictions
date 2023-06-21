@@ -11,7 +11,7 @@ import {
   followUser
 } from "../controllers/userController.js";
 import { protecter } from '../middlewares/authUserMiddleware.js'
-import { createPost, getAllPost } from "../controllers/postController.js";
+import { createPost, deletePost, getAllPost } from "../controllers/postController.js";
 
 
 const userRouter = express.Router();
@@ -23,6 +23,7 @@ userRouter.post('/register', registerUser);
 userRouter.post('/auth', authenticateUsers);
 userRouter.post('/verify', verfyOtp);
 userRouter.put('/follow',protecter, followUser);
+userRouter.delete('/delete/post', protecter, deletePost);
 userRouter.
   route('/profile').
     get(protecter,getUserProfile).

@@ -2,12 +2,12 @@ import axios from "../configs/axios";
 import { toast } from "react-toastify";
 import { login, logout } from "../redux-toolkit/authSlice";
 import { setLoading, clearLoading } from "../redux-toolkit/loadingSlice";
-import { 
-  setPostCount, 
-  incrementPostCount, 
+import {
+  setPostCount,
+  incrementPostCount,
   setFollowCount,
   incrementFollowCount,
-} from "../redux-toolkit/postSlice";
+} from "../redux-toolkit/actionManagerSlice";
 
 //login 
 export const userLogin = async function (email, password, dispatch, navigate) {
@@ -216,4 +216,36 @@ export const followUser = async function ({ token, _id, dispatch }) {
   } catch (error) {
     toast.error("Error occurred " + error.message);
   }
+}
+
+//yes button handling
+export const choiceHandler = async function ({ choice, id, token, dispatch }) {
+  dispatch(setLoading());
+  if (choice === "Delete post") {
+    try {
+      axios
+        .delete(`/users/delete/post?id=${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          toast.success("Post deleted " + res.data.message);
+          axios.get('/users/post', {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }).then((res) => {
+            dispatch(setPostCount(res.data.length));
+            dispatch(clearLoading());
+          })
+        })
+        .catch((error) => {
+          toast.error("Error occurred while deleting post", error);
+        });
+    } catch (error) {
+      toast.error("Error occurred while deleting post:", error);
+    }
+  }
+
 }

@@ -3,6 +3,7 @@ import asyncHandler from "express-async-handler";
 import { findUser } from "../service/middlewareService.js"
 
 export const protecter = asyncHandler(async function (req, res, next) {
+  // console.log("from auth middleware 7");
   const token = req.headers.authorization.split(' ')[1];
   // console.log(token,"from auth middleware 7");
   if (token) {
