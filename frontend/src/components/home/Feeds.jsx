@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setPopUp, setPostId } from "../../redux-toolkit/actionManagerSlice";
 import PopUp from "../popUp/PopUp";
 import '../../styles/styles.css';
+import CommentBox from "../commentBox/CommentBox";
 
 
 export default function Feed({ posts }) {
@@ -30,7 +31,7 @@ export default function Feed({ posts }) {
         <motion.div variants={zoomIn(0.5, 0.5)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.24 }} className="gradient02" />
         {delT = (index + 1) % 2 === 0 ? 0.2 : 0}
         {dura = (index + 1) % 2 === 0 ? 0.2 : 0}
-        <motion.div variants={zoomIn(delT, dura)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.24 }} className="card gedf-card" style={{ marginTop: '-7rem', borderRadius: "20px", backgroundColor: 'white' }}>
+        <div className="card gedf-card" style={{ marginTop: '-7rem', borderRadius: "20px", backgroundColor: 'white' }}>
           <div className="card-header">
             <div className="d-flex justify-content-between align-items-center" style={{ cursor: 'pointer' }}>
               <div className="d-flex justify-content-between align-items-center">
@@ -55,8 +56,8 @@ export default function Feed({ posts }) {
 
                 <Dropdown.Menu>
                   <Dropdown.Item onClick={() => deleteHandler(post._id)} >Delete</Dropdown.Item>
-                  <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                  <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                  {/* <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">Something else</Dropdown.Item> */}
                 </Dropdown.Menu>
               </Dropdown>
               {/* <div>
@@ -127,7 +128,8 @@ export default function Feed({ posts }) {
               <i className="fa fa-mail-forward"></i> Share
             </a>
           </div>
-        </motion.div>
+          <CommentBox />
+        </div>
       </div>))}
     </>
   );

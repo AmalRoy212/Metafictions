@@ -247,5 +247,8 @@ export const choiceHandler = async function ({ choice, id, token, dispatch }) {
       toast.error("Error occurred while deleting post:", error);
     }
   }
+}
 
+export const createComment = async function (){
+  
 }
