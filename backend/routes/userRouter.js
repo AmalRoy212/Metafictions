@@ -22,7 +22,7 @@ userRouter.get('/logout', protecter, logoutUser);
 userRouter.post('/register', registerUser);
 userRouter.post('/auth', authenticateUsers);
 userRouter.post('/verify', verfyOtp);
-userRouter.post('/follow', protecter, incrementFollow);
+userRouter.put('/follow',protecter, incrementFollow);
 userRouter.
   route('/profile').
     get(protecter,getUserProfile).

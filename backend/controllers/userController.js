@@ -227,16 +227,17 @@ const findAllUsers = asyncHandler(async function (req, res) {
 })
 
 const incrementFollow = asyncHandler(async function (req, res) {
-  console.log(re.headers,req.body,'**************************');
   const { _id } = req.headers;
   const { followId } = req.body;
+
+  console.log(req.data,"****************");
 
   const updatedUser = await UserModel.findByIdAndUpdate(
     _id,
     { $push: { following : followId } },
     { new: true }
   );
-
+  console.log(updatedUser);
   if(updatedUser){
     res.status(200).json({message:"success"})
   }

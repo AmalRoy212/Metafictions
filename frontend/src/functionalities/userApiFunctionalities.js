@@ -185,19 +185,19 @@ export const userLogOut = async function ({ token, dispatch, navigate }) {
 
 //follow friends
 
-export const followUser = async function ({ token, followId}) {
+export const followUser = async function ({ token, _id}) {
+  console.log(_id);
   try {
-    axios.post('/users/follow', {
-      followId
-    },{
+    axios.put('/users/follow', null, {
       headers: {
         Authorization: `Bearer ${token}`
       },
-      
-    }).then((res) =>{
-      console.log(res.data);
-    });
-  
+      body: {
+        _id
+      }
+    }).then((res) => {
+      toast.success("Request sent " + res.data.message);
+    }).catch((err) => toast.error("Error occured "+err.message))
   } catch (error) {
     toast.error("Error occured"+error.message);
   }

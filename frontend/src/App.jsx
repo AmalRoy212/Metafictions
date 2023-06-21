@@ -23,7 +23,7 @@ function App() {
     <>
       {loading && <Loader/>}
       <FirebaseContext.Provider value={firebase}>
-        <ToastContainer style={{zIndex:10}}/>
+        <ToastContainer style={{zIndex:13}}/>
         <Outlet />
       </FirebaseContext.Provider>
     </>
