@@ -8,6 +8,7 @@ import HomeNavbar from "../../components/home/HomeNavbar";
 import Rightsidebar from "../../components/home/RightSide";
 import { loadHome } from "../../functionalities/userApiFunctionalities"
 import "../../styles/styles.css";
+import { setLiked } from "../../redux-toolkit/actionManagerSlice";
 
 function HomeScreen() {
 
@@ -19,6 +20,7 @@ function HomeScreen() {
   const { token } = useSelector((state) => state.auth);
   const post = useSelector((state) => state.post.count);
   const followCount = useSelector((state) => state.post.followCount);
+  const liked = useSelector((state) => state.post.liked);
   const dispatch = useDispatch();
 
   async function getData(){
@@ -27,7 +29,8 @@ function HomeScreen() {
       setPosts, 
       setUser, 
       setUserSugg, 
-      dispatch 
+      dispatch,
+      liked
     })
   }
 

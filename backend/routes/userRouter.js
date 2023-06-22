@@ -1,4 +1,5 @@
 import express from "express";
+import { protecter } from '../middlewares/authUserMiddleware.js';
 import {  
   authenticateUsers,
   registerUser,
@@ -10,8 +11,7 @@ import {
   findAllUsers,
   followUser
 } from "../controllers/userController.js";
-import { protecter } from '../middlewares/authUserMiddleware.js'
-import { createPost, deletePost, getAllPost } from "../controllers/postController.js";
+import { createPost, deletePost, getAllPost, likingPost } from "../controllers/postController.js";
 
 
 const userRouter = express.Router();
@@ -23,6 +23,7 @@ userRouter.post('/register', registerUser);
 userRouter.post('/auth', authenticateUsers);
 userRouter.post('/verify', verfyOtp);
 userRouter.put('/follow',protecter, followUser);
+userRouter.put('/like',protecter, likingPost);
 userRouter.delete('/delete/post', protecter, deletePost);
 userRouter.
   route('/profile').

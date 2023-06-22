@@ -5,21 +5,22 @@ const postSchema = new mongoose.Schema({
     type : String,
     required : true
   },
+  postId: {
+    type: String,
+    required: true
+  },
   dateOfPost: {
     type: Date,
     default: Date.now
-  },
-  discription : {
-    type : String,
-    default : ''
   },
   content : {
     type : String,
     required : true
   },
-  likes : [{
-    type : String
-  }],
+  likes : {
+    type : Number,
+    default : 0
+  },
   Comments : [
     {
       type : String,

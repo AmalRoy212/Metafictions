@@ -1,14 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { FaSafari } from "react-icons/fa";
 import { zoomIn } from "../../utils/motions";
 import Dropdown from 'react-bootstrap/Dropdown';
-import { FaSteamSymbol } from "react-icons/fa";
+import { FaSteamSymbol, FaCommentDots, FaHeart, FaRegHandPointLeft } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { setPopUp, setPostId } from "../../redux-toolkit/actionManagerSlice";
+import { incrementPostCount, setLiked, setPopUp, setPostId } from "../../redux-toolkit/actionManagerSlice";
 import PopUp from "../popUp/PopUp";
 import '../../styles/styles.css';
 import CommentBox from "../commentBox/CommentBox";
+import { Button } from "react-bootstrap";
+import { likePost } from "../../functionalities/userApiFunctionalities";
 
 
 export default function Feed({ posts }) {
@@ -16,12 +18,19 @@ export default function Feed({ posts }) {
   let dura;
 
   const popUp = useSelector((state) => state.post.popUp);
+  const { token } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
 
   const deleteHandler = async (id) => {
     dispatch(setPopUp());
     dispatch(setPostId(id))
+  }
+
+  const likeHandler = async function (id) {
+    dispatch(setLiked());
+    await likePost({ id, token });
+    dispatch(incrementPostCount())
   }
 
   return (
@@ -60,35 +69,6 @@ export default function Feed({ posts }) {
                   <Dropdown.Item href="#/action-3">Something else</Dropdown.Item> */}
                 </Dropdown.Menu>
               </Dropdown>
-              {/* <div>
-                <div className="dropdown">
-                  <button
-                    className="btn btn-link dropdown-toggle"
-                    type="button"
-                    id="gedf-drop1"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    <i className="fa fa-ellipsis-h"></i>
-                  </button>
-                  <div
-                    className="dropdown-menu dropdown-menu-right"
-                    aria-labelledby="gedf-drop1"
-                  >
-                    <div className="h6 dropdown-header">Configuration</div>
-                    <a className="dropdown-item" href="#">
-                      Save
-                    </a>
-                    <a className="dropdown-item" href="#">
-                      Hide
-                    </a>
-                    <a className="dropdown-item" href="#">
-                      Report
-                    </a>
-                  </div>
-                </div>
-              </div> */}
             </div>
           </div>
           <div className="card-body">
@@ -118,15 +98,23 @@ export default function Feed({ posts }) {
             </>
           )}
           <div className="card-footer">
-            <a href="#" className="card-link">
-              <i className="fa fa-gittip"></i> Like
+            <a style={{ textDecoration: "none", color: "black" }} className="card-link">
+              <FaHeart color="red" /> {post?.likes.length} Likes
             </a>
-            <a href="#" className="card-link">
-              <i className="fa fa-comment"></i> Comment
+            <a style={{ textDecoration: "none", color: "black" }} className="card-link">
+              <FaCommentDots color="green" /> Comment
             </a>
-            <a href="#" className="card-link">
+
+            {/* <a href="#" className="card-link">
               <i className="fa fa-mail-forward"></i> Share
-            </a>
+            </a> */}
+          </div>
+          <div className="card-footer">
+            <Button
+              onClick={() => {
+                likeHandler(post?._id);
+              }}
+              style={{ background: "none", border: "none", color: "black" }}> <FaRegHandPointLeft size={20} /> Like</Button>
           </div>
           <CommentBox />
         </div>

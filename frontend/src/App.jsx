@@ -10,6 +10,7 @@ import axios from 'axios';
 function App() {
   const { loading } = useSelector((state) => state.loading);
   const { token } = useSelector((state) => state.auth);
+  const liked = useSelector((state) => state.post.liked)
 
   axios.interceptors.request.use((request) => {
     if (token) {
@@ -18,7 +19,6 @@ function App() {
     return request;
   });
   
-
   return (
     <>
       {loading && <Loader/>}

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Feed from "./Feeds";
 import { Form } from 'react-bootstrap';
 import { FaGlobeAmericas, FaUserFriends, FaUserLock } from 'react-icons/fa'
@@ -17,6 +17,7 @@ export default function Maincontent({ data, posts }) {
 
   const [discription, setDiscription] = useState('')
   const [media, setMedia] = useState('');
+  const [like,setLike] = useState(false)
 
   const submitHandler = async function (e) {
     e.preventDefault();
@@ -33,6 +34,7 @@ export default function Maincontent({ data, posts }) {
       setMedia
     })
   }
+  
   return (
     <>
       <div className="col-md-6 gedf-main" style={{marginBottom:"10px"}}>

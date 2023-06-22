@@ -8,6 +8,7 @@ const postSlice = createSlice({
     popUp : false,
     yesButtonChoice : " ",
     singlePostId : null,
+    liked : false 
   },
   reducers: {
     incrementPostCount : (state) => {
@@ -33,8 +34,13 @@ const postSlice = createSlice({
     },
     setPostId : (state,action) => {
       state.singlePostId = action.payload
+    },
+    setLiked : (state) => {
+      state.liked = true
+    },
+    clearLiked : (state) => {
+      state.liked = false
     }
-
   },
 });
 
@@ -46,6 +52,8 @@ export const {
   setPopUp,
   clearPopUp,
   setYesButtonChoice,
-  setPostId
+  setPostId,
+  setLiked,
+  clearLiked
 } = postSlice.actions;
 export default postSlice.reducer;

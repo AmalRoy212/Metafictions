@@ -7,6 +7,7 @@ import {
   incrementPostCount,
   setFollowCount,
   incrementFollowCount,
+  clearLiked,
 } from "../redux-toolkit/actionManagerSlice";
 
 //login 
@@ -95,12 +96,15 @@ export const loadHome = async function ({
   setPosts,
   setUser,
   setUserSugg,
-  dispatch
+  dispatch,
+  liked
 }) {
   let lastUser
   let lastPost
   let lastFollow
-  dispatch(setLoading());
+  if(!liked){ 
+    dispatch(setLoading());
+  }
   axios.get('/users/post', {
     headers: {
       Authorization: `Bearer ${token}`
@@ -109,6 +113,9 @@ export const loadHome = async function ({
     setPosts(res.data);
     dispatch(setPostCount(res.data.length));
   })
+  if(!liked){ 
+    dispatch(setLoading());
+  }
   axios.get('/users/find', {
     headers: {
       Authorization: `Bearer ${token}`
@@ -116,6 +123,9 @@ export const loadHome = async function ({
   }).then((res) => {
     setUser(res.data);
   });
+  if(!liked){ 
+    dispatch(setLoading());
+  }
   axios.get('/users', {
     headers: {
       Authorization: `Bearer ${token}`
@@ -123,9 +133,9 @@ export const loadHome = async function ({
   }).then((res) => {
     setUserSugg(res.data);
     dispatch(setFollowCount(res.data.length))
-    dispatch(clearLoading());
   })
-
+  dispatch(clearLoading());
+  dispatch(clearLiked());
 }
 
 //post 
@@ -249,6 +259,20 @@ export const choiceHandler = async function ({ choice, id, token, dispatch }) {
   }
 }
 
-export const createComment = async function (){
-  
+export const createComment = async function () {
+
 }
+
+
+export const likePost = async function ({ id, token }) {
+  try {
+    const response = await axios.put(`/users/like?id=${id}`, null, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+  } catch (error) {
+    toast.error("An error occured");
+  }
+};
+

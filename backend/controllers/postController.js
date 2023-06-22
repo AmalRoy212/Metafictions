@@ -76,13 +76,41 @@ const deletePost = asyncHandler(async function (req, res) {
     { $pull: { post: id } }
   );
 
-  if(updatedPost && updatedUser) res.status(200).json({message : "Successfully"});
+  if (updatedPost && updatedUser) res.status(200).json({ message: "Successfully" });
 })
 
+//user like and unlike
+const likingPost = asyncHandler(async function (req, res) {
+
+  const { _id } = req.headers;
+  const { id } = req.query;
+  let updatedPost
+
+  const post = await PostModel.findById({ _id: id });
+
+  if (post.likes.includes(_id)) {
+    updatedPost = await PostModel.findByIdAndUpdate(
+      { _id: id },
+      { $pull: { likes: _id } }
+    );
+  } else {
+    updatedPost = await PostModel.findByIdAndUpdate(
+      { _id: id },
+      { $addToSet: { likes: _id } }
+    );
+  }
+
+  const allPosts = await PostModel.find();
+
+  if (updatedPost && allPosts) {
+    res.status(200).json(allPosts);
+  }
+})
 
 
 export {
   createPost,
   getAllPost,
-  deletePost
+  deletePost,
+  likingPost
 }
