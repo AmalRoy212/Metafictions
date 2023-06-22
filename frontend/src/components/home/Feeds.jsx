@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { FaSafari } from "react-icons/fa";
 import { zoomIn } from "../../utils/motions";
 import Dropdown from 'react-bootstrap/Dropdown';
-import { FaSteamSymbol, FaCommentDots, FaHeart, FaRegHandPointLeft } from "react-icons/fa";
+import { FaSteamSymbol, FaCommentDots, FaHeart, FaRegHandPointLeft, FaHandPointUp } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { incrementPostCount, setLiked, setPopUp, setPostId } from "../../redux-toolkit/actionManagerSlice";
 import PopUp from "../popUp/PopUp";
@@ -29,7 +29,7 @@ export default function Feed({ posts }) {
 
   const likeHandler = async function (id) {
     dispatch(setLiked());
-    await likePost({ id, token });
+    const amILiked = await likePost({ id, token });
     dispatch(incrementPostCount())
   }
 
@@ -114,7 +114,9 @@ export default function Feed({ posts }) {
               onClick={() => {
                 likeHandler(post?._id);
               }}
-              style={{ background: "none", border: "none", color: "black" }}> <FaRegHandPointLeft size={20} /> Like</Button>
+              style={{ background: "none", border: "none", color: "black" }}>
+              <FaHandPointUp size={20} /> Like
+            </Button>
           </div>
           <CommentBox />
         </div>

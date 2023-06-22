@@ -85,6 +85,7 @@ const likingPost = asyncHandler(async function (req, res) {
   const { _id } = req.headers;
   const { id } = req.query;
   let updatedPost
+  let amLiked = false
 
   const post = await PostModel.findById({ _id: id });
 
@@ -93,17 +94,17 @@ const likingPost = asyncHandler(async function (req, res) {
       { _id: id },
       { $pull: { likes: _id } }
     );
+    amLiked = true;
   } else {
     updatedPost = await PostModel.findByIdAndUpdate(
       { _id: id },
       { $addToSet: { likes: _id } }
     );
+    amLiked = false;
   }
 
-  const allPosts = await PostModel.find();
-
-  if (updatedPost && allPosts) {
-    res.status(200).json(allPosts);
+  if (updatedPost) {
+    res.status(200).json({message:"Success",amLiked});
   }
 })
 

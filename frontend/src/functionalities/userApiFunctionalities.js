@@ -271,6 +271,9 @@ export const likePost = async function ({ id, token }) {
         Authorization: `Bearer ${token}`
       }
     });
+    if(response){
+      return response.data.amLiked
+    }
   } catch (error) {
     toast.error("An error occured");
   }

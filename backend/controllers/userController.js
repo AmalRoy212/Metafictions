@@ -221,34 +221,18 @@ const verfyOtp = asyncHandler(async function (req, res) {
 
 const findAllUsers = asyncHandler(async function (req, res) {
   const { _id } = req.headers;
-  let allUsers = [];
 
-  const users = await UserModel.find({
-    _id: { $ne: _id },
+  const me = await UserModel.findById(_id);
+
+  const followingIds = me.following.map(id => id.toString());
+
+  const allUsers = await UserModel.find({
+    _id: { $nin: [...followingIds, _id] }
   }).limit(10);
 
-  const me = await UserModel.findById( _id );
+  res.status(200).json(allUsers);
+});
 
-  const meLength = me.following.length;
-  const userLength = users.length;
-
-  for( let i=0;i<userLength;i++){
-    let usersId = users[i]._id;
-    if(!meLength){
-      allUsers = users
-    }else{
-      for( let j=0;j<meLength;j++){
-        if(usersId != me.following[j]){
-          allUsers.push(users[i]);
-        }
-      }
-    }
-  }
-
-  if (allUsers) {
-    res.status(200).json(allUsers);
-  }
-})
 
 const followUser = asyncHandler(async function (req, res) {
   const { _id } = req.headers;
