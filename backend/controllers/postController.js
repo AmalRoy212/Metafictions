@@ -156,8 +156,19 @@ const createComment = asyncHandler( async function(req,res){
 
 //delete a comment
 const deleteComment = asyncHandler( async function( req, res){
-  const { _id } = req.query;
-  console.log("************",_id);
+
+  const { postId, commentId } = req.body;
+
+  const updatedPost = await PostModel.findByIdAndUpdate(
+    postId,
+    { $pull: { comment: { _id: commentId } } },
+    { new: true }
+  );
+  
+  if(updatedPost){
+    res.status(200).json({message:"Success"});
+  }
+
 })
 
 export {
@@ -165,5 +176,6 @@ export {
   getAllPost,
   deletePost,
   likingPost,
-  createComment
+  createComment,
+  deleteComment
 }

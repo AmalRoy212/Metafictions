@@ -1,4 +1,6 @@
 import axios from "../configs/axios";
+import { toast } from "react-toastify";
+
 
 
 //common call
@@ -14,7 +16,6 @@ export const findAllComments = ({token,setAllComments}) => {
 
 //creating comment
 export const createComment = async function ({postId,content,token}) {
-  console.log(token);
   axios.put('/users/comment',{
     postId,
     content
@@ -22,16 +23,24 @@ export const createComment = async function ({postId,content,token}) {
     headers: {
       Authorization: `Bearer ${token}`
     }
+  }).then((res) => {
+    toast.success("Commented Succesfully");
+  }).catch((err) => {
+    toast.error("An error occured please try again later");
   })
 }
 
 //delete comment
-export const deleteComment = ({ _id, token }) => {
-  axios.delete(`users.comment/delete?_id=${_id}`,{
+export const deleteComment = ({ commentId, token, postId }) => {
+
+  axios.patch('/users/delete/comment',{
+    postId,
+    commentId
+  }, {
     headers:{
       Authorization : `Bearer ${token}`
     }
   }).then((res) => {
-    console.log(res.data);
+    toast.success("Comment deleted "+res.data.message);
   })
 }

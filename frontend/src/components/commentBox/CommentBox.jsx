@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import {
   MDBCard,
@@ -11,6 +11,7 @@ import {
 import { createComment, deleteComment } from "../../functionalities/commentApi";
 import { useDispatch, useSelector } from "react-redux";
 import { incrementPostCount } from "../../redux-toolkit/actionManagerSlice";
+import { FaReply, FaTrashAlt } from "react-icons/fa";
 
 export default function CommentBox({ data, postId }) {
 
@@ -30,8 +31,8 @@ export default function CommentBox({ data, postId }) {
     setComment('')
   }
 
-  const removeHandler = ( _id ) => {
-    deleteComment({ _id, token });
+  const removeHandler = ( commentId ) => {
+    deleteComment({ commentId, token, postId });
     dispatch(incrementPostCount());
   }
 
@@ -83,16 +84,17 @@ export default function CommentBox({ data, postId }) {
                     <div className="d-flex justify-content-between align-items-center">
                       <p className="small mb-0" style={{ color: "#aaa" }}>
                         <a style={{cursor:"pointer"}} onClick={() => removeHandler(comment._id)} className="link-grey">
-                          Remove
+                          <FaTrashAlt />
                         </a>{" "}
                         •
-                        <a href="#!" className="link-grey">
-                          Reply
+                        {/* <a href="#!" className="link-grey">
+                          Reply 
                         </a>{" "}
-                        •
-                        <a href="#!" className="link-grey">
+                          <FaReply style={{color:"#2779E9 "}} />
+                        • */}
+                        {/* <a href="#!" className="link-grey">
                           Translate
-                        </a>
+                        </a> */}
                       </p>
                       <div className="d-flex flex-row">
                         <MDBIcon fas icon="star text-warning me-2" />

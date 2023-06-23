@@ -14,6 +14,7 @@ import {
 import { 
   createComment,
   createPost, 
+  deleteComment, 
   deletePost, 
   getAllPost, 
   likingPost 
@@ -31,6 +32,7 @@ userRouter.post('/verify', verfyOtp);
 userRouter.put('/follow',protecter, followUser);
 userRouter.put('/like',protecter, likingPost);
 userRouter.put('/comment', protecter, createComment);
+userRouter.patch('/delete/comment', protecter, deleteComment);
 userRouter.delete('/delete/post', protecter, deletePost);
 userRouter.
   route('/profile').
