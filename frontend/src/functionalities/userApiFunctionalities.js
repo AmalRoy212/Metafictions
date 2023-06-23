@@ -91,7 +91,7 @@ export const verifyOtp = async function ({ otp, navigate }) {
 }
 
 // home screen
-export const loadHome = async function ({
+export const loadHome = function ({
   token,
   setPosts,
   setUser,
@@ -99,9 +99,6 @@ export const loadHome = async function ({
   dispatch,
   liked
 }) {
-  let lastUser
-  let lastPost
-  let lastFollow
   if(!liked){ 
     dispatch(setLoading());
   }
@@ -229,7 +226,7 @@ export const followUser = async function ({ token, _id, dispatch }) {
 }
 
 //yes button handling
-export const choiceHandler = async function ({ choice, id, token, dispatch }) {
+export const choiceHandler =  function ({ choice, id, token, dispatch }) {
   dispatch(setLoading());
   if (choice === "Delete post") {
     try {
@@ -259,11 +256,20 @@ export const choiceHandler = async function ({ choice, id, token, dispatch }) {
   }
 }
 
-export const createComment = async function () {
-
+//creating comment
+export const createComment = async function ({postId,content,token}) {
+  console.log(token);
+  axios.put('/users/comment',{
+    postId,
+    content
+  }, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
 }
 
-
+//liking and unliking post
 export const likePost = async function ({ id, token }) {
   try {
     const response = await axios.put(`/users/like?id=${id}`, null, {

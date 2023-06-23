@@ -128,7 +128,7 @@ export default function Maincontent({ data, posts }) {
             </div>
           </div>
         </div>
-        <Feed posts={posts} />
+        <Feed posts={posts} data={data}/>
       </div>
     </>
   );

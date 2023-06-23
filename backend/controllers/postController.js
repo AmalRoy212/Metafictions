@@ -32,11 +32,33 @@ const createPost = asyncHandler(async function (req, res) {
 
 const getAllPost = asyncHandler(async function (req, res) {
 
-  let user;
   const allPosts = await PostModel.find().sort({ dateOfPost: -1 }).lean();
 
   await Promise.all(
     allPosts.map(async (post) => {
+
+      post.comment.map(comment => {
+        const postTime = moment(comment.dateOfComment);
+        const currentTime = moment();
+        const duration = moment.duration(currentTime.diff(postTime));
+        const hoursAgo = Math.floor(duration.asHours());
+        const minutesAgo = Math.floor(duration.asMinutes());
+
+        let timeAgo;
+        if (hoursAgo > 12) {
+          timeAgo = postTime.format('MMM D, YYYY');
+        } else if (hoursAgo > 0 && hoursAgo < 12) {
+          timeAgo = `${hoursAgo} hours ago`;
+        } else if (hoursAgo < 12) {
+          timeAgo = `${minutesAgo} minutes ago`;
+        }
+
+        comment.time = timeAgo;
+
+      })
+
+      post.comment.reverse();
+
       const user = await UserModel.findById(post.userId);
       const postTime = moment(post.dateOfPost);
       const currentTime = moment();
@@ -108,10 +130,40 @@ const likingPost = asyncHandler(async function (req, res) {
   }
 })
 
+// create new comment
+const createComment = asyncHandler( async function(req,res){
+  const { postId, content } = req.body;
+  const { _id } = req.headers;
+
+  const user = await UserModel.findById(_id);
+
+  const newComment = {
+    userImage : user.imgSrc,
+    userName : user.name,
+    content
+  }
+
+  const updatedPost = await PostModel.findByIdAndUpdate(
+    { _id : postId},
+    {$addToSet : {comment : newComment}}
+  )
+
+  if(updatedPost){
+    res.status(200).json({message:"Success"});
+  }
+
+})
+
+//delete a comment
+const deleteComment = asyncHandler( async function( req, res){
+  const { _id } = req.query;
+  console.log("************",_id);
+})
 
 export {
   createPost,
   getAllPost,
   deletePost,
-  likingPost
+  likingPost,
+  createComment
 }

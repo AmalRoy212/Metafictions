@@ -209,6 +209,7 @@ const findUser = asyncHandler(async function (req, res) {
 
 })
 
+//verify otp
 const verfyOtp = asyncHandler(async function (req, res) {
   const { otp } = req.body;
 
@@ -219,6 +220,7 @@ const verfyOtp = asyncHandler(async function (req, res) {
   }
 })
 
+//find all users
 const findAllUsers = asyncHandler(async function (req, res) {
   const { _id } = req.headers;
 
@@ -233,7 +235,7 @@ const findAllUsers = asyncHandler(async function (req, res) {
   res.status(200).json(allUsers);
 });
 
-
+//follow user
 const followUser = asyncHandler(async function (req, res) {
   const { _id } = req.headers;
   const { followId } = req.query;
@@ -255,6 +257,7 @@ const followUser = asyncHandler(async function (req, res) {
   }
 });
 
+//unfollow user
 const unfollowUser = asyncHandler(async function (req, res) {
   const { _id } = req.headers;
   const { followId } = req.query;

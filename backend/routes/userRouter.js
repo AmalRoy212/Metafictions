@@ -11,7 +11,13 @@ import {
   findAllUsers,
   followUser
 } from "../controllers/userController.js";
-import { createPost, deletePost, getAllPost, likingPost } from "../controllers/postController.js";
+import { 
+  createComment,
+  createPost, 
+  deletePost, 
+  getAllPost, 
+  likingPost 
+} from "../controllers/postController.js";
 
 
 const userRouter = express.Router();
@@ -24,6 +30,7 @@ userRouter.post('/auth', authenticateUsers);
 userRouter.post('/verify', verfyOtp);
 userRouter.put('/follow',protecter, followUser);
 userRouter.put('/like',protecter, likingPost);
+userRouter.put('/comment', protecter, createComment);
 userRouter.delete('/delete/post', protecter, deletePost);
 userRouter.
   route('/profile').

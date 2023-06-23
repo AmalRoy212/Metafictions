@@ -23,8 +23,8 @@ function HomeScreen() {
   const liked = useSelector((state) => state.post.liked);
   const dispatch = useDispatch();
 
-  async function getData(){
-    await loadHome({
+  useEffect(() =>{
+    loadHome({
       token, 
       setPosts, 
       setUser, 
@@ -32,10 +32,6 @@ function HomeScreen() {
       dispatch,
       liked
     })
-  }
-
-  useEffect(() =>{
-    getData()
   },[post,token,followCount])
 
   return (

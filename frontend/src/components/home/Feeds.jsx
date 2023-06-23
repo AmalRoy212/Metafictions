@@ -3,9 +3,9 @@ import { motion } from "framer-motion";
 import { FaSafari } from "react-icons/fa";
 import { zoomIn } from "../../utils/motions";
 import Dropdown from 'react-bootstrap/Dropdown';
-import { FaSteamSymbol, FaCommentDots, FaHeart, FaRegHandPointLeft, FaHandPointUp } from "react-icons/fa";
+import { FaSteamSymbol, FaCommentDots, FaHeart, FaHandPointUp } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { incrementPostCount, setLiked, setPopUp, setPostId } from "../../redux-toolkit/actionManagerSlice";
+import { incrementFollowCount, incrementPostCount, setLiked, setPopUp, setPostId } from "../../redux-toolkit/actionManagerSlice";
 import PopUp from "../popUp/PopUp";
 import '../../styles/styles.css';
 import CommentBox from "../commentBox/CommentBox";
@@ -13,7 +13,7 @@ import { Button } from "react-bootstrap";
 import { likePost } from "../../functionalities/userApiFunctionalities";
 
 
-export default function Feed({ posts }) {
+export default function Feed({ posts, data }) {
   let delT;
   let dura;
 
@@ -30,7 +30,7 @@ export default function Feed({ posts }) {
   const likeHandler = async function (id) {
     dispatch(setLiked());
     const amILiked = await likePost({ id, token });
-    dispatch(incrementPostCount())
+    dispatch(incrementFollowCount())
   }
 
   return (
@@ -118,7 +118,7 @@ export default function Feed({ posts }) {
               <FaHandPointUp size={20} /> Like
             </Button>
           </div>
-          <CommentBox />
+          <CommentBox data={post.comment} postId={post._id}/>
         </div>
       </div>))}
     </>
