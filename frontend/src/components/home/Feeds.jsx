@@ -3,9 +3,9 @@ import { motion } from "framer-motion";
 import { FaSafari } from "react-icons/fa";
 import { zoomIn } from "../../utils/motions";
 import Dropdown from 'react-bootstrap/Dropdown';
-import { FaSteamSymbol, FaCommentDots, FaHeart, FaHandPointUp } from "react-icons/fa";
+import { FaSteamSymbol, FaCommentDots, FaHeart, FaRegThumbsUp } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { incrementFollowCount, incrementPostCount, setLiked, setPopUp, setPostId } from "../../redux-toolkit/actionManagerSlice";
+import { incrementFollowCount, setLiked, setPopUp, setPostId } from "../../redux-toolkit/actionManagerSlice";
 import PopUp from "../popUp/PopUp";
 import '../../styles/styles.css';
 import CommentBox from "../commentBox/CommentBox";
@@ -102,7 +102,7 @@ export default function Feed({ posts, data }) {
               <FaHeart color="red" /> {post?.likes.length} Likes
             </a>
             <a style={{ textDecoration: "none", color: "black" }} className="card-link">
-              <FaCommentDots color="green" /> Comment
+              <FaCommentDots color="green" /> {post?.comment.length} Comment
             </a>
 
             {/* <a href="#" className="card-link">
@@ -114,9 +114,16 @@ export default function Feed({ posts, data }) {
               onClick={() => {
                 likeHandler(post?._id);
               }}
-              style={{ background: "none", border: "none", color: "black" }}>
-              <FaHandPointUp size={20} /> Like
+              style={{ background: "none", border: "none", color: "black", display:'flex' }}>
+              <FaRegThumbsUp size={18} /><h6 style={{fontSize:"large",marginLeft:'10px'}}>Reaction</h6>
             </Button>
+            {/* <Button
+              onClick={() => {
+                likeHandler(post?._id);
+              }}
+              style={{ background: "none", border: "none", color: "black" }}>
+              <FaRegThumbsUp size={18} /><h6 style={{fontSize:"large"}}> Comments</h6>
+            </Button> */}
           </div>
           <CommentBox data={post.comment} postId={post._id}/>
         </div>

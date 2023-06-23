@@ -9,6 +9,7 @@ import UserSignUp from '../pages/users/UserSignUp.jsx';
 import PrivateRoutes from '../components/privateRoutes/PrivateRoutes.jsx';
 import HomeScreen from '../pages/users/HomeScreen.jsx';
 import OtpVerify from '../pages/users/OtpVerify.jsx';
+import AdminHomeScreen from "../pages/admin/AdminHomeScreen";
 
 
 export const router = createBrowserRouter(
@@ -18,6 +19,7 @@ export const router = createBrowserRouter(
       <Route  path='/login' element={<UserLogin />} />
       <Route  path='/signup' element={<UserSignUp />} />
       <Route  path='/verify' element={<OtpVerify />} />
+      <Route  path='/admin' element={<AdminHomeScreen />} />
 
       <Route path='' element={<PrivateRoutes/>} >
           <Route path='/home' element={<HomeScreen className="gradient01"/>} />

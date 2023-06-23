@@ -11,7 +11,7 @@ import {
 import { createComment, deleteComment } from "../../functionalities/commentApi";
 import { useDispatch, useSelector } from "react-redux";
 import { incrementPostCount } from "../../redux-toolkit/actionManagerSlice";
-import { FaReply, FaTrashAlt } from "react-icons/fa";
+import { FaReply, FaTrashAlt, FaRegThumbsUp } from "react-icons/fa";
 
 export default function CommentBox({ data, postId }) {
 
@@ -31,14 +31,14 @@ export default function CommentBox({ data, postId }) {
     setComment('')
   }
 
-  const removeHandler = ( commentId ) => {
+  const removeHandler = (commentId) => {
     deleteComment({ commentId, token, postId });
     dispatch(incrementPostCount());
   }
 
   return (
     <>
-      <div style={{ width: "100%", backgroundColor: "white", borderRadius: "20px" }}>
+      <div style={{ width: "100%", backgroundColor: "white", borderRadius: "20px", }}>
         <div style={{ display: "flex", padding: "2%" }}>
           <textarea value={comment} onChange={(e) => setComment(e.target.value)} style={{ width: "80%", height: "50px", borderRadius: "20px", padding: "10px" }} placeholder="Comment" cols="30" rows="10"></textarea>
           <Button onClick={commentHandler} style={{ marginLeft: "5px", borderRadius: "20px" }}>Comment</Button>
@@ -65,7 +65,7 @@ export default function CommentBox({ data, postId }) {
                     alt="avatar"
                     width="40"
                     height="40"
-                    style={{objectFit:"cover"}}
+                    style={{ objectFit: "cover" }}
                   />
 
                   <div className="w-100">
@@ -83,7 +83,7 @@ export default function CommentBox({ data, postId }) {
                     </div>
                     <div className="d-flex justify-content-between align-items-center">
                       <p className="small mb-0" style={{ color: "#aaa" }}>
-                        <a style={{cursor:"pointer"}} onClick={() => removeHandler(comment._id)} className="link-grey">
+                        <a style={{ cursor: "pointer" }} onClick={() => removeHandler(comment._id)} className="link-grey">
                           <FaTrashAlt />
                         </a>{" "}
                         •

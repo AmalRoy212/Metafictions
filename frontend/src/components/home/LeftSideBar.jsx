@@ -31,24 +31,24 @@ export default function Leftsidebar({ data }) {
               initial="hidden"
               whileInView="show"
               viewport={{ once:false , amount:0.25 }}
-             style={{backgroundColor: 'grey', borderRadius: '10px', padding: "5px"}}>
-              <div style={{ display: 'flex', alignItems: "center",justifyContent:"center", backgroundColor: 'grey', borderRadius: '10px', padding: "3px" }}>
+             style={{backgroundColor: '#E5E5E5 ', borderRadius: '10px', padding: "5px"}}>
+              <div style={{ display: 'flex', alignItems: "center",justifyContent:"center",borderRadius: '10px', padding: "3px" }}>
                 <div style={{ height: "150px", width: "150px", borderRadius: "50%"}}>
                   <img style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%"}} src={data?.imgSrc} alt="" />
                 </div>
               </div>
-              <div style={{ display: 'flex', alignItems: "center",justifyContent:"center", backgroundColor: 'grey', borderRadius: '10px', padding: "3px" }}>
-                <div style={{ color:"white", marginTop: "5px" }} className="h5">{data?.name}</div>
+              <div style={{ display: 'flex', alignItems: "center",justifyContent:"center", borderRadius: '10px', padding: "3px" }}>
+                <div style={{ color:"black", marginTop: "5px" }} className="h5">{data?.name}</div>
               </div>
-              <div style={{ display: 'flex', alignItems: "center", backgroundColor: 'grey', borderRadius: '10px', padding: "3px" }}>
-                <h6 style={{ color:"white", width: "50%", display: 'flex', alignItems: "center",justifyContent:'center',marginTop:'1rem'}}>Followers</h6>
-                <h6 style={{ color:"white", width: "50%", display: 'flex', alignItems: "center",justifyContent:'center',marginTop:'1rem'}}>following</h6>
+              <div style={{ display: 'flex', alignItems: "center", borderRadius: '10px', padding: "3px" }}>
+                <h6 style={{ color:"black", width: "50%", display: 'flex', alignItems: "center",justifyContent:'center',marginTop:'1rem'}}>Followers</h6>
+                <h6 style={{ color:"black", width: "50%", display: 'flex', alignItems: "center",justifyContent:'center',marginTop:'1rem'}}>following</h6>
               </div>
-              <div style={{ display: 'flex', alignItems: "center", backgroundColor: 'grey', borderRadius: '10px', padding: "3px" }}>
-                <h4 style={{ color:"white", width: "50%", display: 'flex', alignItems: "center",justifyContent:'center'}}>{data?.followers}</h4>
-                <h4 style={{ color:"white", width: "50%", display: 'flex', alignItems: "center",justifyContent:'center'}}>{data?.following}</h4>
+              <div style={{ display: 'flex', alignItems: "center", borderRadius: '10px', padding: "3px" }}>
+                <h4 style={{ color:"black", width: "50%", display: 'flex', alignItems: "center",justifyContent:'center'}}>{data?.followers}</h4>
+                <h4 style={{ color:"black", width: "50%", display: 'flex', alignItems: "center",justifyContent:'center'}}>{data?.following}</h4>
               </div>
-              <div style={{ display: 'flex', alignItems: "center",justifyContent:"center", backgroundColor: 'grey', borderRadius: '10px', marginBottom:"10px"}}>
+              <div style={{ display: 'flex', alignItems: "center",justifyContent:"center", borderRadius: '10px', marginBottom:"10px"}}>
                 <Button onClick={(e) => submitHandler(e)} className="btn-warning">Log Out</Button>
               </div>
 

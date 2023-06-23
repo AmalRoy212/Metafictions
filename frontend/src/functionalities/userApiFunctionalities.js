@@ -12,19 +12,23 @@ import {
 
 //login 
 export const userLogin = async function (email, password, dispatch, navigate) {
-  dispatch(setLoading())
-  try {
-    axios.post('/users/auth', {
-      email,
-      password
-    }).then((res) => {
-      dispatch(login(res.data.token));
+  if (email && password) {
+    dispatch(setLoading())
+    try {
+      axios.post('/users/auth', {
+        email,
+        password
+      }).then((res) => {
+        dispatch(login(res.data.token));
+        dispatch(clearLoading());
+        navigate('/home');
+      }).catch((error) => toast.error("Credential issues", error))
+    } catch (error) {
+      toast.error("Cannection issuse", error);
       dispatch(clearLoading());
-      navigate('/home');
-    }).catch((error) => toast.error("Credential issues", error))
-  } catch (error) {
-    toast.error("Cannection issuse", error);
-    dispatch(clearLoading());
+    }
+  } else {
+    toast.error("Please fill the feilds")
   }
 }
 
@@ -99,7 +103,7 @@ export const loadHome = function ({
   dispatch,
   liked
 }) {
-  if(!liked){ 
+  if (!liked) {
     dispatch(setLoading());
   }
   axios.get('/users/post', {
@@ -110,7 +114,7 @@ export const loadHome = function ({
     setPosts(res.data);
     dispatch(setPostCount(res.data.length));
   })
-  if(!liked){ 
+  if (!liked) {
     dispatch(setLoading());
   }
   axios.get('/users/find', {
@@ -120,7 +124,7 @@ export const loadHome = function ({
   }).then((res) => {
     setUser(res.data);
   });
-  if(!liked){ 
+  if (!liked) {
     dispatch(setLoading());
   }
   axios.get('/users', {
@@ -226,7 +230,7 @@ export const followUser = async function ({ token, _id, dispatch }) {
 }
 
 //yes button handling
-export const choiceHandler =  function ({ choice, id, token, dispatch }) {
+export const choiceHandler = function ({ choice, id, token, dispatch }) {
   dispatch(setLoading());
   if (choice === "Delete post") {
     try {
@@ -257,9 +261,9 @@ export const choiceHandler =  function ({ choice, id, token, dispatch }) {
 }
 
 //creating comment
-export const createComment = async function ({postId,content,token}) {
+export const createComment = async function ({ postId, content, token }) {
   console.log(token);
-  axios.put('/users/comment',{
+  axios.put('/users/comment', {
     postId,
     content
   }, {
@@ -277,7 +281,7 @@ export const likePost = async function ({ id, token }) {
         Authorization: `Bearer ${token}`
       }
     });
-    if(response){
+    if (response) {
       return response.data.amLiked
     }
   } catch (error) {
