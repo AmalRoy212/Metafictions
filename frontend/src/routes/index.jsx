@@ -9,7 +9,7 @@ import UserSignUp from '../pages/users/UserSignUp.jsx';
 import PrivateRoutes from '../components/privateRoutes/PrivateRoutes.jsx';
 import HomeScreen from '../pages/users/HomeScreen.jsx';
 import OtpVerify from '../pages/users/OtpVerify.jsx';
-import AdminHomeScreen from "../pages/admin/AdminHomeScreen";
+import AdminHomeScreen from "../pages/admin/AdminHome.jsx";
 
 
 export const router = createBrowserRouter(
