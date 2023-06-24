@@ -24,7 +24,7 @@ export default function Maincontent() {
     <>
       <div className="col-md-9 gedf-main" style={{ overflow: 'auto', maxHeight: '100vh' }}>
         <Chart chartData={userData} />
-        <Row>
+        <Row className="bg-white">
           <HomeCard color={"#E5E5E5"} img={img}  title={"New Users"}/>
           <HomeCard color={"#E5E5E5"} img={img1}  title={"Average Growth"}/>
           <HomeCard color={"#E5E5E5"} img={img2}  title={"Activities"}/>
