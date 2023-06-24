@@ -11,6 +11,7 @@ import HomeScreen from '../pages/users/HomeScreen.jsx';
 import OtpVerify from '../pages/users/OtpVerify.jsx';
 import AdminHomeScreen from "../pages/admin/AdminHome.jsx";
 import AminUsersScreen from "../pages/admin/AdminUsersScreen.jsx";
+import AdminLoginScreen from "../pages/admin/AdminLoginScreen.jsx";
 
 
 export const router = createBrowserRouter(
@@ -21,7 +22,7 @@ export const router = createBrowserRouter(
       <Route  path='/signup' element={<UserSignUp />} />
       <Route  path='/verify' element={<OtpVerify />} />
 
-      <Route  path='/admin' element={<AdminHomeScreen />} />
+      <Route  path='/admin' element={<AdminLoginScreen />} />
       <Route  path='/admin/users' element={<AminUsersScreen />} />
 
       <Route path='' element={<PrivateRoutes/>} >

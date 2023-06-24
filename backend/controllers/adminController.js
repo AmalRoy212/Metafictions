@@ -1,7 +1,7 @@
-const asyncHandler = require('express-async-handler');
-// const adminModel = require('../models/adminModel');
-const userModel = require('../models/userModel');
-const generateAthToken = require('../utils/generateToken');
+import asyncHandler from "express-async-handler";
+import adminModel from "../models/adminModel.js";
+import userModel from "../models/userModel.js";
+import { generateToken } from "../utils/generateToken.js";
 
 /*
   * SignUp of Admin : singning up the admin and return the admin details
@@ -48,7 +48,7 @@ const authAdminLogin = asyncHandler(async function (req, res) {
 
   if (admin && await admin.matchPassword(password)) {
     if (admin.isAdmin) {
-      const token = await generateAthToken(admin);
+      const token = await generateToken(admin);
       const updatedAdmin = await adminModel.findByIdAndUpdate({ _id: admin._id }, { $set: { accessToken: token } });
       if (updatedAdmin) {
         adminLoginHandler(admin._id, res);
@@ -173,7 +173,7 @@ const createUser = asyncHandler(async function (req, res) {
   });
 
   if (user) {
-    // const token = await generateAthToken(user);
+    // const token = await generateToken(user);
     res.status(200).json({
       id: user._id,
       name: user.name,
@@ -305,7 +305,7 @@ const userEdit = asyncHandler( async function (req,res){
   }
 })
 
-module.exports = {
+export  {
   signUpAdmin,
   authAdminLogin,
   blockUsers,

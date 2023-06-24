@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from 'cors'
 import userRouter from "./routes/userRouter.js";
+import adminRouter from "./routes/adminRouter.js";
 import { notFount, errorHandler } from "./middlewares/errorMiddleware.js";
 import connectDB from "./configs/db.js";
 
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
 app.use('/api/users',userRouter);
+app.use('/api/admin',adminRouter);
 
 app.use(notFount);
 app.use(errorHandler);
