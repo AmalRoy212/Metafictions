@@ -23,6 +23,7 @@ export const router = createBrowserRouter(
       <Route  path='/verify' element={<OtpVerify />} />
 
       <Route  path='/admin' element={<AdminLoginScreen />} />
+      <Route  path='/admin/home' element={<AdminHomeScreen />} />
       <Route  path='/admin/users' element={<AminUsersScreen />} />
 
       <Route path='' element={<PrivateRoutes/>} >

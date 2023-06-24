@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {  useNavigate } from "react-router-dom";
 import { Form, Button } from 'react-bootstrap';
 import { MDBCol, MDBContainer, MDBRow, MDBCard } from 'mdb-react-ui-kit';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { adminLogin } from '../../../functionalities/AdminUsersApi';
 
 
@@ -12,6 +12,8 @@ function AdminLogin() {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const { adminToken } = useSelector((state) => state.admin);
 
   const submitHandler = async function (e) {
     e.preventDefault();

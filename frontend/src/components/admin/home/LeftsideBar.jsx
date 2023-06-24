@@ -7,7 +7,7 @@ import {  Nav } from 'react-bootstrap';
 export default function Leftsidebar() {
   return (
     <>
-      <div className="col-md-3" style={{backgroundColor:"#E5E5E5", height:"90.7vh"}}>
+      <div className="col-md-3">
         <div className="card">
           <div className="card-body ">
             <div className="h5">Admin Console</div>
@@ -15,7 +15,7 @@ export default function Leftsidebar() {
           <ul className="list-group list-group-flush">
 
               <Button className="bg-white" style={{width:"100%", marginTop:"10px", color:"black",border:"none"}}>
-                <LinkContainer to={'/admin'}>
+                <LinkContainer to={'/admin/home'}>
                   <Nav.Link>Status</Nav.Link>
                 </LinkContainer>
               </Button>
@@ -35,7 +35,7 @@ export default function Leftsidebar() {
               </Button>
 
 
-              <Button className="bg-white" style={{width:"100%", marginTop:"10px", color:"black",border:"none"}}>
+              <Button className="bg-white" style={{width:"100%", marginTop:"10px", color:"black",border:"none",marginBottom:"1rem"}}>
                 <LinkContainer to={'/admin/comments'}>
                   <Nav.Link>Comment Management</Nav.Link>
                 </LinkContainer>
