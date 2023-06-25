@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Button from 'react-bootstrap/Button';
 import { Row } from "react-bootstrap";
 import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 import { blockUser, deleteUser, unblockUser } from "../../../functionalities/AdminUsersApi";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export default function UsersTable({ users }) {
 
-  const { adminToken } = useSelector((state) => state.admin)
+  const { adminToken } = useSelector((state) => state.admin);
+  const navigate = useNavigate();
 
   const blockHandler = (_id) => {
     blockUser({ _id, adminToken });
@@ -19,6 +21,7 @@ export default function UsersTable({ users }) {
   }
 
   const deleteHandler = (_id) => {
+    console.log(_id);
     deleteUser({ _id, adminToken })
   }
 
@@ -57,14 +60,28 @@ export default function UsersTable({ users }) {
                       >Block</Button>
                     </td>)}
                   <td style={{ width: "100px" }}>
-                    <Button variant='success' style={{ width: "100px", height: "30px", fontSize: "small" }}
+                    <Button onClick={() => navigate('/admin/edit/user')}
+                    variant='success' style={{ width: "100px", height: "30px", fontSize: "small" }}
                     >Edit</Button>
                   </td>
-                  <td style={{ width: "100px" }}>
-                    <Button onClick={() => deleteHandler(user.Id)}
+                  {user.isDeleted ? (<td style={{ width: "100px" }}>
+                  <Button onClick={() => deleteHandler(user._id)}
+                      variant='info' style={{ width: "100px", height: "30px", fontSize: "small" }}
+                    >Reset</Button>
+                    </td>
+                  )
+                    :
+                  (<td style={{ width: "100px" }}>
+                      <Button onClick={() => deleteHandler(user._id)}
                       variant='danger' style={{ width: "100px", height: "30px", fontSize: "small" }}
                     >Delete</Button>
-                  </td>
+                    </td>
+                  )}
+                  {/* <td style={{ width: "100px" }}>
+                    <Button onClick={() => deleteHandler(user._id)}
+                      variant='danger' style={{ width: "100px", height: "30px", fontSize: "small" }}
+                    >Delete</Button>
+                  </td> */}
                 </tr>
                 {/* <tr>
                 <th scope='row'>2</th>

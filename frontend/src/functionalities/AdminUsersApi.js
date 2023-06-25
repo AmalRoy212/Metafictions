@@ -81,12 +81,11 @@ export const unblockUser = ({_id,adminToken}) => {
 }
 
 export const deleteUser = ({_id,adminToken}) => {
-  axios.delete('/admin/users/delete', {
+  axios.put('/admin/users/delete',{
+    userId : _id
+  },{
     headers: {
       'Authorization': `Bearer ${adminToken}`
-    },
-    data: {
-      userId : _id
     }
   })
     .then((res) => {

@@ -23,7 +23,7 @@ router.put('/unblock/user',protecter,unblockUsers);
 router.put('/users/update/',userEdit);
 router.get('/users/:searchIpd',protecter,searchUsers);
 router.post('/users/create',protecter,createUser);
-router.delete('/users/delete',protecter,deleteUser);
+router.put('/users/delete',protecter,deleteUser);
 router.put('/logout',protecter,logoutAdmin);
 router.get('/get/users',protecter,getUsers);
 router.get('/get/single/user/:id', protecter, getSingleUser);

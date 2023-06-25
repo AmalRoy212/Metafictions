@@ -194,7 +194,14 @@ const createUser = asyncHandler(async function (req, res) {
 
 const deleteUser = asyncHandler( async function(req,res){
   const { userId } = req.body;
-  const deleteUser = await userModel.findByIdAndDelete({ _id : userId });
+  const user = await userModel.findById({ _id : userId });
+
+  let status = user.isDeleted ? false : true
+
+  const deleteUser = await userModel.findByIdAndUpdate(
+    { _id : userId },
+    {$set:{isDeleted:status}}
+  );
   if(deleteUser){
     res.status(200).json({
       status : true,
