@@ -1,16 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AdminHeader from "../../components/admin/header/AdminHeader";
 // import "./styles.css";
 import Leftsidebar from "../../components/admin/home/LeftsideBar";
 import UsersTable from "../../components/admin/usersTable/UsersTable";
 import { MDBCol } from "mdbreact";
 import { Button } from "react-bootstrap";
+import { useSelector } from "react-redux";
+import { findSearchData, findUserOnSubmit } from "../../functionalities/AdminUsersApi";
 
 
-export default function AminUsersScreen() {
-  const submitHandler = async function (e) {
-    e.preventDefault();
+export default function AminUsersScreen() {  
+
+  const [ searchData, setSearchData ] = useState('');
+  const [ users, setUsers ] = useState();
+
+  let { adminToken } = useSelector((state) => state.admin);
+  adminToken ? adminToken : localStorage.getItem("adminToken");
+
+  useEffect(() => {
+    findSearchData({adminToken,setUsers,searchData})
+  },[searchData,users,adminToken]);
+  // console.log(users,searchData,"***");
+
+  const searchHandler = () => {
+    findUserOnSubmit({searchData,adminToken,setUsers});
   }
+
   return (
     <>
       <AdminHeader />
@@ -23,17 +38,19 @@ export default function AminUsersScreen() {
               type="text"
               placeholder="Search"
               aria-label="Search"
+              value={searchData}
+              onChange={(e) => setSearchData(e.target.value)}
             />
           </div>
         </MDBCol>
-        <Button  style={{ margin: '1rem' }} variant='primary' className='mt-3'>
+        <Button onClick={searchHandler} style={{ margin: '1rem' }} variant='primary' className='mt-3'>
           Search
         </Button>
       </div>
       <div className="container-fluid gedf-wrapper bg-white" style={{height:"80vh"}}>
         <div className="row">
           <Leftsidebar/>
-          <UsersTable/>
+          <UsersTable users={users}/>
         </div>
       </div>
     </>

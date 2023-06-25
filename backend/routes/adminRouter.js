@@ -14,19 +14,18 @@ import {
   getUsers,
   getSingleUser
 } from "../controllers/adminController.js";
-// import {  } from "../middlewares/authUserMiddleware.js";
-// const protect = require('../middlewares/adminAuthMiddleware');
+import { protecter } from "../middlewares/adminAuthMiddleware.js";
 
 router.post('/singup',signUpAdmin);
 router.post('/login',authAdminLogin);
-// router.put('/block/user',protect,blockUsers);
-// router.put('/unblock/user',protect,unblockUsers);
-// router.put('/users/update/',userEdit);
-// router.get('/users/:searchIpd',protect,searchUsers);
-// router.post('/users/create',protect,createUser);
-// router.delete('/users/delete',protect,deleteUser);
-// router.put('/logout',protect,logoutAdmin);
-// router.get('/get/users',protect,getUsers);
-// router.get('/get/single/user/:id', protect, getSingleUser);
+router.put('/block/user',protecter,blockUsers);
+router.put('/unblock/user',protecter,unblockUsers);
+router.put('/users/update/',userEdit);
+router.get('/users/:searchIpd',protecter,searchUsers);
+router.post('/users/create',protecter,createUser);
+router.delete('/users/delete',protecter,deleteUser);
+router.put('/logout',protecter,logoutAdmin);
+router.get('/get/users',protecter,getUsers);
+router.get('/get/single/user/:id', protecter, getSingleUser);
 
 export default router

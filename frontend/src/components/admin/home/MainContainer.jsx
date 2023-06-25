@@ -22,7 +22,7 @@ export default function Maincontent() {
   const img2 = "https://www.21kschool.com/blog/wp-content/uploads/2022/09/10-Fun-Educational-Activities-to-Do-at-Home.png"
   return (
     <>
-      <div className="col-md-9 gedf-main" style={{ overflow: 'auto', maxHeight: '100vh' }}>
+      <div className="col-md-9 gedf-main" style={{ overflow: 'auto', maxHeight: '80vh' }}>
         <Chart chartData={userData} />
         <Row className="bg-white">
           <HomeCard color={"#E5E5E5"} img={img}  title={"New Users"}/>

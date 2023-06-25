@@ -55,6 +55,10 @@ const userSchema = new mongoose.Schema({
   accessToken: {
     type: String,
     default: ''
+  },
+  isDeleted : {
+    type : Boolean,
+    default : false
   }
 })
 
