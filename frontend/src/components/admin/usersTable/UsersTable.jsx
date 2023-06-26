@@ -2,26 +2,27 @@ import React from "react";
 import Button from 'react-bootstrap/Button';
 import { Row } from "react-bootstrap";
 import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
-import { blockUser, deleteUser, unblockUser } from "../../../functionalities/AdminUsersApi";
+import { blockUser, deleteUser, findAllUsers, unblockUser } from "../../../functionalities/AdminUsersApi";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-export default function UsersTable({ users }) {
+export default function UsersTable({ users, setUsers }) {
 
   const { adminToken } = useSelector((state) => state.admin);
+
   const navigate = useNavigate();
+
+  // findAllUsers({adminToken});
 
   const blockHandler = (_id) => {
     blockUser({ _id, adminToken });
   }
 
   const unblockHandler = (_id) => {
-    console.log(_id);
     unblockUser({ _id, adminToken });
   }
 
   const deleteHandler = (_id) => {
-    console.log(_id);
     deleteUser({ _id, adminToken })
   }
 

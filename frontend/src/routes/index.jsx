@@ -12,6 +12,7 @@ import OtpVerify from '../pages/users/OtpVerify.jsx';
 import AdminHomeScreen from "../pages/admin/AdminHome.jsx";
 import AminUsersScreen from "../pages/admin/AdminUsersScreen.jsx";
 import AdminLoginScreen from "../pages/admin/AdminLoginScreen.jsx";
+import AdminEditUser from "../pages/admin/AdminEditUser.jsx";
 
 
 export const router = createBrowserRouter(
@@ -25,6 +26,7 @@ export const router = createBrowserRouter(
       <Route  path='/admin' element={<AdminLoginScreen />} />
       <Route  path='/admin/home' element={<AdminHomeScreen />} />
       <Route  path='/admin/users' element={<AminUsersScreen />} />
+      <Route  path='/admin/edit/user' element={<AdminEditUser />} />
 
       <Route path='' element={<PrivateRoutes/>} >
         <Route path='/home' element={<HomeScreen className="gradient01"/>} />

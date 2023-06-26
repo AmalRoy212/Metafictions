@@ -50,7 +50,7 @@ export default function AminUsersScreen() {
       <div className="container-fluid gedf-wrapper bg-white" style={{height:"80vh"}}>
         <div className="row">
           <Leftsidebar/>
-          <UsersTable users={users}/>
+          <UsersTable users={users} setUsers={setUsers}/>
         </div>
       </div>
     </>
