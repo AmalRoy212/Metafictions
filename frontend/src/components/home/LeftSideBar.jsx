@@ -56,6 +56,9 @@ export default function Leftsidebar({ data }) {
             <div>
             </div>
             <motion.div
+              onClick={() => {
+                navigate('/home')
+              }}
               variants={fadeIn('right', 'tween', 0.3, 0.3)}
               initial="hidden"
               whileInView="show"
@@ -67,6 +70,9 @@ export default function Leftsidebar({ data }) {
               <div style={{ marginLeft: "10%", marginTop: "5px", color: "black", fontSize: 15 }} className="h5">Feeds</div>
             </motion.div>
             <motion.div
+              onClick={() => {
+                navigate('/profile')
+              }}
               variants={fadeIn('right', 'tween', 0.3, 0.3)}
               initial="hidden"
               whileInView="show"

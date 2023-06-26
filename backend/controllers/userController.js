@@ -58,18 +58,29 @@ const authenticateUsers = asyncHandler(async function (req, res) {
   const user = await UserModel.findOne({ email });
 
   if (user && (await user.matchPassword(password))) {
-    const accessToken = await generateToken(user);
-    const updatedUser = await UserModel.findByIdAndUpdate({ _id: user._id },
-      { $set: { accessToken } })
-    if (updatedUser) {
-      res.status(200).json({
-        _id: updatedUser._id,
-        name: updatedUser.name,
-        email: updatedUser.email,
-        token: accessToken
-      })
+    if (user.isBlocked || user.isDeleted) {
+      res.json({
+        message:"User temporarily blocked",
+        isBlocked : user.isBlocked,
+        isDeleted : user.isDeleted
+      });
+    }else{
+      const accessToken = await generateToken(user);
+      const updatedUser = await UserModel.findByIdAndUpdate({ _id: user._id },
+        { $set: { accessToken } }
+      )
+      if (updatedUser) {
+        res.status(200).json({
+          _id: updatedUser._id,
+          name: updatedUser.name,
+          email: updatedUser.email,
+          token: accessToken,
+          isBlocked : updatedUser.isBlocked,
+          isDeleted : updatedUser.isDeleted
+        })
+      }
     }
-  } else {
+  }else {
     res.status(401);
     throw new Error("Invalid username or password");
   }
@@ -192,6 +203,7 @@ const findUser = asyncHandler(async function (req, res) {
   const user = await UserModel.findById(_id);
   const following = user.following.length ? user.following.length : 0
   const followers = user.followers.length ? user.followers.length : 0
+  const posts = user.post.length ? user.post.length : 0
 
   if (user) {
     res.status(200).json({
@@ -200,7 +212,8 @@ const findUser = asyncHandler(async function (req, res) {
       email: user.email,
       imgSrc: user.imgSrc,
       following,
-      followers
+      followers,
+      posts
     })
   } else {
     res.status(401);

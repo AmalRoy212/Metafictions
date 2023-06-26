@@ -19,6 +19,11 @@ export const userLogin = async function (email, password, dispatch, navigate) {
         email,
         password
       }).then((res) => {
+        if(res.data.isBlocked || res.data.isDeleted){
+          toast.error(res.data.message);
+        }else{
+          toast.success("Login success");
+        }
         dispatch(login(res.data.token));
         dispatch(clearLoading());
         navigate('/home');
@@ -289,3 +294,77 @@ export const likePost = async function ({ id, token }) {
   }
 };
 
+//find current user
+export const findMe = ({token,setUser}) => {
+  axios.get('/users/find', {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }).then((res) => {
+    setUser(res.data);
+  });
+}
+
+//finding my post 
+export const findMyPost = ({token,setPosts}) => {
+  axios.get('/users/my/post', {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }).then((res) => {
+    setPosts(res.data);
+    console.log(res.data);
+  });
+}
+
+//update user profile
+export const updateUser = ({ 
+  firebase, 
+  token, 
+  email, 
+  password, 
+  imgSrc, 
+  name, 
+  image, 
+  dispatch, 
+  setName, 
+  setPassword,
+  setEmail,
+  setImage,
+  setConfirmPassword
+}) => {
+  dispatch(setLoading());
+  firebase
+    .storage()
+    .ref(`/image/${image.name}`)
+    .put(image)
+    .then(({ ref }) => {
+      ref.getDownloadURL().then(async (url) => {
+        imgSrc = url;
+        axios
+          .put(
+            '/users/profile',
+            {
+              name,
+              email,
+              password,
+              imgSrc,
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          )
+          .then((res) => {
+            setName('');
+            setEmail('');
+            setPassword('');
+            setConfirmPassword('');
+            setImage('')
+            dispatch(clearLoading())
+          })
+          .catch((error) => toast.error(error?.data?.message || error.error));
+      });
+    });
+};

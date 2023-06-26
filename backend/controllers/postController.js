@@ -30,6 +30,7 @@ const createPost = asyncHandler(async function (req, res) {
   }
 })
 
+// get all post
 const getAllPost = asyncHandler(async function (req, res) {
 
   const allPosts = await PostModel.find().sort({ dateOfPost: -1 }).lean();
@@ -87,6 +88,7 @@ const getAllPost = asyncHandler(async function (req, res) {
   }
 });
 
+//delete post
 const deletePost = asyncHandler(async function (req, res) {
   const { _id } = req.headers;
   const { id } = req.query;
@@ -169,7 +171,51 @@ const deleteComment = asyncHandler( async function( req, res){
     res.status(200).json({message:"Success"});
   }
 
-})
+});
+
+const findMyPosts = asyncHandler(async function(req, res) {
+  const { _id } = req.headers;
+
+  const myPosts = await PostModel.find({ userId: _id });
+
+  const user = await UserModel.findById(_id);
+
+  const updatedPosts = myPosts.map((post) => {
+    const postTime = moment(post.dateOfPost);
+    const currentTime = moment();
+    const duration = moment.duration(currentTime.diff(postTime));
+    const hoursAgo = Math.floor(duration.asHours());
+    const minutesAgo = Math.floor(duration.asMinutes());
+
+    let timeAgo;
+    if (hoursAgo > 12) {
+      timeAgo = postTime.format('MMM D, YYYY');
+    } else if (hoursAgo > 0 && hoursAgo < 12) {
+      timeAgo = `${hoursAgo} hours ago`;
+    } else if (hoursAgo < 12) {
+      timeAgo = `${minutesAgo} minutes ago`;
+    }
+
+    const updatedPost = {
+      ...post.toObject(),
+      date: timeAgo,
+      userName: user.name,
+      userDp: user.imgSrc,
+      userEmail: user.email
+    };
+
+    return updatedPost;
+  });
+
+  updatedPosts.reverse();
+
+  if (updatedPosts) {
+    res.status(200).json(updatedPosts);
+  }
+});
+
+
+
 
 export {
   createPost,
@@ -177,5 +223,6 @@ export {
   deletePost,
   likingPost,
   createComment,
-  deleteComment
+  deleteComment,
+  findMyPosts
 }

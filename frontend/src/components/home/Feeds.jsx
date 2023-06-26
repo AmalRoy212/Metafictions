@@ -76,11 +76,11 @@ export default function Feed({ posts, data }) {
               {" "}
               <FaSafari /> <span style={{ fontSize: "small" }}> {post?.date}</span>
             </div>
-            <a className="card-link" href="#">
+            {/* <a className="card-link" href="#">
               <h5 className="card-title">
                 Lorem ipsum dolor sit amet, consectetur adip.
               </h5>
-            </a>
+            </a> */}
 
             <p className="card-text text-black">
               {post?.discription}

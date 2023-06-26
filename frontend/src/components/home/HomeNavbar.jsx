@@ -2,8 +2,8 @@ import React from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { FaAvianex, FaBattleNet, FaPhoenixSquadron, FaCogs } from 'react-icons/fa';
 import { LinkContainer } from "react-router-bootstrap";
-import { motion } from "framer-motion";
-import { navVariants } from "../../utils/motions"
+// import { motion } from "framer-motion";
+// import { navVariants } from "../../utils/motions"
 import "../../styles/styles.css";
 import "./HomeStyle.css"
 

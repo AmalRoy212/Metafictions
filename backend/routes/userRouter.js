@@ -16,6 +16,7 @@ import {
   createPost, 
   deleteComment, 
   deletePost, 
+  findMyPosts, 
   getAllPost, 
   likingPost 
 } from "../controllers/postController.js";
@@ -26,6 +27,7 @@ const userRouter = express.Router();
 userRouter.get('/', protecter, findAllUsers);
 userRouter.get('/find', protecter, findUser);
 userRouter.get('/logout', protecter, logoutUser);
+userRouter.get('/my/post', protecter, findMyPosts);
 userRouter.post('/register', registerUser);
 userRouter.post('/auth', authenticateUsers);
 userRouter.post('/verify', verfyOtp);

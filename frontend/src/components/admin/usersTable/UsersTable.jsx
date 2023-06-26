@@ -38,8 +38,8 @@ export default function UsersTable({ users, setUsers }) {
                 <th scope='col'>Name</th>
                 <th scope='col'>Email</th>
                 <th scope='col'> <span style={{ marginLeft: "20%" }}></span> Block</th>
-                <th scope='col'> <span style={{ marginLeft: "20%" }}></span> Edit</th>
-                {/* <th scope='col'> <span style={{ marginLeft: "20%" }}></span> Delete</th> */}
+                {/* <th scope='col'> <span style={{ marginLeft: "20%" }}></span> Edit</th> */}
+                <th scope='col'> <span style={{ marginLeft: "20%" }}></span> Delete</th>
               </tr>
             </MDBTableHead>
             {users?.map((user, index) => (
@@ -60,11 +60,11 @@ export default function UsersTable({ users, setUsers }) {
                         onClick={() => blockHandler(user._id)}
                       >Block</Button>
                     </td>)}
-                  <td style={{ width: "100px" }}>
+                  {/* <td style={{ width: "100px" }}>
                     <Button onClick={() => navigate('/admin/edit/user')}
                     variant='success' style={{ width: "100px", height: "30px", fontSize: "small" }}
                     >Edit</Button>
-                  </td>
+                  </td> */}
                   {user.isDeleted ? (<td style={{ width: "100px" }}>
                   <Button onClick={() => deleteHandler(user._id)}
                       variant='info' style={{ width: "100px", height: "30px", fontSize: "small" }}
