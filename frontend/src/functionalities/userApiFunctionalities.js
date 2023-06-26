@@ -322,8 +322,7 @@ export const updateUser = ({
   firebase, 
   token, 
   email, 
-  password, 
-  imgSrc, 
+  password,  
   name, 
   image, 
   dispatch, 
@@ -340,7 +339,7 @@ export const updateUser = ({
     .put(image)
     .then(({ ref }) => {
       ref.getDownloadURL().then(async (url) => {
-        imgSrc = url;
+       const imgSrc = url;
         axios
           .put(
             '/users/profile',

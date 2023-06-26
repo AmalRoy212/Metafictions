@@ -22,7 +22,7 @@ function UpdateUser({ data, setEdit }) {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if(image === '') setImage(data.imgSrc)
+    // if(image === '') setImage(data.imgSrc)
     updateUser({
       firebase,
       token,
