@@ -38,14 +38,14 @@ export default function Maincontent({ data, posts }) {
 
   return (
     <>
-      <div className="col-md-6 gedf-main" style={{ marginBottom: "10px" }}>
+      <div className="col-md-6 gedf-main" style={{ marginBottom: "10px",marginTop:"1rem",borderRadius: "20px", maxHeight:"620px",overflow:"auto" }}>
         <div className="card gedf-card" style={{ backgroundColor: 'white', borderRadius: "20px" }}>
           <div className="card-header">
             <ul
               className="nav nav-tabs card-header-tabs"
               id="myTab"
               role="tablist"
-              style={{ borderRadius: "20px" }}
+              // style={{ borderRadius: "20px" }}
             >
               <li className="nav-item">
                 <a

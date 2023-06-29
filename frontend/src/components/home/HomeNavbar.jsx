@@ -10,13 +10,13 @@ import "./HomeStyle.css"
 function HoemNavbar() {
   return (
     <div
-      style={{position:'fixed',zIndex:10,width:"100%",}}
+      style={{position:'fixed',zIndex:10,width:"100%",background:"white"}}
     >
       <header style={{position:"fixwd",top:5,width:"100%",zIndex:10}}>
-        <Navbar bg='transperent' variant='dark' expand='lg' collapseOnSelect>
+        <Navbar bg='transperent' variant='light' expand='lg' collapseOnSelect>
           <Container>
             <LinkContainer to={'/'}>
-              <Navbar.Brand style={{fontWeight:'bold'}} href='/'><FaPhoenixSquadron size={30} style={{ fontWeight: 'bold' }} /> METAFICTION</Navbar.Brand>
+              <Navbar.Brand style={{fontWeight:'bold',color:"black"}} href='/'><FaPhoenixSquadron size={30} style={{ fontWeight: 'bold' }} /> METAFICTION</Navbar.Brand>
             </LinkContainer>
             <Navbar.Toggle aria-controls='basic-navbar-nav'/>
             <Navbar.Collapse id='basic-navbar-nav' className='card'>

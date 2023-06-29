@@ -16,7 +16,7 @@ export default function Rightsidebar({ userSugg }) {
   return (
     <>
       <div className="col-md-3">
-        <div className="card gedf-card" style={{ backgroundColor: "white", borderRadius: "20px" }}>
+        <div className="card gedf-card" style={{ backgroundColor: "white", borderRadius: "20px", marginTop:"1rem" }}>
           <div className="card-body">
             <h5 className="card-title">Suggesions</h5>
             {userSugg.map((user, index) => (<motion.div

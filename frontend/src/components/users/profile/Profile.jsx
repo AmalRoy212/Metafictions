@@ -3,25 +3,28 @@ import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCar
 import UpdateUser from '../userUpdate/UpdateUser';
 import Feed from '../../home/Feeds';
 import { findMyPost } from '../../../functionalities/userApiFunctionalities';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function Profile({data}) {
 
   const [edit, setEdit] = useState(false);
   const [posts, setPosts] = useState([]);
 
+  const dispatch = useDispatch()
+
   const { token } = useSelector((state) => state.auth);
+  const { count } = useSelector((state) => state.post);
 
   useEffect(() => {
-    findMyPost({token,setPosts})
-  },[])
+    findMyPost({token,setPosts, dispatch});
+  },[count])
 
   return (
     <>
     {edit && <UpdateUser data={data} setEdit={setEdit}/>}
-    <div className="col-md-8 gedf-main bg-white" style={{ marginBottom: "10px",borderRadius:"20px",  }}>
+    <div className="col-md-8 gedf-main" style={{ marginBottom: "10px",borderRadius:"20px", backgroundColor:"#F1F1F1", marginTop:"1rem"  }}>
       <div className="gradient-custom-2" style={{borderRadius:"20px"}}>
-        <MDBContainer className="py-5 w-100 h-100" style={{borderRadius:"20px"}}>
+        <MDBContainer className="py-5 w-100 h-100 px-0" style={{borderRadius:"20px"}}>
           <MDBRow className="justify-content-center align-items-center h-100" style={{borderRadius:"20px"}}>
             <MDBCol lg="9" xl="12" style={{borderRadius:"20px"}}>
               <MDBCard style={{borderRadius:"20px"}}>

@@ -25,10 +25,10 @@ function UserProfile() {
         whileInView="show"
         viewport={{ once: false , amount: 0.25}}
       >
-        <div className="gradient01"/>
+        <div className="gradient01" style={{height:"60px"}}/>
       </motion.div>
-      <div className="container-fluid gedf-wrapper">
-        <div className="row">
+      <div className="container-fluid gedf-wrapper" style={{backgroundColor:"#EDEDED"}}>
+        <div className="row px-10">
           <Leftsidebar data={user} />
           <Profile data={user}/>
         </div>

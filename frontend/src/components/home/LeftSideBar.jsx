@@ -23,8 +23,8 @@ export default function Leftsidebar({ data }) {
 
   return (
     <>
-      <div className="col-md-3" style={{ marginBottom:'1rem'}}>
-        <div className="card" style={{backgroundColor:"white", borderRadius:"20px"}}>
+      <div className="col-md-3" style={{ marginBottom:'1rem',marginTop:"1rem"}}>
+        <div className="card" style={{backgroundColor:"white ", borderRadius:"20px"}}>
           <div className="card-body">
             <motion.div
               variants={zoomIn(0.5,0.3)}

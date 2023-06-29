@@ -43,9 +43,9 @@ function HomeScreen() {
         whileInView="show"
         viewport={{ once: false , amount: 0.25}}
       >
-        <div className="gradient01"/>
+        <div className="gradient01" style={{height:"60px"}}/>
       </motion.div>
-      <div className="container-fluid gedf-wrapper">
+      <div className="container-fluid gedf-wrapper" style={{paddingTop:"2rem",marginTop:"-2rem",backgroundColor:"#EDEDED"}}>
         <div className="row">
           <Leftsidebar data={user} />
           <Maincontent data={user} posts={posts} />

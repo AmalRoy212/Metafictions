@@ -22,3 +22,6 @@
 .custom-file-label:hover {
   background-color: #e2e6ea;
 }
+.card-header:first-child {
+  border-radius: 20px;
+}

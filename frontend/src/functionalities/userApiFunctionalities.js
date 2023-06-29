@@ -309,14 +309,14 @@ export const findMe = ({ token, setUser }) => {
 }
 
 //finding my post 
-export const findMyPost = ({ token, setPosts }) => {
+export const findMyPost = ({ token, setPosts, dispatch }) => {
   axios.get('/users/my/post', {
     headers: {
       Authorization: `Bearer ${token}`
     }
   }).then((res) => {
     setPosts(res.data);
-    console.log(res.data);
+    dispatch(incrementPostCount());
   });
 }
 
