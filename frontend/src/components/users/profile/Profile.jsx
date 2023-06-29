@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBBtn, MDBTypography } from 'mdb-react-ui-kit';
 import UpdateUser from '../userUpdate/UpdateUser';
-import Feed from '../../home/Feeds';
+// import Feed from '../../home/Feeds';
 import { findMyPost } from '../../../functionalities/userApiFunctionalities';
 import { useDispatch, useSelector } from 'react-redux';
+import SecondFeeds from "../../home/SecondFeed";
 
 export default function Profile({data}) {
 
@@ -89,7 +90,7 @@ export default function Profile({data}) {
                       <MDBCardImage src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(114).webp"
                         alt="image 1" className="w-100 rounded-3" />
                     </MDBCol> */}
-                    <Feed posts={posts}  />
+                    <SecondFeeds posts={posts}  />
                   </MDBRow>
                 </MDBCardBody>
               </MDBCard>

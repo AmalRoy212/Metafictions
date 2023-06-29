@@ -199,7 +199,7 @@ function SecondFeed({ posts }) {
               style={{ width: "40%" }}
             >
               <i className="far fa-comment"></i>
-              <span>Comment</span>
+              <span className="text-dark">Comment</span>
             </button>
           </section>
           <CommentsSection show-comments={isShowComments} data={post.comment} postId={post._id} />
