@@ -8,10 +8,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { incrementFollowCount, setLiked, setPopUp, setPostId } from "../../redux-toolkit/actionManagerSlice";
 import PopUp from "../popUp/PopUp";
 import '../../styles/styles.css';
+import "./SecondFeed.css"
 import CommentBox from "../commentBox/CommentBox";
 import { Button } from "react-bootstrap";
 import { likePost } from "../../functionalities/userApiFunctionalities";
-
 
 export default function Feed({ posts, data }) {
   let delT;
@@ -40,7 +40,7 @@ export default function Feed({ posts, data }) {
         <motion.div variants={zoomIn(0.5, 0.5)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.24 }} className="gradient02" />
         {delT = (index + 1) % 2 === 0 ? 0.2 : 0}
         {dura = (index + 1) % 2 === 0 ? 0.2 : 0}
-        <div className="card gedf-card" style={{ marginTop: '-7rem', borderRadius: "20px", backgroundColor: 'white' }}>
+        <div className="card gedf-card" style={{ marginTop: '-8rem', borderRadius: "20px", backgroundColor: 'white', marginBottom: "1rem" }}>
           <div className="card-header">
             <div className="d-flex justify-content-between align-items-center" style={{ cursor: 'pointer' }}>
               <div className="d-flex justify-content-between align-items-center">
@@ -76,19 +76,13 @@ export default function Feed({ posts, data }) {
               {" "}
               <FaSafari /> <span style={{ fontSize: "small" }}> {post?.date}</span>
             </div>
-            {/* <a className="card-link" href="#">
-              <h5 className="card-title">
-                Lorem ipsum dolor sit amet, consectetur adip.
-              </h5>
-            </a> */}
-
             <p className="card-text text-black">
               {post?.discription}
             </p>
           </div>
           {post?.content && (
             <>
-              <div className="container">
+              <div className="container p-3">
                 <div className="row">
                   <div className="col-md-12">
                     <img src={post?.content} alt="" style={{ height: "100%", width: "100%", objectFit: "cover" }} />
@@ -114,8 +108,8 @@ export default function Feed({ posts, data }) {
               onClick={() => {
                 likeHandler(post?._id);
               }}
-              style={{ background: "none", border: "none", color: "black", display:'flex' }}>
-              <FaRegThumbsUp size={18} /><h6 style={{fontSize:"large",marginLeft:'10px'}}>Reaction</h6>
+              style={{ background: "none", border: "none", color: "black", display: 'flex' }}>
+              <FaRegThumbsUp size={18} /><h6 style={{ fontSize: "large", marginLeft: '10px' }}>Reaction</h6>
             </Button>
             {/* <Button
               onClick={() => {
@@ -125,7 +119,7 @@ export default function Feed({ posts, data }) {
               <FaRegThumbsUp size={18} /><h6 style={{fontSize:"large"}}> Comments</h6>
             </Button> */}
           </div>
-          <CommentBox data={post.comment} postId={post._id}/>
+          <CommentBox data={post.comment} postId={post._id} />
         </div>
       </div>))}
     </>

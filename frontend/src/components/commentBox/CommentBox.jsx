@@ -49,7 +49,7 @@ export default function CommentBox({ data, postId }) {
           <Button onClick={commentHandler} style={{ marginLeft: "5px", borderRadius: "20px" }}>Comment</Button>
         </div>
         <MDBCard>
-          <MDBCardBody className="p-2 d-flex align-items-center" onClick={() => handleComment(onOff)}>
+          <MDBCardBody className="p-2 d-flex bg-white align-items-center" onClick={() => handleComment(onOff)}>
             <MDBTypography
               tag="h6"
               className={`text-primary fw-bold small mb-0 me-1 ${onOff ? 'active' : ''}`}

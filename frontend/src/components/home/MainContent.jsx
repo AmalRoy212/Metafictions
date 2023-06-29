@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { FirebaseContext } from "../../contexts/firebaseContexts"
 import { userCreatePost } from "../../functionalities/userApiFunctionalities";
 import "./Main.css";
+import SecondFeed from "./SecondFeed";
 
 
 export default function Maincontent({ data, posts }) {
@@ -140,7 +141,8 @@ export default function Maincontent({ data, posts }) {
             </div>
           </div>
         </div>
-        <Feed posts={posts} data={data} />
+        <SecondFeed posts={posts} />
+        {/* <Feed posts={posts} data={data} /> */}
       </div>
     </>
   );

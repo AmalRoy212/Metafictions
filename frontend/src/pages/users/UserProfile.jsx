@@ -6,6 +6,7 @@ import Profile from '../../components/users/profile/Profile';
 import Leftsidebar from '../../components/home/LeftSideBar';
 import { findMe } from '../../functionalities/userApiFunctionalities';
 import { useSelector } from 'react-redux';
+import ProfileRightSide from '../../components/users/profile/ProfileRightSide';
 
 function UserProfile() {
 
@@ -31,6 +32,7 @@ function UserProfile() {
         <div className="row px-10">
           <Leftsidebar data={user} />
           <Profile data={user}/>
+          <ProfileRightSide />
         </div>
       </div>
     </>

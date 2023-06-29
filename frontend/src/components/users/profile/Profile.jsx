@@ -22,13 +22,13 @@ export default function Profile({data}) {
   return (
     <>
     {edit && <UpdateUser data={data} setEdit={setEdit}/>}
-    <div className="col-md-8 gedf-main" style={{ marginBottom: "10px",borderRadius:"20px", backgroundColor:"#F1F1F1", marginTop:"1rem"  }}>
+    <div className="col-md-6 gedf-main" style={{ marginBottom: "10px",borderRadius:"20px", backgroundColor:"#F1F1F1", marginTop:"1rem", maxHeight:"620px", overflow:"auto"}}>
       <div className="gradient-custom-2" style={{borderRadius:"20px"}}>
-        <MDBContainer className="py-5 w-100 h-100 px-0" style={{borderRadius:"20px"}}>
+        <MDBContainer className="w-100 h-100 px-0" style={{borderRadius:"20px"}}>
           <MDBRow className="justify-content-center align-items-center h-100" style={{borderRadius:"20px"}}>
             <MDBCol lg="9" xl="12" style={{borderRadius:"20px"}}>
               <MDBCard style={{borderRadius:"20px"}}>
-                <div className="text-white d-flex flex-row" style={{ backgroundColor: '#000', height: '200px', borderRadius:"20px" }}>
+                <div className="text-white d-flex flex-row" style={{ backgroundColor: '#000', height: '200px', borderRadius:"20px 20px 0 0" }}>
                   <div className="ms-4 mt-5 d-flex flex-column" style={{ width: '150px',height:"150px" }}>
                     <MDBCardImage src={data?.imgSrc}
                       alt="Generic placeholder image" className="mt-4 mb-2 img-thumbnail" fluid style={{ width: '150px', zIndex: '1',height:'150px', objectFit:"cover" }} />
@@ -41,7 +41,7 @@ export default function Profile({data}) {
                 <div className="p-4 text-black" style={{ backgroundColor: '#f8f9fa' }}>
                   <div className="d-flex justify-content-end text-center py-1">
                   <MDBBtn onClick={() => setEdit(true)} outline color="primary m-3" style={{ height: '36px', overflow: 'visible' }}>
-                      Edit profile
+                      Edit
                     </MDBBtn>
                     <div>
                       <MDBCardText className="mb-1 h5">{data.posts}</MDBCardText>

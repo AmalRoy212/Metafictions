@@ -290,7 +290,7 @@ export const likePost = async function ({ id, token }) {
       }
     });
     if (response) {
-      return response.data.amLiked
+      return response.data.amLiked ?  response.data.amLiked : null;
     }
   } catch (error) {
     toast.error("An error occured");
