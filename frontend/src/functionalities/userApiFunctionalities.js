@@ -27,7 +27,10 @@ export const userLogin = async function (email, password, dispatch, navigate) {
         dispatch(login(res.data.token));
         dispatch(clearLoading());
         navigate('/home');
-      }).catch((error) => toast.error("Credential issues", error))
+      }).catch((error) => {
+        toast.error("Credential issues", error);
+        dispatch(clearLoading());
+    })
     } catch (error) {
       toast.error("Cannection issuse", error);
       dispatch(clearLoading());
