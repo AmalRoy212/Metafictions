@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import Feed from "./Feeds";
 import { Form } from 'react-bootstrap';
-import { FaGlobeAmericas, FaUserFriends, FaUserLock } from 'react-icons/fa'
+import { FaGlobeAmericas, FaUserFriends, FaUserLock, FaFileImage } from 'react-icons/fa'
 import { useDispatch, useSelector } from "react-redux";
 import { FirebaseContext } from "../../contexts/firebaseContexts"
 import { userCreatePost } from "../../functionalities/userApiFunctionalities";
+import "./Main.css";
 
 
 export default function Maincontent({ data, posts }) {
@@ -17,7 +18,7 @@ export default function Maincontent({ data, posts }) {
 
   const [discription, setDiscription] = useState('')
   const [media, setMedia] = useState('');
-  const [like,setLike] = useState(false)
+  const [like, setLike] = useState(false)
 
   const submitHandler = async function (e) {
     e.preventDefault();
@@ -34,11 +35,11 @@ export default function Maincontent({ data, posts }) {
       setMedia
     })
   }
-  
+
   return (
     <>
-      <div className="col-md-6 gedf-main" style={{marginBottom:"10px"}}>
-        <div className="card gedf-card" style={{backgroundColor:'white',borderRadius:"20px"}}>
+      <div className="col-md-6 gedf-main" style={{ marginBottom: "10px" }}>
+        <div className="card gedf-card" style={{ backgroundColor: 'white', borderRadius: "20px" }}>
           <div className="card-header">
             <ul
               className="nav nav-tabs card-header-tabs"
@@ -75,7 +76,18 @@ export default function Maincontent({ data, posts }) {
                     {media && <img style={{ objectFit: 'cover', border: '2px solid black', borderRadius: '20px' }} className='m2' alt="Posts" width="500px" height="200px" src={media ? URL.createObjectURL(media) : ''}></img>}
                   </div>
                   <br />
-                  <input style={{ width: '99%', border: '1px solid #ced4da', borderRadius: '5px' }} className='m-1 p-1' name='imgSrc' onChange={(e) => setMedia(e.target.files[0])} type="file" />
+                  <label for="file-input" class="custom-file-label">
+                    <FaFileImage />
+                  </label>
+                  <input
+                    id="file-input"
+                    className="custom-file-input"
+                    name="imgSrc"
+                    onChange={(e) => setMedia(e.target.files[0])}
+                    type="file"
+                    accept="image/*"
+                  />
+
                   {/* <button type="file">add</button> */}
                 </Form.Group>
                 <div className="form-group">
@@ -128,7 +140,7 @@ export default function Maincontent({ data, posts }) {
             </div>
           </div>
         </div>
-        <Feed posts={posts} data={data}/>
+        <Feed posts={posts} data={data} />
       </div>
     </>
   );

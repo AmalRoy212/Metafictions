@@ -33,6 +33,8 @@ const createPost = asyncHandler(async function (req, res) {
 // get all post
 const getAllPost = asyncHandler(async function (req, res) {
 
+  const { _id } = req.headers;
+
   const allPosts = await PostModel.find().sort({ dateOfPost: -1 }).lean();
 
   await Promise.all(
@@ -55,7 +57,7 @@ const getAllPost = asyncHandler(async function (req, res) {
         }
 
         comment.time = timeAgo;
-
+        comment.canDelete = comment.userId == _id ? true : false;
       })
 
       post.comment.reverse();
@@ -140,6 +142,7 @@ const createComment = asyncHandler( async function(req,res){
   const user = await UserModel.findById(_id);
 
   const newComment = {
+    userId : user._id,
     userImage : user.imgSrc,
     userName : user.name,
     content

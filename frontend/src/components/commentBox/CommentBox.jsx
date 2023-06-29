@@ -16,6 +16,7 @@ import { FaReply, FaTrashAlt, FaRegThumbsUp } from "react-icons/fa";
 export default function CommentBox({ data, postId }) {
 
   const [comment, setComment] = useState('');
+  const [onOff, setOnOff] = useState(true);
 
   const { token } = useSelector((state) => state.auth);
 
@@ -36,6 +37,10 @@ export default function CommentBox({ data, postId }) {
     dispatch(incrementPostCount());
   }
 
+  const handleComment = (status) => {
+    status ? setOnOff(false) : setOnOff(true);
+  }
+
   return (
     <>
       <div style={{ width: "100%", backgroundColor: "white", borderRadius: "20px", }}>
@@ -44,17 +49,18 @@ export default function CommentBox({ data, postId }) {
           <Button onClick={commentHandler} style={{ marginLeft: "5px", borderRadius: "20px" }}>Comment</Button>
         </div>
         <MDBCard>
-          <MDBCardBody className="p-2 d-flex align-items-center">
+          <MDBCardBody className="p-2 d-flex align-items-center" onClick={() => handleComment(onOff)}>
             <MDBTypography
               tag="h6"
-              className="text-primary fw-bold small mb-0 me-1"
+              className={`text-primary fw-bold small mb-0 me-1 ${onOff ? 'active' : ''}`}
             >
-              Comments "ON"
+              Comments {onOff ? 'ON' : 'OFF'}
             </MDBTypography>
             <MDBSwitch defaultChecked id="flexSwitchCheckChecked" />
           </MDBCardBody>
         </MDBCard>
-        {data.length && <div style={{ maxHeight: "300px", width: "100%", overflowY: "auto" }}>
+        {/* data.length && */}
+        {onOff && <div style={{ maxHeight: "300px", width: "100%", overflowY: "auto" }}>
           {data.map((comment, index) => (<div key={index} style={{ margin: "3%", backgroundColor: "#D5D5D5", borderRadius: "20px", width: "94%", boxShadow: " 0px 0px 10px 2px rgba(0, 0, 0, 0.5)" }}>
             <MDBCard className="mb-3">
               <MDBCardBody>
@@ -75,6 +81,9 @@ export default function CommentBox({ data, postId }) {
                         className="text-primary fw-bold mb-0"
                       >
                         {comment?.userName}
+                        <div style={{width:"100%", padding:"1rem"}}>
+
+                        </div>
                         <span className="text-dark ms-2">
                           {comment?.content}
                         </span>
@@ -83,10 +92,13 @@ export default function CommentBox({ data, postId }) {
                     </div>
                     <div className="d-flex justify-content-between align-items-center">
                       <p className="small mb-0" style={{ color: "#aaa" }}>
-                        <a style={{ cursor: "pointer" }} onClick={() => removeHandler(comment._id)} className="link-grey">
-                          <FaTrashAlt />
-                        </a>{" "}
-                        •
+                        {comment.canDelete && <>
+                            <a style={{ cursor: "pointer" }} onClick={() => removeHandler(comment._id)} className="link-grey">
+                            <FaTrashAlt />
+                            </a>{" "}
+                            •
+                          </>
+                        }
                         {/* <a href="#!" className="link-grey">
                           Reply 
                         </a>{" "}

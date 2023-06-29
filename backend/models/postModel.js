@@ -22,6 +22,10 @@ const postSchema = new mongoose.Schema({
   }],
   comment: [
     {
+      userId: {
+        type:String,
+        default:'',
+      },
       userImage: {
         type:String,
         default:'',

@@ -19,9 +19,9 @@ export const userLogin = async function (email, password, dispatch, navigate) {
         email,
         password
       }).then((res) => {
-        if(res.data.isBlocked || res.data.isDeleted){
+        if (res.data.isBlocked || res.data.isDeleted) {
           toast.error(res.data.message);
-        }else{
+        } else {
           toast.success("Login success");
         }
         dispatch(login(res.data.token));
@@ -156,7 +156,7 @@ export const userCreatePost = async function ({
   setMedia
 }) {
 
-  if (discription !== '') {
+  if (discription !== '' || image !== '') {
     dispatch(setLoading());
     firebase
       .storage()
@@ -295,7 +295,7 @@ export const likePost = async function ({ id, token }) {
 };
 
 //find current user
-export const findMe = ({token,setUser}) => {
+export const findMe = ({ token, setUser }) => {
   axios.get('/users/find', {
     headers: {
       Authorization: `Bearer ${token}`
@@ -306,7 +306,7 @@ export const findMe = ({token,setUser}) => {
 }
 
 //finding my post 
-export const findMyPost = ({token,setPosts}) => {
+export const findMyPost = ({ token, setPosts }) => {
   axios.get('/users/my/post', {
     headers: {
       Authorization: `Bearer ${token}`
@@ -318,52 +318,79 @@ export const findMyPost = ({token,setPosts}) => {
 }
 
 //update user profile
-export const updateUser = ({ 
-  firebase, 
-  token, 
-  email, 
-  password,  
-  name, 
-  image, 
-  dispatch, 
-  setName, 
+export const updateUser = ({
+  firebase,
+  token,
+  email,
+  password,
+  name,
+  image,
+  dispatch,
+  setName,
   setPassword,
   setEmail,
   setImage,
   setConfirmPassword
 }) => {
   dispatch(setLoading());
-  firebase
-    .storage()
-    .ref(`/image/${image.name}`)
-    .put(image)
-    .then(({ ref }) => {
-      ref.getDownloadURL().then(async (url) => {
-       const imgSrc = url;
-        axios
-          .put(
-            '/users/profile',
-            {
-              name,
-              email,
-              password,
-              imgSrc,
-            },
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
+  if (image) {
+    firebase
+      .storage()
+      .ref(`/image/${image.name}`)
+      .put(image)
+      .then(({ ref }) => {
+        ref.getDownloadURL().then(async (url) => {
+          const imgSrc = url;
+          axios
+            .put(
+              '/users/profile',
+              {
+                name,
+                email,
+                password,
+                imgSrc,
               },
-            }
-          )
-          .then((res) => {
-            setName('');
-            setEmail('');
-            setPassword('');
-            setConfirmPassword('');
-            setImage('')
-            dispatch(clearLoading())
-          })
-          .catch((error) => toast.error(error?.data?.message || error.error));
+              {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              }
+            )
+            .then((res) => {
+              setName('');
+              setEmail('');
+              setPassword('');
+              setConfirmPassword('');
+              setImage('')
+              dispatch(clearLoading())
+            })
+            .catch((error) => toast.error(error?.data?.message || error.error));
+        });
       });
-    });
+  } else {
+    axios
+      .put(
+        '/users/profile',
+        {
+          name,
+          email,
+          password,
+          imgSrc : '',
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        setName('');
+        setEmail('');
+        setPassword('');
+        setConfirmPassword('');
+        setImage('')
+        dispatch(clearLoading())
+      })
+      .catch((error) => toast.error(error?.data?.message || error.error));
+  }
 };

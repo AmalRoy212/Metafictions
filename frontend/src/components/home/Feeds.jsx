@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { FaSafari } from "react-icons/fa";
 import { zoomIn } from "../../utils/motions";
 import Dropdown from 'react-bootstrap/Dropdown';
-import { FaSteamSymbol, FaCommentDots, FaHeart, FaRegThumbsUp } from "react-icons/fa";
+import { FaSteamSymbol, FaCommentDots, FaHeart, FaRegThumbsUp, FaPrescriptionBottleAlt } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { incrementFollowCount, setLiked, setPopUp, setPostId } from "../../redux-toolkit/actionManagerSlice";
 import PopUp from "../popUp/PopUp";
@@ -64,7 +64,7 @@ export default function Feed({ posts, data }) {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                  <Dropdown.Item onClick={() => deleteHandler(post._id)} >Delete</Dropdown.Item>
+                  <Dropdown.Item onClick={() => deleteHandler(post._id)} ><FaPrescriptionBottleAlt /> Delete </Dropdown.Item>
                   {/* <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
                   <Dropdown.Item href="#/action-3">Something else</Dropdown.Item> */}
                 </Dropdown.Menu>
