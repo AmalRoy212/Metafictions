@@ -4,6 +4,7 @@ import { fadeIn } from "../../utils/motions";
 import { Button } from "react-bootstrap";
 import { findMyRequests, followUser } from "../../functionalities/userApiFunctionalities";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export default function Rightsidebar({ userSugg }) {
 
@@ -11,6 +12,7 @@ export default function Rightsidebar({ userSugg }) {
 
   const { token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const followHandler = async (_id) => {
     await followUser({ token, _id, dispatch });
@@ -58,6 +60,7 @@ export default function Rightsidebar({ userSugg }) {
               whileInView="show"
               viewport={{ once: false, amount: 0.25 }}
               key={index}
+              onClick={() => navigate(`/friends/profile/${user._id}/`) }
               style={{ display: 'flex', alignItems: "center", padding: "5px", marginTop: "5%", cursor: "pointer", backgroundColor: "#C0C0C0", borderRadius: '10px' }}>
               <div style={{ height: "30px", width: "30px", borderRadius: "50%" }}>
                 <img style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%", marginLeft: "3px", backgroundColor: "green" }} src={user?.imgSrc} alt="" />

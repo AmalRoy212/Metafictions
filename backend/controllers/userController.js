@@ -306,19 +306,29 @@ const findRequests = asyncHandler(async function (req, res) {
   }
 });
 
+//finding friends
+const findMyFriends = asyncHandler(async function (req, res) {
+  const { _id } = req.headers;
 
-const ignoreRequest = asyncHandler( async function (req,res){
+  const user = await UserModel.findById(_id);
+  let friends = user.following;
+  let friendsTwo = user.followers;
 
+  const uniqueFriends = Array.from(new Set([...friends, ...friendsTwo]));
+
+  const myFriends = await UserModel.find({ _id: { $in: uniqueFriends.slice(0, 4) } });
+
+  if(myFriends){
+    res.status(200).json(myFriends)
+  }
+});
+
+//finding other users profile
+const findOthersProfile = asyncHandler( async function( req, res) {
+  console.log("***************************");
+  // const { userId } = req.query;
+  // console.log(userId);
 })
-
-// const findMyFriends = asyncHandler( async function (req,res){
-//   const { _id } = req.headers;
-
-//   const user = await UserModel.findById(_id);
-//   const friends = user.following;
-
-
-// })
 
 export {
   authenticateUsers,
@@ -330,5 +340,7 @@ export {
   verfyOtp,
   findAllUsers,
   followUser,
-  findRequests
+  findRequests,
+  findMyFriends,
+  findOthersProfile
 }

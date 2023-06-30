@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBBtn, MDBTypography } from 'mdb-react-ui-kit';
-import { findMyPost } from '../../../functionalities/userApiFunctionalities';
+import { findMyPost, findingFriendsData } from '../../../functionalities/userApiFunctionalities';
 import { useDispatch, useSelector } from 'react-redux';
 import SecondFeeds from "../../home/SecondFeed";
+import { useParams } from 'react-router-dom';
 
-export default function Profile({data}) {
+export default function OthersProfile({data}) {
 
   const [posts, setPosts] = useState([]);
+  const [user, setUser] = useState();
+  const {userId} = useParams()
 
   const dispatch = useDispatch()
 
@@ -14,12 +17,12 @@ export default function Profile({data}) {
   const { count } = useSelector((state) => state.post);
 
   useEffect(() => {
-    findMyPost({token,setPosts, dispatch});
+    findingFriendsData({token,userId,setPosts,setUser,dispatch})
   },[count])
 
   return (
     <>
-    <div className="col-md-6 gedf-main" style={{ marginBottom: "10px",borderRadius:"20px", backgroundColor:"#F1F1F1", marginTop:"1rem", maxHeight:"100vh", overflow:"auto"}}>
+    <div className="col-md-9 gedf-main" style={{ marginBottom: "10px",borderRadius:"20px", backgroundColor:"#F1F1F1", marginTop:"1rem", maxHeight:"100vh", overflow:"auto"}}>
       <div className="gradient-custom-2" style={{borderRadius:"20px"}}>
         <MDBContainer className="w-100 h-100 px-0" style={{borderRadius:"20px"}}>
           <MDBRow className="justify-content-center align-items-center h-100" style={{borderRadius:"20px"}}>

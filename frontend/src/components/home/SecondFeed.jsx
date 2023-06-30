@@ -186,7 +186,7 @@ function SecondFeed({ posts }) {
                 setIsReactHiding(true);
                 // setCurrentId('');
               }}
-              style={{ width: "40%" }}
+              style={{ width: "40%",padding:0 }}
             >
               <i className="far fa-thumbs-up"></i>
               <span style={{ color: "black" }}>Reaction</span>
@@ -196,7 +196,7 @@ function SecondFeed({ posts }) {
               onClick={(evt) => {
                 setIsShowComments(true);
               }}
-              style={{ width: "40%" }}
+              style={{ width: "40%", padding:0 }}
             >
               <i className="far fa-comment"></i>
               <span className="text-dark">Comment</span>

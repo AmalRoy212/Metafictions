@@ -415,3 +415,33 @@ export const findMyRequests = ({ setRequest, token, dispatch }) => {
     })
   }
 }
+
+//finding my friends
+export const findMyFriends = ({token,setFriends}) => {
+  axios.get('/users/get/friends',{
+    headers:{
+      Authorization : `Bearer ${token}`
+    }
+  }).then((res) => {
+    setFriends(res.data)
+  }).catch((err) => {
+    toast.error("Something went wrong");
+  })
+}
+
+//finding friends profile
+export const findingFriendsData = ({ token, dispatch, userId, setPosts, setUser }) => {
+  axios.get(`/users/other/profile/${userId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((res) => {
+      console.log(res.data);
+      setUser(res.data);
+    })
+    .catch((error) => {
+      console.log(error);
+      // Handle the error, e.g., show an error message or take appropriate action
+    });
+};

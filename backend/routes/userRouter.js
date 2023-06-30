@@ -10,7 +10,9 @@ import {
   verfyOtp,
   findAllUsers,
   followUser,
-  findRequests
+  findRequests,
+  findMyFriends,
+  findOthersProfile
 } from "../controllers/userController.js";
 import { 
   createComment,
@@ -30,6 +32,8 @@ userRouter.get('/find', protecter, findUser);
 userRouter.get('/logout', protecter, logoutUser);
 userRouter.get('/my/post', protecter, findMyPosts);
 userRouter.get('/requests', protecter, findRequests);
+userRouter.get('/get/friends', protecter, findMyFriends);
+userRouter.get('/other/profile', protecter, findOthersProfile);
 userRouter.post('/register', registerUser);
 userRouter.post('/auth', authenticateUsers);
 userRouter.post('/verify', verfyOtp);
