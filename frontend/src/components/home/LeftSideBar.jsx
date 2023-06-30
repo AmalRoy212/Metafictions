@@ -42,14 +42,14 @@ export default function Leftsidebar({ data }) {
               </div>
               <div style={{ display: 'flex', alignItems: "center", borderRadius: '10px', padding: "3px" }}>
                 <h6 style={{ color:"black", width: "50%", display: 'flex', alignItems: "center",justifyContent:'center',marginTop:'1rem'}}>Followers</h6>
-                <h6 style={{ color:"black", width: "50%", display: 'flex', alignItems: "center",justifyContent:'center',marginTop:'1rem'}}>following</h6>
+                <h6 style={{ color:"black", width: "50%", display: 'flex', alignItems: "center",justifyContent:'center',marginTop:'1rem'}}>Following</h6>
               </div>
               <div style={{ display: 'flex', alignItems: "center", borderRadius: '10px', padding: "3px" }}>
                 <h4 style={{ color:"black", width: "50%", display: 'flex', alignItems: "center",justifyContent:'center'}}>{data?.followers}</h4>
                 <h4 style={{ color:"black", width: "50%", display: 'flex', alignItems: "center",justifyContent:'center'}}>{data?.following}</h4>
               </div>
               <div style={{ display: 'flex', alignItems: "center",justifyContent:"center", borderRadius: '10px', marginBottom:"10px"}}>
-                <Button onClick={(e) => submitHandler(e)} className="btn-warning">Log Out</Button>
+                <Button onClick={(e) => submitHandler(e)} className="btn-primary">Log Out</Button>
               </div>
 
             </motion.div>

@@ -13,8 +13,8 @@ POST http://localhost:5000/api/users/auth
 Content-Type: application/json
 
 {
-  "email" : "akhil@gmail.com",
-  "password" : "12345"
+  "email" : "ken940005@gmail.com",
+  "password" : "123"
 }
 
 ###
@@ -37,7 +37,7 @@ Content-Type: application/json
 ###
 
 PATCH http://localhost:5000/api/users/logout
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDhhZGEwYzk3YTYyZGFhMzFiMWQ0ZjgiLCJpYXQiOjE2ODY4Mjg0MTV9.9wA9T1RbRls6-WFztI8rJcEU7V4hgz_pn-CJovwXOf4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDk5NmI4YTYxN2I1MzVlNzRiZjBhM2MiLCJpYXQiOjE2ODgxMDM2NDV9.4JcfTxrmPHbC41v5AC1jYtdxHrtOX5W2AsamGo9i4bk
 
 ###
 
@@ -54,3 +54,9 @@ Content-Type: application/json
   "Comments" : "nothing"
   
 }
+
+###
+
+GET http://localhost:5000/api/users/requests
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDk5NmI4YTYxN2I1MzVlNzRiZjBhM2MiLCJpYXQiOjE2ODgxMDM2NDV9.4JcfTxrmPHbC41v5AC1jYtdxHrtOX5W2AsamGo9i4bk
+

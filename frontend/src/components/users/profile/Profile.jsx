@@ -19,7 +19,7 @@ export default function Profile({data}) {
 
   return (
     <>
-    <div className="col-md-6 gedf-main" style={{ marginBottom: "10px",borderRadius:"20px", backgroundColor:"#F1F1F1", marginTop:"1rem", maxHeight:"620px", overflow:"auto"}}>
+    <div className="col-md-6 gedf-main" style={{ marginBottom: "10px",borderRadius:"20px", backgroundColor:"#F1F1F1", marginTop:"1rem", maxHeight:"88vh", overflow:"auto"}}>
       <div className="gradient-custom-2" style={{borderRadius:"20px"}}>
         <MDBContainer className="w-100 h-100 px-0" style={{borderRadius:"20px"}}>
           <MDBRow className="justify-content-center align-items-center h-100" style={{borderRadius:"20px"}}>

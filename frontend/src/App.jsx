@@ -12,12 +12,12 @@ function App() {
   const { token } = useSelector((state) => state.auth);
   const liked = useSelector((state) => state.post.liked)
 
-  axios.interceptors.request.use((request) => {
-    if (token) {
-      request.headers.Authorization = `Bearer ${token}`;
-    }
-    return request;
-  });
+  // axios.interceptors.request.use((request) => {
+  //   if (token) {
+  //     request.headers.Authorization = `Bearer ${token}`;
+  //   }
+  //   return request;
+  // });
   
   return (
     <>

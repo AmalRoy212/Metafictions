@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../../utils/motions";
 import { useDispatch, useSelector } from "react-redux";
 import { FaNutritionix, FaMailchimp, FaMandalorian, FaTelegram, FaBomb } from "react-icons/fa"
 import UpdateUser from '../userUpdate/UpdateUser';
-import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBBtn, MDBTypography } from 'mdb-react-ui-kit';
+import {  MDBBtn } from 'mdb-react-ui-kit';
 
 
 export default function ProfileRightSide({ data }) {
@@ -13,6 +13,10 @@ export default function ProfileRightSide({ data }) {
 
   const { token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+
+  })
 
   return (
     <>

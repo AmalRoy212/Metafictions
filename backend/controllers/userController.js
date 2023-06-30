@@ -238,15 +238,16 @@ const findAllUsers = asyncHandler(async function (req, res) {
   const { _id } = req.headers;
 
   const me = await UserModel.findById(_id);
-
   const followingIds = me.following.map(id => id.toString());
+  const followerIds = me.followers.map(id => id.toString());
 
   const allUsers = await UserModel.find({
-    _id: { $nin: [...followingIds, _id] }
+    _id: { $nin: [...followingIds, ...followerIds, _id] }
   }).limit(10);
 
   res.status(200).json(allUsers);
 });
+
 
 //follow user
 const followUser = asyncHandler(async function (req, res) {
@@ -290,7 +291,34 @@ const unfollowUser = asyncHandler(async function (req, res) {
   }
 })
 
+//getting the friend requests
+const findRequests = asyncHandler(async function (req, res) {
+  const { _id } = req.headers;
 
+  const user = await UserModel.findById(_id);
+  const requests = user.followers;
+  const currentFollowing = user.following;
+
+  const users = await UserModel.find({ _id: { $in: requests, $nin: currentFollowing } });
+
+  if (users) {
+    res.status(200).json(users);
+  }
+});
+
+
+const ignoreRequest = asyncHandler( async function (req,res){
+
+})
+
+// const findMyFriends = asyncHandler( async function (req,res){
+//   const { _id } = req.headers;
+
+//   const user = await UserModel.findById(_id);
+//   const friends = user.following;
+
+
+// })
 
 export {
   authenticateUsers,
@@ -301,5 +329,6 @@ export {
   findUser,
   verfyOtp,
   findAllUsers,
-  followUser
+  followUser,
+  findRequests
 }

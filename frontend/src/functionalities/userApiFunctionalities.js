@@ -30,7 +30,7 @@ export const userLogin = async function (email, password, dispatch, navigate) {
       }).catch((error) => {
         toast.error("Credential issues", error);
         dispatch(clearLoading());
-    })
+      })
     } catch (error) {
       toast.error("Cannection issuse", error);
       dispatch(clearLoading());
@@ -96,6 +96,8 @@ export const verifyOtp = async function ({ otp, navigate }) {
       otp
     }).then((res) => {
       navigate('/login');
+    }).catch((err) =>{
+      toast.error("There is an issue with your OTP")
     })
   } catch (error) {
     toast.error("Cannection issuse", error);
@@ -290,7 +292,7 @@ export const likePost = async function ({ id, token }) {
       }
     });
     if (response) {
-      return response.data.amLiked ?  response.data.amLiked : null;
+      return response.data.amLiked ? response.data.amLiked : null;
     }
   } catch (error) {
     toast.error("An error occured");
@@ -378,7 +380,7 @@ export const updateUser = ({
           name,
           email,
           password,
-          imgSrc : '',
+          imgSrc: '',
         },
         {
           headers: {
@@ -397,3 +399,19 @@ export const updateUser = ({
       .catch((error) => toast.error(error?.data?.message || error.error));
   }
 };
+
+//finding my request
+export const findMyRequests = ({ setRequest, token, dispatch }) => {
+  if (token) {
+    axios.get("/users/requests", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      setRequest(res.data);
+      dispatch(incrementPostCount());
+    }).catch((err) => {
+      // toast.error("Somethign went wrong");
+    })
+  }
+}

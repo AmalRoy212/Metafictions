@@ -39,7 +39,7 @@ export default function Maincontent({ data, posts }) {
 
   return (
     <>
-      <div className="col-md-6 gedf-main" style={{ marginBottom: "10px",marginTop:"1rem",borderRadius: "20px", maxHeight:"620px",overflow:"auto" }}>
+      <div className="col-md-6 gedf-main" style={{ marginBottom: "10px",marginTop:"1rem",borderRadius: "20px", maxHeight:"88vh",overflow:"auto" }}>
         <div className="card gedf-card" style={{ backgroundColor: 'white', borderRadius: "20px" }}>
           <div className="card-header">
             <ul
