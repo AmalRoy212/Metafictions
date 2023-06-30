@@ -32,7 +32,7 @@ function UserProfile() {
         <div className="row px-10">
           <Leftsidebar data={user} />
           <Profile data={user}/>
-          <ProfileRightSide />
+          <ProfileRightSide data={user} />
         </div>
       </div>
     </>

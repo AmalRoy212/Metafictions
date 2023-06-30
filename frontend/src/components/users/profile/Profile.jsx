@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBBtn, MDBTypography } from 'mdb-react-ui-kit';
-import UpdateUser from '../userUpdate/UpdateUser';
-// import Feed from '../../home/Feeds';
 import { findMyPost } from '../../../functionalities/userApiFunctionalities';
 import { useDispatch, useSelector } from 'react-redux';
 import SecondFeeds from "../../home/SecondFeed";
 
 export default function Profile({data}) {
 
-  const [edit, setEdit] = useState(false);
   const [posts, setPosts] = useState([]);
 
   const dispatch = useDispatch()
@@ -22,7 +19,6 @@ export default function Profile({data}) {
 
   return (
     <>
-    {edit && <UpdateUser data={data} setEdit={setEdit}/>}
     <div className="col-md-6 gedf-main" style={{ marginBottom: "10px",borderRadius:"20px", backgroundColor:"#F1F1F1", marginTop:"1rem", maxHeight:"620px", overflow:"auto"}}>
       <div className="gradient-custom-2" style={{borderRadius:"20px"}}>
         <MDBContainer className="w-100 h-100 px-0" style={{borderRadius:"20px"}}>
@@ -41,9 +37,6 @@ export default function Profile({data}) {
                 </div>
                 <div className="p-4 text-black" style={{ backgroundColor: '#f8f9fa' }}>
                   <div className="d-flex justify-content-end text-center py-1">
-                  <MDBBtn onClick={() => setEdit(true)} outline color="primary m-3" style={{ height: '36px', overflow: 'visible' }}>
-                      Edit
-                    </MDBBtn>
                     <div>
                       <MDBCardText className="mb-1 h5">{data.posts}</MDBCardText>
                       <MDBCardText className="small text-muted mb-0">Posts</MDBCardText>
