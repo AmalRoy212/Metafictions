@@ -466,3 +466,20 @@ export const unfollowUsers = ({ followId, token, dispatch }) => {
       dispatch(clearLoading());
     });
 };
+
+//find following users
+export const findMyFolloData = ({token,setFollowers, setFollowings, dispatch}) => {
+  dispatch(setLoading());
+  axios.get('/users/following/users',{
+    headers : {
+      Authorization : `Bearer ${token}`
+    }
+  }).then((res) => {
+    setFollowers(res.data.followerUsers);
+    setFollowings(res.data.followingUsers);
+    dispatch(clearLoading());
+  }).catch((err) => {
+    toast.error("Something went wrong");
+    dispatch(clearLoading());
+  })
+}

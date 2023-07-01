@@ -8,7 +8,8 @@ import HomeNavbar from "../../components/home/HomeNavbar";
 import Rightsidebar from "../../components/home/RightSide";
 import { loadHome } from "../../functionalities/userApiFunctionalities"
 import "../../styles/styles.css";
-import { setLiked } from "../../redux-toolkit/actionManagerSlice";
+// import { setLiked } from "../../redux-toolkit/actionManagerSlice";
+import FollowersCounts from "../../components/users/followCounts/FollowersCounts";
 
 function HomeScreen() {
 
@@ -16,11 +17,12 @@ function HomeScreen() {
   const [posts,setPosts] = useState([]);
   const [userSugg,setUserSugg] = useState([]);
   // const [follow,setfolow] = useState(false);
-
+  
   const { token } = useSelector((state) => state.auth);
   const post = useSelector((state) => state.post.count);
   const followCount = useSelector((state) => state.post.followCount);
   const liked = useSelector((state) => state.post.liked);
+  const { followDetails } = useSelector((state) => state.post);
   const dispatch = useDispatch();
 
   useEffect(() =>{
@@ -47,6 +49,7 @@ function HomeScreen() {
       </motion.div>
       <div className="container-fluid gedf-wrapper" style={{paddingTop:"2rem",marginTop:"-2rem",backgroundColor:"#EDEDED"}}>
         <div className="row">
+          {followDetails &&  <FollowersCounts />}
           <Leftsidebar data={user} />
           <Maincontent data={user} posts={posts} />
           <Rightsidebar userSugg={userSugg} />

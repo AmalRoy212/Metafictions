@@ -8,7 +8,8 @@ const postSlice = createSlice({
     popUp : false,
     yesButtonChoice : " ",
     singlePostId : null,
-    liked : false 
+    liked : false ,
+    followDetails : false
   },
   reducers: {
     incrementPostCount : (state) => {
@@ -40,6 +41,12 @@ const postSlice = createSlice({
     },
     clearLiked : (state) => {
       state.liked = false
+    },
+    setFollowDetails : (state) => {
+      state.followDetails = true;
+    },
+    clearFollowDetails : (state) => {
+      state.followDetails = false;
     }
   },
 });
@@ -54,6 +61,8 @@ export const {
   setYesButtonChoice,
   setPostId,
   setLiked,
-  clearLiked
+  clearLiked,
+  setFollowDetails,
+  clearFollowDetails
 } = postSlice.actions;
 export default postSlice.reducer;

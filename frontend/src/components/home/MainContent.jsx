@@ -8,7 +8,6 @@ import { userCreatePost } from "../../functionalities/userApiFunctionalities";
 import "./Main.css";
 import SecondFeed from "./SecondFeed";
 
-
 export default function Maincontent({ data, posts }) {
 
   const { firebase } = useContext(FirebaseContext);

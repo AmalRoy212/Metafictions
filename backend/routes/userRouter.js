@@ -13,7 +13,8 @@ import {
   findRequests,
   findMyFriends,
   findOthersProfile,
-  unfollowUser
+  unfollowUser,
+  followDatas
 } from "../controllers/userController.js";
 import { 
   createComment,
@@ -35,6 +36,7 @@ userRouter.get('/my/post', protecter, findMyPosts);
 userRouter.get('/requests', protecter, findRequests);
 userRouter.get('/get/friends', protecter, findMyFriends);
 userRouter.get('/other/profile/:userId', protecter, findOthersProfile);
+userRouter.get('/following/users', protecter, followDatas);
 userRouter.post('/register', registerUser);
 userRouter.post('/auth', authenticateUsers);
 userRouter.post('/verify', verfyOtp);

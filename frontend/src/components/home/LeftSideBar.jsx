@@ -7,6 +7,7 @@ import { Button } from "react-bootstrap";
 import { userLogOut } from "../../functionalities/userApiFunctionalities";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom"
+import { setFollowDetails } from "../../redux-toolkit/actionManagerSlice";
 
 
 export default function Leftsidebar({ data }) {
@@ -40,11 +41,11 @@ export default function Leftsidebar({ data }) {
               <div style={{ display: 'flex', alignItems: "center",justifyContent:"center", borderRadius: '10px', padding: "3px" }}>
                 <div style={{ color:"black", marginTop: "5px" }} className="h5">{data?.name}</div>
               </div>
-              <div style={{ display: 'flex', alignItems: "center", borderRadius: '10px', padding: "3px" }}>
+              <div onClick={() => dispatch(setFollowDetails())} style={{ cursor:"pointer", display: 'flex', alignItems: "center", borderRadius: '10px', padding: "3px" }}>
                 <h6 style={{ color:"black", width: "50%", display: 'flex', alignItems: "center",justifyContent:'center',marginTop:'1rem'}}>Followers</h6>
                 <h6 style={{ color:"black", width: "50%", display: 'flex', alignItems: "center",justifyContent:'center',marginTop:'1rem'}}>Following</h6>
               </div>
-              <div style={{ display: 'flex', alignItems: "center", borderRadius: '10px', padding: "3px" }}>
+              <div onClick={() => dispatch(setFollowDetails())} style={{ cursor:"pointer", display: 'flex', alignItems: "center", borderRadius: '10px', padding: "3px" }}>
                 <h4 style={{ color:"black", width: "50%", display: 'flex', alignItems: "center",justifyContent:'center'}}>{data?.followers}</h4>
                 <h4 style={{ color:"black", width: "50%", display: 'flex', alignItems: "center",justifyContent:'center'}}>{data?.following}</h4>
               </div>

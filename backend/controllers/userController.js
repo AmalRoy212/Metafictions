@@ -382,7 +382,6 @@ const findOthersProfile = asyncHandler(async function (req, res) {
 
   updatedPosts.reverse();
 
-  // Update the user object with new keys
   const updatedUser = {
     ...user.toObject(),
     canFollow: user.canFollow,
@@ -391,6 +390,37 @@ const findOthersProfile = asyncHandler(async function (req, res) {
   };
 
   res.status(200).json({ user: updatedUser, updatedPosts });
+});
+
+//finding the followers and following
+const followDatas = asyncHandler(async function (req, res) {
+  const { _id } = req.headers;
+
+  const user = await UserModel.findById(_id).populate('following');
+
+  if (user) {
+    const followingUsers = await Promise.all(user.following.map(async (followingUser) => {
+      let newUser = await UserModel.findById(followingUser);
+      return {
+        id: newUser._id,
+        name: newUser.name,
+        imgSrc: newUser.imgSrc
+      };
+    })); 
+    
+    const followerUsers = await Promise.all(user.followers.map(async (followingUser) => {
+      let newUser = await UserModel.findById(followingUser);
+      return {
+        id: newUser._id,
+        name: newUser.name,
+        imgSrc: newUser.imgSrc
+      };
+    }));
+
+    res.status(200).json({ followingUsers, followerUsers, message:"Success" });
+  } else {
+    res.status(404).json({ message: 'User not found' });
+  }
 });
 
 
@@ -407,5 +437,6 @@ export {
   findRequests,
   findMyFriends,
   findOthersProfile,
-  unfollowUser
+  unfollowUser,
+  followDatas
 }
