@@ -152,9 +152,9 @@ function SecondFeed({ posts }) {
             </div>
             {post?.content && (
               <>
-                <div className="container">
+                <div className="container m-0 p-0">
                   <div className="row">
-                    <div className="col-md-12">
+                    <div className="col-md-12 p-0">
                       <img src={post?.content} alt="" style={{ height: "100%", width: "100%", objectFit: "cover" }} />
                     </div>
                   </div>

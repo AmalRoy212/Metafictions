@@ -40,7 +40,6 @@ function FollowersCounts() {
             justifyContent: 'center',
             alignItems: 'center',
             backgroundColor: 'rgba(28, 28, 28, 0.32)',
-            overflow: 'hidden',
             height: "100vh"
           }}
         >
