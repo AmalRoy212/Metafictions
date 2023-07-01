@@ -25,7 +25,7 @@ export default function ProfileRightSide({ data }) {
       {edit && <UpdateUser data={data} setEdit={setEdit} />}
       <div className="col-md-3">
         <div className="card gedf-card" style={{ backgroundColor: "white", borderRadius: "20px", marginTop: "1rem", padding: "1rem" }}>
-          <QRCode id={data._id}/>
+          <QRCode userId={data?.userId}/>
           <motion.div
             variants={fadeIn('right', 'tween', 0.3, 0.3)}
             initial="hidden"

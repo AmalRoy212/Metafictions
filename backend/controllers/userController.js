@@ -1,5 +1,6 @@
 import asyncHandler from 'express-async-handler';
 import UserModel from '../models/userModel.js';
+import PostModel from "../models/postModel.js";
 import { generateToken } from "../utils/generateToken.js";
 import { generateOTP } from "../utils/generateOtp.js";
 import nodemailer from "nodemailer";
@@ -325,9 +326,17 @@ const findMyFriends = asyncHandler(async function (req, res) {
 
 //finding other users profile
 const findOthersProfile = asyncHandler( async function( req, res) {
-  console.log("***************************");
-  // const { userId } = req.query;
-  // console.log(userId);
+  const { userId } = req.params;
+
+  const user = await UserModel.findById({ _id : userId });
+  const userPosts = user.post
+  const posts = await PostModel.find({ _id: { $in: userPosts } });
+
+  if(user){
+    res.status(200).json({user,posts});
+  }else{
+    res.status(404).json({message : "User not found "});
+  }
 })
 
 export {

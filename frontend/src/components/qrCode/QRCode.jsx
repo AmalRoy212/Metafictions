@@ -1,13 +1,15 @@
 import React from 'react';
 import {QRCodeSVG} from 'qrcode.react';
+import { APP_URL } from '../../constants/constants';
 
-
-function QRCode() {
+function QRCode({userId}) {
   return (
-    <div>
-      <h6>Your Code is here</h6>
-      <QRCodeSVG value="http://localhost:3000/profile" />,
-    </div>
+    <>
+      <h5 style={{width:"100%", display:"flex", justifyContent:"center"}}>QR code</h5>
+      <div style={{display:"flex", justifyContent:"center"}}>
+        <QRCodeSVG value={`${APP_URL}/friends/profile/${userId}/`} />,
+      </div>
+    </>
   )
 }
 

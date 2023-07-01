@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBBtn, MDBTypography } from 'mdb-react-ui-kit';
-import { findMyPost, findingFriendsData } from '../../../functionalities/userApiFunctionalities';
+import { findingFriendsData } from '../../../functionalities/userApiFunctionalities';
 import { useDispatch, useSelector } from 'react-redux';
 import SecondFeeds from "../../home/SecondFeed";
 import { useParams } from 'react-router-dom';
@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom';
 export default function OthersProfile({data}) {
 
   const [posts, setPosts] = useState([]);
-  const [user, setUser] = useState();
+  const [user, setUser] = useState([]);
   const {userId} = useParams()
 
   const dispatch = useDispatch()
@@ -20,6 +20,8 @@ export default function OthersProfile({data}) {
     findingFriendsData({token,userId,setPosts,setUser,dispatch})
   },[count])
 
+  // console.log(user,userId);
+
   return (
     <>
     <div className="col-md-9 gedf-main" style={{ marginBottom: "10px",borderRadius:"20px", backgroundColor:"#F1F1F1", marginTop:"1rem", maxHeight:"100vh", overflow:"auto"}}>
@@ -30,26 +32,26 @@ export default function OthersProfile({data}) {
               <MDBCard style={{borderRadius:"20px"}}>
                 <div className="text-white d-flex flex-row" style={{ backgroundColor: '#000', height: '200px', borderRadius:"20px 20px 0 0" }}>
                   <div className="ms-4 mt-5 d-flex flex-column" style={{ width: '150px',height:"150px" }}>
-                    <MDBCardImage src={data?.imgSrc}
+                    <MDBCardImage src={user?.imgSrc}
                       alt="Generic placeholder image" className="mt-4 mb-2 img-thumbnail" fluid style={{ width: '150px', zIndex: '1',height:'150px', objectFit:"cover" }} />
                   </div>
                   <div className="ms-3" style={{ marginTop: '130px' }}>
-                    <MDBTypography tag="h5">{data?.name}</MDBTypography>
-                    <MDBCardText>{data?.email}</MDBCardText>
+                    <MDBTypography tag="h5">{user?.name}</MDBTypography>
+                    <MDBCardText>{user?.email}</MDBCardText>
                   </div>
                 </div>
                 <div className="p-4 text-black" style={{ backgroundColor: '#f8f9fa' }}>
                   <div className="d-flex justify-content-end text-center py-1">
                     <div>
-                      <MDBCardText className="mb-1 h5">{data.posts}</MDBCardText>
+                      <MDBCardText className="mb-1 h5">{user?.post?.length}</MDBCardText>
                       <MDBCardText className="small text-muted mb-0">Posts</MDBCardText>
                     </div>
                     <div className="px-3">
-                      <MDBCardText className="mb-1 h5">{data.followers}</MDBCardText>
+                      <MDBCardText className="mb-1 h5">{user?.followers?.length}</MDBCardText>
                       <MDBCardText className="small text-muted mb-0">Followers</MDBCardText>
                     </div>
                     <div>
-                      <MDBCardText className="mb-1 h5">{data.following}</MDBCardText>
+                      <MDBCardText className="mb-1 h5">{user?.following?.length}</MDBCardText>
                       <MDBCardText className="small text-muted mb-0">Following</MDBCardText>
                     </div>
                   </div>
@@ -58,7 +60,7 @@ export default function OthersProfile({data}) {
                   <div className="mb-5">
                     <p className="lead fw-normal mb-1">About</p>
                     <div className="p-4" style={{ backgroundColor: '#f8f9fa' }}>
-                      <MDBCardText className="font-italic mb-1">{data?.email}</MDBCardText>
+                      <MDBCardText className="font-italic mb-1">{user?.email}</MDBCardText>
                       {/* <MDBCardText className="font-italic mb-1">Lives in New York</MDBCardText>
                       <MDBCardText className="font-italic mb-0">Photographer</MDBCardText> */}
                     </div>

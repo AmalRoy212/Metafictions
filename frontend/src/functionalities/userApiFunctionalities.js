@@ -437,11 +437,10 @@ export const findingFriendsData = ({ token, dispatch, userId, setPosts, setUser 
     },
   })
     .then((res) => {
-      console.log(res.data);
-      setUser(res.data);
+      setUser(res.data.user);
+      setPosts(res.data.posts);
     })
     .catch((error) => {
-      console.log(error);
-      // Handle the error, e.g., show an error message or take appropriate action
+      toast.error("Error occured");
     });
 };
