@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { likePost } from "../../functionalities/userApiFunctionalities";
 import { incrementFollowCount, setLiked, setPopUp, setPostId } from "../../redux-toolkit/actionManagerSlice";
 import PopUp from "../popUp/PopUp";
+import { useNavigate } from "react-router-dom";
 
 const THROTTLE_TIME = 1500;
 
@@ -46,6 +47,7 @@ function SecondFeed({ posts }) {
   const { token } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const deleteHandler = async (id) => {
     dispatch(setPopUp());
@@ -100,11 +102,11 @@ function SecondFeed({ posts }) {
     <>
       {popUp && <PopUp message={"Are sure about the deletion ..!"} />}
       {posts?.map((post, index) => (
-        <article key={index} className="post" style={{ marginTop: "1rem" }}>
+        <article key={index} className="post" style={{ marginTop: "1rem", marginBottom:"1rem" }}>
           <header className="post-header">
             <div className="card-header">
               <div className="d-flex justify-content-between align-items-center" style={{ cursor: 'pointer' }}>
-                <div className="d-flex justify-content-between align-items-center">
+                <div className="d-flex justify-content-between align-items-center" onClick={() => navigate(`/friends/profile/${post?.userId}`)}>
                   <div className="mr-2">
                     <img
                       className="rounded-circle"

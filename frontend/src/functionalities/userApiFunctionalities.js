@@ -224,7 +224,7 @@ export const userLogOut = async function ({ token, dispatch, navigate }) {
 //follow friends
 
 export const followUser = async function ({ token, _id, dispatch }) {
-  console.log(_id);
+  dispatch(setLoading());
   try {
     axios.put(`/users/follow?followId=${_id}`, null, {
       headers: {
@@ -233,6 +233,7 @@ export const followUser = async function ({ token, _id, dispatch }) {
     }).then((res) => {
       toast.success("Request sent " + res.data.message);
       dispatch(incrementFollowCount());
+      dispatch(clearLoading())
     }).catch((err) => toast.error("Error occurred " + err.message));
   } catch (error) {
     toast.error("Error occurred " + error.message);
@@ -430,7 +431,7 @@ export const findMyFriends = ({token,setFriends}) => {
 }
 
 //finding friends profile
-export const findingFriendsData = ({ token, dispatch, userId, setPosts, setUser }) => {
+export const findingFriendsData = ({ token, dispatch, userId, setPosts, setUser, setEvent }) => {
   axios.get(`/users/other/profile/${userId}`, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -438,9 +439,30 @@ export const findingFriendsData = ({ token, dispatch, userId, setPosts, setUser 
   })
     .then((res) => {
       setUser(res.data.user);
-      setPosts(res.data.posts);
+      setPosts(res.data.updatedPosts);
+      setEvent(false);
     })
     .catch((error) => {
       toast.error("Error occured");
+    });
+};
+
+//unfollowing user 
+export const unfollowUsers = ({ followId, token, dispatch }) => {
+  dispatch(setLoading());
+  axios
+    .put(`/users/unfollow/${followId}`, null, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => {
+      console.log(res.data);
+      dispatch(clearLoading());
+      toast.success("Unfollowed "+ res.data.message)
+    })
+    .catch((err) => {
+      toast.error("Something went wrong");
+      dispatch(clearLoading());
     });
 };

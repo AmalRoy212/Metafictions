@@ -12,7 +12,8 @@ import {
   followUser,
   findRequests,
   findMyFriends,
-  findOthersProfile
+  findOthersProfile,
+  unfollowUser
 } from "../controllers/userController.js";
 import { 
   createComment,
@@ -38,6 +39,7 @@ userRouter.post('/register', registerUser);
 userRouter.post('/auth', authenticateUsers);
 userRouter.post('/verify', verfyOtp);
 userRouter.put('/follow',protecter, followUser);
+userRouter.put('/unfollow/:followId', protecter, unfollowUser);
 userRouter.put('/like',protecter, likingPost);
 userRouter.put('/comment', protecter, createComment);
 userRouter.patch('/delete/comment', protecter, deleteComment);

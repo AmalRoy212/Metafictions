@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBBtn, MDBTypography } from 'mdb-react-ui-kit';
-import { findingFriendsData } from '../../../functionalities/userApiFunctionalities';
+import { findingFriendsData, followUser, unfollowUsers } from '../../../functionalities/userApiFunctionalities';
 import { useDispatch, useSelector } from 'react-redux';
 import SecondFeeds from "../../home/SecondFeed";
 import { useParams } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
+import { FaEarlybirds, FaKeybase, FaTelegramPlane, FaWaze } from "react-icons/fa";
 
-export default function OthersProfile({data}) {
+export default function OthersProfile() {
 
   const [posts, setPosts] = useState([]);
   const [user, setUser] = useState([]);
-  const {userId} = useParams()
+  const [event , setEvent] = useState(false)
+  const { userId } = useParams()
 
   const dispatch = useDispatch()
 
@@ -17,10 +20,20 @@ export default function OthersProfile({data}) {
   const { count } = useSelector((state) => state.post);
 
   useEffect(() => {
-    findingFriendsData({token,userId,setPosts,setUser,dispatch})
-  },[count])
+    findingFriendsData({token,userId,setPosts,setUser,dispatch,setEvent})
+  },[event])
 
-  // console.log(user,userId);
+  const followBackHanlder = (_id) => {
+    setEvent(true);
+    followUser({_id,token,dispatch});
+  }
+
+  const unFollowHandler = (followId) => {
+    setEvent(true);
+    unfollowUsers({followId,token,dispatch})
+  }
+
+  console.log(user,userId);
 
   return (
     <>
@@ -42,6 +55,24 @@ export default function OthersProfile({data}) {
                 </div>
                 <div className="p-4 text-black" style={{ backgroundColor: '#f8f9fa' }}>
                   <div className="d-flex justify-content-end text-center py-1">
+                  <div style={{width:"80%",height:"50px"}} className="d-flex justify-content-start text-center py-1">
+                    {user?.canFollow &&
+                      <Button variant='primary'
+                        onClick={() => followBackHanlder(user?._id)}
+                      ><FaKeybase size={20}/> Follow</Button>
+                    }
+                    {user?.canFollowBack &&
+                      <Button variant='success' style={{marginLeft:"5px"}}
+                        onClick={() => followBackHanlder(user?._id)}
+                      ><FaWaze size={20}/> Follow Back</Button>
+                    }
+                    {user?.canUnfollow && 
+                      <Button variant='danger' style={{marginLeft:"5px"}}
+                      onClick={() => unFollowHandler(user?._id)}
+                      ><FaEarlybirds size={20}/> Unfollow</Button>
+                    }
+                    <Button variant='warning' style={{marginLeft:"5px"}}><FaTelegramPlane/> Message</Button>
+                  </div>
                     <div>
                       <MDBCardText className="mb-1 h5">{user?.post?.length}</MDBCardText>
                       <MDBCardText className="small text-muted mb-0">Posts</MDBCardText>
@@ -56,6 +87,7 @@ export default function OthersProfile({data}) {
                     </div>
                   </div>
                 </div>
+                
                 <MDBCardBody className="text-black p-4">
                   <div className="mb-5">
                     <p className="lead fw-normal mb-1">About</p>

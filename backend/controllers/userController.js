@@ -1,9 +1,11 @@
 import asyncHandler from 'express-async-handler';
+import nodemailer from "nodemailer";
+import moment from 'moment'
 import UserModel from '../models/userModel.js';
 import PostModel from "../models/postModel.js";
 import { generateToken } from "../utils/generateToken.js";
 import { generateOTP } from "../utils/generateOtp.js";
-import nodemailer from "nodemailer";
+
 
 
 let otpChecking;
@@ -275,22 +277,23 @@ const followUser = asyncHandler(async function (req, res) {
 //unfollow user
 const unfollowUser = asyncHandler(async function (req, res) {
   const { _id } = req.headers;
-  const { followId } = req.query;
+  const { followId } = req.params;
 
   const updatedUser = await UserModel.findByIdAndUpdate(
-    { _id: _id },
-    { $pop: { following: followId } },
+    _id,
+    { $pull: { following: followId } },
   );
 
   const followedUser = await UserModel.findByIdAndUpdate(
     { _id: followId },
-    { $pop: { followers: _id } },
-  )
+    { $pull: { followers: _id } },
+  );
 
   if (updatedUser && followedUser) {
     res.status(200).json({ message: "success" });
   }
-})
+});
+
 
 //getting the friend requests
 const findRequests = asyncHandler(async function (req, res) {
@@ -325,19 +328,71 @@ const findMyFriends = asyncHandler(async function (req, res) {
 });
 
 //finding other users profile
-const findOthersProfile = asyncHandler( async function( req, res) {
+const findOthersProfile = asyncHandler(async function (req, res) {
   const { userId } = req.params;
+  const { _id } = req.headers;
 
-  const user = await UserModel.findById({ _id : userId });
-  const userPosts = user.post
+  const user = await UserModel.findById({ _id: userId });
+
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
+  }
+
+  user.canFollow = false;
+  user.canUnfollow = false;
+  user.canFollowBack = false;
+
+  if (user.following.includes(_id) && !user.followers.includes(_id)) {
+    user.canFollowBack = true;
+  } else if (user.followers.includes(_id)) {
+    user.canUnfollow = true;
+  } else {
+    user.canFollow = true;
+  }
+
+  const userPosts = user.post;
   const posts = await PostModel.find({ _id: { $in: userPosts } });
 
-  if(user){
-    res.status(200).json({user,posts});
-  }else{
-    res.status(404).json({message : "User not found "});
-  }
-})
+  const updatedPosts = posts.map((post) => {
+    const postTime = moment(post.dateOfPost);
+    const currentTime = moment();
+    const duration = moment.duration(currentTime.diff(postTime));
+    const hoursAgo = Math.floor(duration.asHours());
+    const minutesAgo = Math.floor(duration.asMinutes());
+
+    let timeAgo;
+    if (hoursAgo > 12) {
+      timeAgo = postTime.format("MMM D, YYYY");
+    } else if (hoursAgo > 0 && hoursAgo < 12) {
+      timeAgo = `${hoursAgo} hours ago`;
+    } else if (hoursAgo < 12) {
+      timeAgo = `${minutesAgo} minutes ago`;
+    }
+
+    const updatedPost = {
+      ...post.toObject(),
+      date: timeAgo,
+      userName: user.name,
+      userDp: user.imgSrc,
+      userEmail: user.email,
+    };
+
+    return updatedPost;
+  });
+
+  updatedPosts.reverse();
+
+  // Update the user object with new keys
+  const updatedUser = {
+    ...user.toObject(),
+    canFollow: user.canFollow,
+    canUnfollow: user.canUnfollow,
+    canFollowBack: user.canFollowBack,
+  };
+
+  res.status(200).json({ user: updatedUser, updatedPosts });
+});
+
 
 export {
   authenticateUsers,
@@ -351,5 +406,6 @@ export {
   followUser,
   findRequests,
   findMyFriends,
-  findOthersProfile
+  findOthersProfile,
+  unfollowUser
 }
