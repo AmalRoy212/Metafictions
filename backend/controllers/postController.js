@@ -2,7 +2,7 @@ import asyncHandler from "express-async-handler";
 import PostModel from '../models/postModel.js';
 import UserModel from "../models/userModel.js";
 import NotificationModel from "../models/notificationsModel.js";
-import moment from 'moment'
+import moment from 'moment';
 
 
 //creating new post 
@@ -123,7 +123,13 @@ const likingPost = asyncHandler(async function (req, res) {
     );
 
     if(updatedPost){
-      
+      const user = await UserModel.findById(_id);
+      const message = `${user.name} Likes your recent post`;
+      const userEx = await NotificationModel.findOneAndUpdate(
+        { userId: updatedPost.userId, noteMessage : message, LikedUserId : _id },
+        {$set:{isDeleted : true }}
+      );
+      if(userEx) status = true;
     }
 
     amLiked = true;
@@ -135,12 +141,14 @@ const likingPost = asyncHandler(async function (req, res) {
     if (updatedPost) {
       const user = await UserModel.findById(_id);
       const message = `${user.name} Likes your recent post`;
-      const userEx = await NotificationModel.findOne({ userId: updatedPost.userId, noteMessage : message });
-
+      const userEx = await NotificationModel.findOne(
+        { userId: updatedPost.userId, noteMessage : message, LikedUserId : _id }
+      );
       if (!userEx) {
         const newNotification = new NotificationModel({
           userId: updatedPost.userId,
           postId: updatedPost._id,
+          postImg : updatedPost.content,
           LikedUserId: user._id,
           LikedUserDp: user.imgSrc,
           noteMessage: message,
@@ -158,6 +166,12 @@ const likingPost = asyncHandler(async function (req, res) {
             status = true;
           }
         }
+      }else{
+        const userEx = await NotificationModel.findOneAndUpdate(
+          { userId: updatedPost.userId, noteMessage : message, LikedUserId : _id },
+          {$set:{isDeleted : false }}
+        );
+        if(userEx) status = true;
       }
     }
     amLiked = false;

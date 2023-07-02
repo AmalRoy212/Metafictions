@@ -9,6 +9,10 @@ const notificationsSchema = new mongoose.Schema({
     type : String,
     required : true,
   },
+  postImg : {
+    type : String,
+    required : true,
+  },
   LikedUserId: {
     type: String,
     required: true

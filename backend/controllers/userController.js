@@ -214,6 +214,7 @@ const findUser = asyncHandler(async function (req, res) {
       name: user.name,
       email: user.email,
       imgSrc: user.imgSrc,
+      notifications : user.notifications,
       following,
       followers,
       posts

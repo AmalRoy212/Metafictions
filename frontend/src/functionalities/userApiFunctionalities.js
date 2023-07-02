@@ -9,6 +9,7 @@ import {
   incrementFollowCount,
   clearLiked,
 } from "../redux-toolkit/actionManagerSlice";
+import { setNotLength } from "../redux-toolkit/notificationSlice";
 
 //login 
 export const userLogin = async function (email, password, dispatch, navigate) {
@@ -485,3 +486,20 @@ export const findMyFolloData = ({token,setFollowers, setFollowings, dispatch}) =
     dispatch(clearLoading());
   })
 }
+
+//finding notifications
+export const findMyNots = ({ token, setNotifications, dispatch }) => {
+  dispatch(setLoading());
+  axios.get('/users/notifications', {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }).then((res) => {
+    setNotifications(res.data);
+    dispatch(clearLoading());
+    // dispatch(setNotLength(res.data.length))
+  }).catch((err) => {
+    toast.error("Somthing went wrong");
+    dispatch(clearLoading());
+  })
+};

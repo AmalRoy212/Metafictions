@@ -25,6 +25,7 @@ import {
   getAllPost, 
   likingPost 
 } from "../controllers/postController.js";
+import { findNotifications } from "../controllers/notificationsController.js";
 
 
 const userRouter = express.Router();
@@ -37,6 +38,7 @@ userRouter.get('/requests', protecter, findRequests);
 userRouter.get('/get/friends', protecter, findMyFriends);
 userRouter.get('/other/profile/:userId', protecter, findOthersProfile);
 userRouter.get('/following/users', protecter, followDatas);
+userRouter.get('/notifications', protecter, findNotifications);
 userRouter.post('/register', registerUser);
 userRouter.post('/auth', authenticateUsers);
 userRouter.post('/verify', verfyOtp);
