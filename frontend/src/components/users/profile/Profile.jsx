@@ -3,6 +3,7 @@ import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCar
 import { findMyPost } from '../../../functionalities/userApiFunctionalities';
 import { useDispatch, useSelector } from 'react-redux';
 import SecondFeeds from "../../home/SecondFeed";
+import { setFollowDetails } from '../../../redux-toolkit/actionManagerSlice';
 
 export default function Profile({data}) {
 
@@ -41,11 +42,11 @@ export default function Profile({data}) {
                       <MDBCardText className="mb-1 h5">{data.posts}</MDBCardText>
                       <MDBCardText className="small text-muted mb-0">Posts</MDBCardText>
                     </div>
-                    <div className="px-3">
+                    <div onClick={() => dispatch(setFollowDetails())} style={{cursor:"pointer"}} className="px-3">
                       <MDBCardText className="mb-1 h5">{data.followers}</MDBCardText>
                       <MDBCardText className="small text-muted mb-0">Followers</MDBCardText>
                     </div>
-                    <div>
+                    <div onClick={() => dispatch(setFollowDetails())} style={{cursor:"pointer"}}>
                       <MDBCardText className="mb-1 h5">{data.following}</MDBCardText>
                       <MDBCardText className="small text-muted mb-0">Following</MDBCardText>
                     </div>

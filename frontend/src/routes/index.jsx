@@ -15,6 +15,7 @@ import AdminLoginScreen from "../pages/admin/AdminLoginScreen.jsx";
 import AdminEditUser from "../pages/admin/AdminEditUser.jsx";
 import UserProfile from "../pages/users/UserProfile.jsx";
 import FriendsProfile from "../pages/users/FriendsProfile.jsx";
+import NotificationScreen from "../pages/users/NotifiactionScreen.jsx";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,13 +30,13 @@ export const router = createBrowserRouter(
         <Route path='/home' element={<HomeScreen className="gradient01"/>} />
         <Route path='/profile' element={<UserProfile className="gradient01"/>} />
         <Route path='/friends/profile/:userId/' element={<FriendsProfile className="gradient01"/>} />
+        <Route path='/notifications' element={<NotificationScreen className="gradient01"/>} />
       </Route>
 
       <Route index={true}  path='/admin' element={<AdminLoginScreen />} />
       <Route  path='/admin/home' element={<AdminHomeScreen />} />
       <Route  path='/admin/users' element={<AminUsersScreen />} />
       <Route  path='/admin/edit/user' element={<AdminEditUser />} />
-
     </Route>
     </>
   )

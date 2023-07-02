@@ -34,7 +34,7 @@ const userSchema = new mongoose.Schema({
   ],
   notifications: [
     {
-      type: Number,
+      type: String,
       default: ''
     }
   ],

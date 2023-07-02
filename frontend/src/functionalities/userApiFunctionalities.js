@@ -187,11 +187,14 @@ export const userCreatePost = async function ({
                 dispatch(clearLoading());
                 dispatch(incrementPostCount());
               })
-              .catch((error) =>
-                toast.error(error?.data?.message || error.error)
+              .catch((error) =>{
+                  toast.error(error?.data?.message || error.error);
+                  dispatch(clearLoading());
+                }
               );
           } catch (error) {
             toast.error(error.message);
+            dispatch(clearLoading());
           }
         });
       })

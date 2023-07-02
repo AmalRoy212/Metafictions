@@ -1,6 +1,7 @@
 import asyncHandler from "express-async-handler";
 import PostModel from '../models/postModel.js';
 import UserModel from "../models/userModel.js";
+import NotificationModel from "../models/notificationsModel.js";
 import moment from 'moment'
 
 
@@ -107,11 +108,11 @@ const deletePost = asyncHandler(async function (req, res) {
 
 //user like and unlike
 const likingPost = asyncHandler(async function (req, res) {
-
   const { _id } = req.headers;
   const { id } = req.query;
-  let updatedPost
-  let amLiked = false
+  let updatedPost;
+  let status = false;
+  let amLiked = false;
 
   const post = await PostModel.findById({ _id: id });
 
@@ -120,47 +121,81 @@ const likingPost = asyncHandler(async function (req, res) {
       { _id: id },
       { $pull: { likes: _id } }
     );
+
+    if(updatedPost){
+      
+    }
+
     amLiked = true;
   } else {
     updatedPost = await PostModel.findByIdAndUpdate(
       { _id: id },
       { $addToSet: { likes: _id } }
     );
+    if (updatedPost) {
+      const user = await UserModel.findById(_id);
+      const message = `${user.name} Likes your recent post`;
+      const userEx = await NotificationModel.findOne({ userId: updatedPost.userId, noteMessage : message });
+
+      if (!userEx) {
+        const newNotification = new NotificationModel({
+          userId: updatedPost.userId,
+          postId: updatedPost._id,
+          LikedUserId: user._id,
+          LikedUserDp: user.imgSrc,
+          noteMessage: message,
+        });
+
+        await newNotification.save();
+
+        if (newNotification) {
+          const newUser = await UserModel.findByIdAndUpdate(
+            { _id: updatedPost.userId },
+            { $addToSet: { notifications: newNotification._id } }
+          );
+
+          if (newUser) {
+            status = true;
+          }
+        }
+      }
+    }
     amLiked = false;
   }
 
   if (updatedPost) {
-    res.status(200).json({message:"Success",amLiked});
+    res.status(200).json({ message: "Success", amLiked });
   }
-})
+});
+
 
 // create new comment
-const createComment = asyncHandler( async function(req,res){
+const createComment = asyncHandler(async function (req, res) {
   const { postId, content } = req.body;
   const { _id } = req.headers;
 
   const user = await UserModel.findById(_id);
 
   const newComment = {
-    userId : user._id,
-    userImage : user.imgSrc,
-    userName : user.name,
+    userId: user._id,
+    userImage: user.imgSrc,
+    userName: user.name,
     content
   }
 
   const updatedPost = await PostModel.findByIdAndUpdate(
-    { _id : postId},
-    {$addToSet : {comment : newComment}}
+    { _id: postId },
+    { $addToSet: { comment: newComment } }
   )
 
-  if(updatedPost){
-    res.status(200).json({message:"Success"});
+  if (updatedPost) {
+    res.status(200).json({ message: "Success" });
   }
 
 })
 
 //delete a comment
-const deleteComment = asyncHandler( async function( req, res){
+const deleteComment = asyncHandler(async function (req, res) {
 
   const { postId, commentId } = req.body;
 
@@ -169,14 +204,14 @@ const deleteComment = asyncHandler( async function( req, res){
     { $pull: { comment: { _id: commentId } } },
     { new: true }
   );
-  
-  if(updatedPost){
-    res.status(200).json({message:"Success"});
+
+  if (updatedPost) {
+    res.status(200).json({ message: "Success" });
   }
 
 });
 
-const findMyPosts = asyncHandler(async function(req, res) {
+const findMyPosts = asyncHandler(async function (req, res) {
   const { _id } = req.headers;
 
   const myPosts = await PostModel.find({ userId: _id });

@@ -28,12 +28,12 @@ export default function ProfileRightSide({ data }) {
       {edit && <UpdateUser data={data} setEdit={setEdit} />}
       <div className="col-md-3">
         <div className="card gedf-card" style={{ backgroundColor: "white", borderRadius: "20px", marginTop: "1rem", padding: "1rem" }}>
-          {scanner ? 
-            (<QRCode userId={data?.userId}/>)
+          {scanner ?
+            (<QRCode userId={data?.userId} />)
             :
             (<QRScanner />)
           }
-          <div style={{width:"100%", display:"flex", justifyContent:"center", alignItems:"center"}}>
+          <div style={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
             <Button className="m-2" variant="dark" onClick={() => setScanner(true)}><FaQrcode size={20} /></Button>
             <Button className="m-2" variant="dark" onClick={() => setScanner(false)}><FaExpand size={20} /></Button>
           </div>
@@ -70,9 +70,11 @@ export default function ProfileRightSide({ data }) {
             <div style={{ display: "flex" }}>
               {friends.slice(0, 2).map((friend) => (
                 <div class="card" style={{ width: "8rem", margin: "5px", borderRadius: "10%", cursor: "pointer" }}>
-                  <img src={friend.imgSrc} style={{ objectFit: "contain" }} class="card-img-top" alt="..." />
+                  <div style={{ height: "70px", width: "100%", padding:"2px" }}>
+                    <img src={friend.imgSrc} style={{ height: "100%", width: "100%", objectFit: "cover" }} class="card-img-top" alt="..." />
+                  </div>                  
                   <div class="card-body">
-                    <h6 class="card-title">{friend?.name}</h6>
+                    <h6 style={{display:"flex", justifyContent:"center"}} class="card-title">{friend?.name}</h6>
                     <button style={{ border: 'none', width: "100%" }}><FaFacebookMessenger color="#0E3BBD" /></button>
                   </div>
                 </div>
@@ -81,7 +83,9 @@ export default function ProfileRightSide({ data }) {
             <div style={{ display: "flex" }}>
               {friends.slice(2, 4).map((friend) => (
                 <div class="card" style={{ width: "8rem", margin: "5px", borderRadius: "10%", cursor: "pointer" }}>
-                  <img src={friend.imgSrc} style={{ objectFit: "contain" }} class="card-img-top" alt="..." />
+                  <div style={{ height: "70px", width: "100%", padding:"2px" }}>
+                    <img src={friend.imgSrc} style={{ height: "100%", width: "100%", objectFit: "cover" }} class="card-img-top" alt="..." />
+                  </div>  
                   <div class="card-body">
                     <h6 class="card-title">{friend?.name}</h6>
                     <button style={{ border: 'none', width: "100%" }}><FaFacebookMessenger color="#0E3BBD" /></button>
