@@ -2,16 +2,19 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../../utils/motions";
 import { useDispatch, useSelector } from "react-redux";
-import { FaFacebookMessenger } from "react-icons/fa"
+import { FaFacebookMessenger, FaQrcode, FaExpand } from "react-icons/fa"
 import UpdateUser from '../userUpdate/UpdateUser';
 import { MDBBtn } from 'mdb-react-ui-kit';
 import { findMyFriends } from "../../../functionalities/userApiFunctionalities";
 import QRCode from "../../qrCode/QRCode";
+import { Button } from "react-bootstrap";
+import QRScanner from "../../qrCode/QRScanner";
 
 export default function ProfileRightSide({ data }) {
 
   const [edit, setEdit] = useState(false);
   const [friends, setFriends] = useState([]);
+  const [scanner, setScanner] = useState(true);
 
   const { token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -25,7 +28,15 @@ export default function ProfileRightSide({ data }) {
       {edit && <UpdateUser data={data} setEdit={setEdit} />}
       <div className="col-md-3">
         <div className="card gedf-card" style={{ backgroundColor: "white", borderRadius: "20px", marginTop: "1rem", padding: "1rem" }}>
-          <QRCode userId={data?.userId}/>
+          {scanner ? 
+            (<QRCode userId={data?.userId}/>)
+            :
+            (<QRScanner />)
+          }
+          <div style={{width:"100%", display:"flex", justifyContent:"center", alignItems:"center"}}>
+            <Button className="m-2" variant="dark" onClick={() => setScanner(true)}><FaQrcode size={20} /></Button>
+            <Button className="m-2" variant="dark" onClick={() => setScanner(false)}><FaExpand size={20} /></Button>
+          </div>
           <motion.div
             variants={fadeIn('right', 'tween', 0.3, 0.3)}
             initial="hidden"

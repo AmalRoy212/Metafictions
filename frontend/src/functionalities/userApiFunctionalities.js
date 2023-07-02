@@ -457,7 +457,6 @@ export const unfollowUsers = ({ followId, token, dispatch }) => {
       },
     })
     .then((res) => {
-      console.log(res.data);
       dispatch(clearLoading());
       toast.success("Unfollowed "+ res.data.message)
     })

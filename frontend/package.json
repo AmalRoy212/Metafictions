@@ -19,6 +19,7 @@
     "chart.js": "^4.3.0",
     "firebase": "^9.22.2",
     "framer-motion": "^10.12.16",
+    "html5-qrcode": "^2.3.8",
     "mdb-react-ui-kit": "^6.1.0",
     "mdbreact": "^5.2.0",
     "qrcode.react": "^3.1.0",

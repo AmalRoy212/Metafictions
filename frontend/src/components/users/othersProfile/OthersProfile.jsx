@@ -33,8 +33,6 @@ export default function OthersProfile() {
     unfollowUsers({followId,token,dispatch})
   }
 
-  console.log(user,userId);
-
   return (
     <>
     <div className="col-md-9 gedf-main" style={{ marginBottom: "10px",borderRadius:"20px", backgroundColor:"#F1F1F1", marginTop:"1rem", maxHeight:"100vh", overflow:"auto"}}>

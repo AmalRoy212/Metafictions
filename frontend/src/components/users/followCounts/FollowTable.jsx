@@ -5,8 +5,6 @@ export default function FollowTable({data}) {
 
   const navigate = useNavigate();
 
-  console.log(data);
-
   return (
     <table className='table table-borderless table-dark m-2' style={{maxWidth:"100%"}}>
       <thead>
