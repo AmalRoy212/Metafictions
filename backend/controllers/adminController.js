@@ -1,6 +1,8 @@
 import asyncHandler from "express-async-handler";
+import moment from "moment";
 import adminModel from "../models/adminModel.js";
 import userModel from "../models/userModel.js";
+import PostModel from "../models/postModel.js";
 import { generateToken } from "../utils/generateToken.js";
 
 /*
@@ -336,6 +338,88 @@ const findCurrentUsers = asyncHandler(async function (req, res) {
   }
 })
 
+//finding all post 
+const findPosts = asyncHandler(async function (req, res) {
+  const { searchInput } = req.query;
+
+  if (searchInput) {
+    const searchInputWithoutWhitespace = searchInput.replace(/\s/gi, "");
+    const posts = await PostModel.find({ userId: { $eq: searchInputWithoutWhitespace } });
+    const updatedPosts = await Promise.all(posts.map(async (post) => {
+      const postTime = moment(post.dateOfPost);
+      const timeAgo = postTime.format("MMM D, YYYY");
+
+      const user = await userModel.findById(post.userId);
+
+      const updatedPost = {
+        ...post.toObject(),
+        date: timeAgo,
+        userName: user.name,
+        userDp: user.imgSrc,
+        userEmail: user.email,
+      };
+
+      return updatedPost;
+    }));
+
+    if (updatedPosts.length > 0) {
+      res.status(200).json(updatedPosts);
+    } else {
+      res.json({ message: "No posts found" });
+    }
+  } else {
+    const posts = await PostModel.find();
+    const updatedPosts = await Promise.all(posts.map(async (post) => {
+      const postTime = moment(post.dateOfPost);
+      const timeAgo = postTime.format("MMM D, YYYY");
+
+      const user = await userModel.findById(post.userId);
+
+      const updatedPost = {
+        ...post.toObject(),
+        date: timeAgo,
+        userName: user.name,
+        userDp: user.imgSrc,
+        userEmail: user.email,
+      };
+
+      return updatedPost;
+    }));
+
+    if (updatedPosts.length > 0) {
+      res.status(200).json(updatedPosts);
+    } else {
+      res.json({ message: "No posts found" });
+    }
+  }
+});
+
+//for deleting post
+const deletePost = asyncHandler(async function (req, res) {
+  
+  const { _id } = req.query;
+  const existingPost = await PostModel.findById(_id);
+
+  if (existingPost.isDeleted) {
+    const updatedPost = await PostModel.findByIdAndUpdate(
+      _id,
+      { $set: { isDeleted: false } }
+    );
+    if (updatedPost) {
+      res.status(200).json({ message: "Success" });
+    }
+  } else {
+    const updatedPost = await PostModel.findByIdAndUpdate(
+      _id,
+      { $set: { isDeleted: true } }
+      );
+    if (updatedPost) {
+      res.status(200).json({ message: "Success" });
+    }
+  }
+});
+
+
 export {
   signUpAdmin,
   authAdminLogin,
@@ -349,5 +433,7 @@ export {
   unblockUsers,
   getSingleUser,
   userEdit,
-  findCurrentUsers
+  findCurrentUsers,
+  findPosts,
+  deletePost
 }

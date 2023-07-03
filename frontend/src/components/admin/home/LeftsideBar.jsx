@@ -14,7 +14,7 @@ export default function Leftsidebar({ data }) {
   return (
     <>
       <div className="col-md-3" style={{ marginBottom: '1rem', marginTop: "1rem", paddingTop: "5rem" }}>
-        <div className="card" style={{ backgroundColor: "white ", borderRadius: "20px", height:"600px" }}>
+        <div className="card" style={{ backgroundColor: "white ", borderRadius: "20px" }}>
           <div className="card-body">
             <div>
             </div>
@@ -39,7 +39,7 @@ export default function Leftsidebar({ data }) {
               <div style={{ marginLeft: "10%", marginTop: "5px", color: "black", fontSize: 15 }} className="h5">User Management</div>
             </div>
             <div
-              onClick={() => navigate('/notifications')}
+              onClick={() => navigate('/admin/posts')}
               style={{ display: 'flex', alignItems: "center", padding: "5px", marginTop: "2%", cursor: "pointer", border:"2px solid grey", borderRadius:"10px" }}>
               <div style={{ height: "30px", width: "30px", borderRadius: "50%" }}>
                 <FaEdit style={{ width: "100%", height: "100%", objectFit: "cover", marginLeft: "3px" }} src={data?.imgSrc} />

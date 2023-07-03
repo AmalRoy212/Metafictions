@@ -13,7 +13,9 @@ import {
   logoutAdmin,
   getUsers,
   getSingleUser,
-  findCurrentUsers
+  findCurrentUsers,
+  findPosts,
+  deletePost
 } from "../controllers/adminController.js";
 import { protecter } from "../middlewares/adminAuthMiddleware.js";
 
@@ -24,10 +26,12 @@ router.put('/unblock/user', protecter, unblockUsers);
 router.put('/users/update/', userEdit);
 router.get('/users', protecter, searchUsers);
 router.get('/users/search', protecter, findCurrentUsers);
+router.get('/users/posts', protecter, findPosts);
 router.post('/users/create', protecter, createUser);
 router.put('/users/delete', protecter, deleteUser);
 router.put('/logout', protecter, logoutAdmin);
 router.get('/get/users', protecter, getUsers);
 router.get('/get/single/user/:id', protecter, getSingleUser);
+router.delete('/users/delete/post', protecter, deletePost);
 
 export default router

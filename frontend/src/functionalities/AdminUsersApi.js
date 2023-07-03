@@ -4,7 +4,6 @@ import { login, logout } from "../redux-toolkit/adminAuthSlice";
 
 //finding user on search
 export const findSearchData = ({ searchData, setUsers, adminToken }) => {
-  console.log(adminToken);
   axios.get(`/admin/users`, {
     params: {
       searchData
@@ -103,3 +102,33 @@ export const editUser = (userId) => {
 export const logOutAdmin = () =>{
   localStorage.removeItem('adminToken');
 }
+
+//finding post 
+export const fetchAllPost = ({adminToken,searchInput,setPosts}) => {
+  axios.get('/admin/users/posts',{
+    params : {
+      searchInput
+    },
+    headers:{
+      Authorization : `Beared ${adminToken}`
+    }
+  }).then((res) => {
+    setPosts(res.data);
+  })
+}
+
+//delete a post
+export const deletePost = ({ adminToken, _id }) => {
+  axios.delete('/admin/users/delete/post', {
+    params: {
+      _id
+    },
+    headers: {
+      Authorization: `Bearer ${adminToken}`
+    }
+  }).then((res) => {
+    console.log(res.data);
+  }).catch((error) => {
+    console.log(error);
+  });
+};

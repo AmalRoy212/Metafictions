@@ -14,7 +14,7 @@ export const protecter = asyncHandler(async function (req, res, next) {
       if(admin){
         if (token === admin.accessToken){
           req.headers._id = admin._id;
-          // console.log("reached here *************");
+          // console.log("reached here *************",admin.email);
           next();
         }else {
           res.status(401);

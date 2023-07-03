@@ -22,7 +22,7 @@ export default function Maincontent() {
   const img2 = "https://www.21kschool.com/blog/wp-content/uploads/2022/09/10-Fun-Educational-Activities-to-Do-at-Home.png"
   return (
     <>
-      <div className="col-md-9 gedf-main" style={{ marginBottom: "10px", marginTop: "1rem", borderRadius: "20px", maxHeight: "100vh", paddingTop: "5rem" }}>
+      <div className="col-md-9 gedf-main" style={{ marginBottom: "10px", marginTop: "1rem", borderRadius: "20px", paddingTop: "5rem" }}>
         <div className="card gedf-card" style={{ backgroundColor: 'white', borderRadius: "20px", overflow: "auto", padding:"1rem" }}>
           <Chart chartData={userData} />
           <Row className="bg-white">

@@ -13,8 +13,6 @@ export default function UsersTable() {
 
   const [searchData, setSearchData] = useState('');
   const [users, setUsers] = useState([]);
-  const [isBlocked, setIsBlocked] = useState(false);
-  const [isDeleted, setIsDeleted] = useState(false);
 
   let { adminToken } = useSelector((state) => state.admin);
   adminToken ? adminToken : localStorage.getItem('adminToken')
@@ -64,6 +62,7 @@ export default function UsersTable() {
                   <th scope='col'>Image</th>
                   <th scope='col'>Name</th>
                   <th scope='col'>Email</th>
+                  <th scope='col'>User ID</th>
                   <th scope='col'> <span style={{ marginLeft: "20%" }}></span> Block</th>
                   {/* <th scope='col'> <span style={{ marginLeft: "20%" }}></span> Edit</th> */}
                   <th scope='col'> <span style={{ marginLeft: "20%" }}></span> Delete</th>
@@ -77,6 +76,7 @@ export default function UsersTable() {
                       <td>{<img alt='' src={user?.imgSrc} style={{ objectFit: 'cover', border: '2px solid black', borderRadius: '50%' }} width="30px" height="30px"></img>}</td>
                       <td>{user?.name}</td>
                       <td>{user?.email}</td>
+                      <td>{user?._id}</td>
                       {user.isBlocked ? (<td style={{ width: "100px" }}>
                         <Button variant='primary' style={{ width: "100px", height: "30px", fontSize: "small" }}
                           onClick={() => {
@@ -89,7 +89,6 @@ export default function UsersTable() {
                           <Button variant='warning' style={{ width: "100px", height: "30px", fontSize: "small" }}
                             onClick={() => {
                               blockHandler(user._id);
-                              setIsBlocked(true);
                             }}
                           >Block</Button>
                         </td>)}

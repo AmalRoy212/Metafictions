@@ -36,7 +36,7 @@ const getAllPost = asyncHandler(async function (req, res) {
 
   const { _id } = req.headers;
 
-  const allPosts = await PostModel.find().sort({ dateOfPost: -1 }).lean();
+  const allPosts = await PostModel.find({isDeleted:false}).sort({ dateOfPost: -1 }).lean();
 
   await Promise.all(
     allPosts.map(async (post) => {
