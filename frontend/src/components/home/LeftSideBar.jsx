@@ -114,6 +114,7 @@ export default function Leftsidebar({ data }) {
               </div>
             </motion.div>
             <motion.div
+              onClick={() => navigate('/friends/list')}
               variants={fadeIn('right', 'tween', 0.3, 0.3)}
               initial="hidden"
               whileInView="show"
