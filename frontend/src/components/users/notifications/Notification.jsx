@@ -8,6 +8,7 @@ import {
   MDBBadge
 } from "mdb-react-ui-kit";
 import { findMyNots } from "../../../functionalities/userApiFunctionalities";
+import { addNotLength, setNotLength } from "../../../redux-toolkit/notificationSlice";
 
 export default function Notifications() {
 
@@ -18,10 +19,11 @@ export default function Notifications() {
   const { token } = useSelector((state) => state.auth);
   const { notiLenght } = useSelector((state) => state.notification);
 
-  const diffOfNot = notiLenght - notifications.length;
+  const diffOfNots = notiLenght != notifications.length ? notifications.length - notiLenght : null
 
   useEffect(() => {
     findMyNots({ token, setNotifications, dispatch });
+    return () => dispatch(addNotLength(notifications.length));
   }, [token])
 
   return (
@@ -32,7 +34,7 @@ export default function Notifications() {
             <h3 style={{marginLeft:"1rem",marginTop:"5px"}}>Notifications</h3>
             <h5 style={{marginTop:"7px"}}>
               <MDBBadge className='ms-1' color='danger'>
-                {diffOfNot}
+                #
               </MDBBadge>
             </h5>
           </div>
@@ -63,7 +65,10 @@ export default function Notifications() {
                           {notification?.noteMessage}
                         </span>
                       </MDBTypography>
+                      <div style={{height:"35px",width:"150px", backgroundColor:"black"}}>
+                        <img style={{width:"100%", height:"100%", objectFit:"cover"}} src={notification?.postImg} alt="post" />
                       <p style={{ fontSize: 'small' }} className="mb-0">{notification?.date}</p>
+                      </div>
                     </div>
                   </div>
                 </div>

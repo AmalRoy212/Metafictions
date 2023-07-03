@@ -8,6 +8,7 @@ import { userLogOut } from "../../functionalities/userApiFunctionalities";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom"
 import { setFollowDetails } from "../../redux-toolkit/actionManagerSlice";
+import { MDBBadge } from "mdb-react-ui-kit";
 
 
 export default function Leftsidebar({ data }) {
@@ -105,7 +106,12 @@ export default function Leftsidebar({ data }) {
               <div style={{ height: "30px", width: "30px", borderRadius: "50%" }}>
                 <FaBomb style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%", marginLeft: "3px" }} src={data?.imgSrc} />
               </div>
-              <div style={{ marginLeft: "10%", marginTop: "5px", color: "black", fontSize: 15 }} className="h5">Notifications</div>
+              <div style={{ marginLeft: "10%", marginTop: "5px", color: "black", fontSize: 15 }} className="h5">
+                Notifications
+                <MDBBadge className='ms-1' color='danger'>
+                  #
+                </MDBBadge>
+              </div>
             </motion.div>
             <motion.div
               variants={fadeIn('right', 'tween', 0.3, 0.3)}

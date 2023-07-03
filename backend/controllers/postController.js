@@ -138,11 +138,11 @@ const likingPost = asyncHandler(async function (req, res) {
       { _id: id },
       { $addToSet: { likes: _id } }
     );
-    if (updatedPost) {
+    if (updatedPost && updatedPost.userId != _id) {
       const user = await UserModel.findById(_id);
       const message = `${user.name} Likes your recent post`;
       const userEx = await NotificationModel.findOne(
-        { userId: updatedPost.userId, noteMessage : message, LikedUserId : _id }
+        { userId: updatedPost.userId, noteMessage : message, LikedUserId : _id, postId : post._id }
       );
       if (!userEx) {
         const newNotification = new NotificationModel({

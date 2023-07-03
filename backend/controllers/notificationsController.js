@@ -35,6 +35,8 @@ const findNotifications = asyncHandler(async function (req, res) {
     })
   );
 
+  updatedNotifications.reverse()
+
   if (updatedNotifications) {
     res.status(200).json(updatedNotifications);
   }

@@ -134,6 +134,7 @@ export const loadHome = function ({
     }
   }).then((res) => {
     setUser(res.data);
+    dispatch(setNotLength(res.data.notifications.length))
   });
   if (!liked) {
     dispatch(setLoading());
@@ -497,7 +498,6 @@ export const findMyNots = ({ token, setNotifications, dispatch }) => {
   }).then((res) => {
     setNotifications(res.data);
     dispatch(clearLoading());
-    // dispatch(setNotLength(res.data.length))
   }).catch((err) => {
     toast.error("Somthing went wrong");
     dispatch(clearLoading());
