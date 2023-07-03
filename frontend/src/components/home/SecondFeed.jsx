@@ -154,7 +154,7 @@ function SecondFeed({ posts }) {
               <>
                 <div className="container m-0 p-0">
                   <div className="row">
-                    <div className="col-md-12 p-0">
+                    <div className="col-md-12 p-0" style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
                       <img src={post?.content} alt="" style={{ height: "100%", width: "100%", objectFit: "cover" }} />
                     </div>
                   </div>

@@ -42,6 +42,10 @@ const postSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
       },
+      isBlocked : {
+        type : Boolean,
+        default : false
+      }
     }
   ],
   isDeleted : {

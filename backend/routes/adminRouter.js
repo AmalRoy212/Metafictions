@@ -15,7 +15,8 @@ import {
   getSingleUser,
   findCurrentUsers,
   findPosts,
-  deletePost
+  deletePost,
+  deleteComments
 } from "../controllers/adminController.js";
 import { protecter } from "../middlewares/adminAuthMiddleware.js";
 
@@ -33,5 +34,6 @@ router.put('/logout', protecter, logoutAdmin);
 router.get('/get/users', protecter, getUsers);
 router.get('/get/single/user/:id', protecter, getSingleUser);
 router.delete('/users/delete/post', protecter, deletePost);
+router.delete('/users/delete/comment', protecter, deleteComments);
 
 export default router

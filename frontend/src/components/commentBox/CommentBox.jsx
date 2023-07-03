@@ -84,9 +84,15 @@ export default function CommentBox({ data, postId }) {
                         <div style={{width:"100%", padding:"1rem"}}>
 
                         </div>
-                        <span className="text-dark ms-2">
-                          {comment?.content}
-                        </span>
+                        {comment.isBlocked ? <>
+                          <span className="text-dark ms-2">
+                            Removed by Admin (inappropriate content)
+                          </span>
+                        </> : <>
+                          <span className="text-dark ms-2">
+                            {comment?.content}
+                          </span>
+                        </>}
                       </MDBTypography>
                       <p style={{ fontSize: 'small' }} className="mb-0">{comment?.time}</p>
                     </div>

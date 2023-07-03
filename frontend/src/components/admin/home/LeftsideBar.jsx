@@ -47,7 +47,7 @@ export default function Leftsidebar({ data }) {
               <div style={{ marginLeft: "10%", marginTop: "5px", color: "black", fontSize: 15 }} className="h5">Post Management</div>
             </div>
             <div
-              onClick={() => navigate('/friends/list')}
+              onClick={() => navigate('/admin/comments')}
               style={{ display: 'flex', alignItems: "center", padding: "5px", marginTop: "2%", cursor: "pointer", border:"2px solid grey", borderRadius:"10px" }}>
               <div style={{ height: "30px", width: "30px", borderRadius: "50%" }}>
                 <FaWindowRestore style={{ width: "100%", height: "100%", objectFit: "cover", marginLeft: "3px" }} src={data?.imgSrc} />

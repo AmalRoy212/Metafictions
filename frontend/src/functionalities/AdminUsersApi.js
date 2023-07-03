@@ -36,8 +36,7 @@ export const fetchCurrentUsers = ({ searchData, setUsers, adminToken }) => {
       setUsers(res.data);
     })
     .catch((error) => {
-      toast.error('Error fetching user data: 124', error.message);
-      console.log(error)
+      toast.error('Error fetching user data', error.message);
     });
 }
 
@@ -47,9 +46,9 @@ export const adminLogin = ({ email, password, dispatch }) => {
     email,
     password
   }).then((res) => {
-    console.log(res.data.token);
     dispatch(login(res.data.token));
-  })
+    toast.success("Login success")
+  }).catch((err) => toast.error("Something went wrong"))
 }
 
 // block user
@@ -61,7 +60,7 @@ export const blockUser = ({ _id, adminToken }) => {
       'Authorization': `Bearer ${adminToken}`
     }
   }).then((res) => {
-  }).catch((err) => console.log(err.message))
+  }).catch((err) =>     toast.error("Somethign went wrong"))
 }
 
 // unblock user
@@ -73,7 +72,7 @@ export const unblockUser = ({ _id, adminToken }) => {
       'Authorization': `Bearer ${adminToken}`
     }
   }).then((res) => {
-  }).catch((err) => console.log(err.message))
+  }).catch((err) =>     toast.error("Somethign went wrong"))
 }
 
 // delete user
@@ -89,7 +88,7 @@ export const deleteUser = ({ _id, adminToken }) => {
       console.log(res.data);
     })
     .catch((error) => {
-      console.error('Error deleting user:', error);
+      toast.error("Somethign went wrong");
     });
 };
 
@@ -99,23 +98,27 @@ export const editUser = (userId) => {
 }
 
 //logging out admin
-export const logOutAdmin = () =>{
+export const logOutAdmin = () => {
   localStorage.removeItem('adminToken');
 }
 
 //finding post 
-export const fetchAllPost = ({adminToken,searchInput,setPosts}) => {
-  axios.get('/admin/users/posts',{
-    params : {
+export const fetchAllPost = ({ adminToken, searchInput, setPosts }) => {
+  axios.get('/admin/users/posts', {
+    params: {
       searchInput
     },
-    headers:{
-      Authorization : `Beared ${adminToken}`
+    headers: {
+      Authorization: `Bearer ${adminToken}`
     }
   }).then((res) => {
     setPosts(res.data);
-  })
+  }).catch((error) => {
+    toast.error("Somethign went wrong");
+  });
 }
+
+
 
 //delete a post
 export const deletePost = ({ adminToken, _id }) => {
@@ -127,8 +130,27 @@ export const deletePost = ({ adminToken, _id }) => {
       Authorization: `Bearer ${adminToken}`
     }
   }).then((res) => {
-    console.log(res.data);
+    toast.success("Deleted Successfully")
   }).catch((error) => {
-    console.log(error);
+    toast.error("Somethign went wrong");
   });
+};
+
+//delete comment 
+export const deleteCommentApi = ({ adminToken, postId, commentId }) => {
+  axios.delete('/admin/users/delete/comment', {
+    params: {
+      postId,
+      commentId
+    },
+    headers: {
+      Authorization: `Bearer ${adminToken}`
+    }
+  })
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch((err) => {
+      toast.error("Something went wrong");
+    });
 };

@@ -18,6 +18,7 @@ import FriendsProfile from "../pages/users/FriendsProfile.jsx";
 import NotificationScreen from "../pages/users/NotifiactionScreen.jsx";
 import FriendsListScreen from "../pages/users/FriendsListScreen.jsx";
 import AdminPostScreen from "../pages/admin/AdminPostScreen.jsx";
+import AdminCommentScreen from "../pages/admin/AdminCommentScreen.jsx";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -40,6 +41,7 @@ export const router = createBrowserRouter(
       <Route  path='/admin/home' element={<AdminHomeScreen />} />
       <Route  path='/admin/users' element={<AminUsersScreen />} />
       <Route  path='/admin/posts' element={<AdminPostScreen />} />
+      <Route  path='/admin/comments' element={<AdminCommentScreen />} />
       <Route  path='/admin/edit/user' element={<AdminEditUser />} />
     </Route>
     </>

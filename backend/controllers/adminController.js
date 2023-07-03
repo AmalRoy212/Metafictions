@@ -419,6 +419,52 @@ const deletePost = asyncHandler(async function (req, res) {
   }
 });
 
+//deleting comments 
+const deleteComments = asyncHandler(async function (req, res) {
+  const { postId, commentId } = req.query;
+
+  const post = await PostModel.findOne({ _id: postId });
+  const comments = post.comment;
+
+  if (post && comments) {
+    const spottedComment = comments.find((comment) => comment._id.toString() === commentId);
+
+    if (spottedComment.isBlocked) {
+      const updatedComment = await PostModel.findOneAndUpdate(
+        {
+          _id: postId,
+          "comment._id": commentId
+        },
+        {
+          $set: { "comment.$.isBlocked": false }
+        },
+      );
+      if (updatedComment) {
+        res.status(200).json({ message: "Comment deleted" });
+      } else {
+        res.status(500).json({ message: "Failed to delete comment" });
+      }
+    } else {
+      const updatedComment = await PostModel.findOneAndUpdate(
+        {
+          _id: postId,
+          "comment._id": commentId
+        },
+        {
+          $set: { "comment.$.isBlocked": true }
+        },
+      );
+      if (updatedComment) {
+        res.status(200).json({ message: "Comment deleted" });
+      } else {
+        res.status(500).json({ message: "Failed to delete comment" });
+      }
+    }
+  } else {
+    res.status(404).json({ message: "Post or comments not found" });
+  }
+});
+
 
 export {
   signUpAdmin,
@@ -435,5 +481,6 @@ export {
   userEdit,
   findCurrentUsers,
   findPosts,
-  deletePost
+  deletePost,
+  deleteComments
 }
