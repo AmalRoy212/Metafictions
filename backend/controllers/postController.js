@@ -142,7 +142,7 @@ const likingPost = asyncHandler(async function (req, res) {
       const user = await UserModel.findById(_id);
       const message = `${user.name} Likes your recent post`;
       const userEx = await NotificationModel.findOne(
-        { userId: updatedPost.userId, noteMessage : message, LikedUserId : _id, postId : post._id }
+        { userId: updatedPost.userId, noteMessage : message, LikedUserId : _id, postId : updatedPost._id }
       );
       if (!userEx) {
         const newNotification = new NotificationModel({
@@ -187,6 +187,7 @@ const likingPost = asyncHandler(async function (req, res) {
 const createComment = asyncHandler(async function (req, res) {
   const { postId, content } = req.body;
   const { _id } = req.headers;
+  let status = false
 
   const user = await UserModel.findById(_id);
 
@@ -202,7 +203,38 @@ const createComment = asyncHandler(async function (req, res) {
     { $addToSet: { comment: newComment } }
   )
 
-  if (updatedPost) {
+  if (updatedPost && updatedPost.userId != _id) {
+    const message = `${user.name} is commented on your post`;
+    const exNotification = await NotificationModel.findOne(
+      { noteMessage: message, userId: updatedPost.userId, postId: updatedPost._id, LikedUserId: _id }
+    );
+
+    if (!exNotification) {
+      const newNotification = new NotificationModel({
+        userId: updatedPost.userId,
+        postId: updatedPost._id,
+        postImg: updatedPost.content,
+        LikedUserId: user._id,
+        LikedUserDp: user.imgSrc,
+        noteMessage: message,
+      });
+
+      await newNotification.save();
+
+      if (newNotification) {
+        const newUser = await UserModel.findByIdAndUpdate(
+          { _id: updatedPost.userId },
+          { $addToSet: { notifications: newNotification._id } }
+        );
+
+        if (newUser) {
+          status = true;
+        }
+      }
+    }
+  }
+
+  if (updatedPost && status) {
     res.status(200).json({ message: "Success" });
   }
 

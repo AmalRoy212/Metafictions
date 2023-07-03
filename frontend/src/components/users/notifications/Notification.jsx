@@ -58,15 +58,12 @@ export default function Notifications() {
                         tag="h6"
                         className="text-primary fw-bold mb-0 mt-2"
                       >
-                        {/* <div style={{width:"100%", padding:"1rem"}}>
-                          horho
-                      </div> */}
                         <span className="text-dark ms-2">
                           {notification?.noteMessage}
                         </span>
                       </MDBTypography>
-                      <div style={{height:"35px",width:"150px", backgroundColor:"black"}}>
-                        <img style={{width:"100%", height:"100%", objectFit:"cover"}} src={notification?.postImg} alt="post" />
+                      <div style={{height:"35px",width:"150px"}}>
+                        <img style={{width:"80%", height:"100%", objectFit:"cover"}} src={notification?.postImg} alt="post" />
                       <p style={{ fontSize: 'small' }} className="mb-0">{notification?.date}</p>
                       </div>
                     </div>
