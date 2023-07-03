@@ -14,7 +14,8 @@ import {
   findMyFriends,
   findOthersProfile,
   unfollowUser,
-  followDatas
+  followDatas,
+  findFriendsList
 } from "../controllers/userController.js";
 import { 
   createComment,
@@ -39,6 +40,7 @@ userRouter.get('/get/friends', protecter, findMyFriends);
 userRouter.get('/other/profile/:userId', protecter, findOthersProfile);
 userRouter.get('/following/users', protecter, followDatas);
 userRouter.get('/notifications', protecter, findNotifications);
+userRouter.get('/friends/list', protecter, findFriendsList);
 userRouter.post('/register', registerUser);
 userRouter.post('/auth', authenticateUsers);
 userRouter.post('/verify', verfyOtp);

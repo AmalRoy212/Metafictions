@@ -237,7 +237,7 @@ const verfyOtp = asyncHandler(async function (req, res) {
   }
 })
 
-//find all users
+//find users for suggestion
 const findAllUsers = asyncHandler(async function (req, res) {
   const { _id } = req.headers;
 
@@ -424,6 +424,33 @@ const followDatas = asyncHandler(async function (req, res) {
   }
 });
 
+const findFriendsList = asyncHandler( async function ( req, res ){
+
+  const { _id } = req.headers;
+  const { searchInput } = req.query;
+
+  if(searchInput){
+    const searchIpd = searchInput.replace(/\s/gi, 'i');
+    const users = await UserModel.find({ name: { $regex: searchIpd }, _id : {$ne : _id} });
+    if(users){
+      res.status(200).json(users);
+    }
+  }else{
+    const me = await UserModel.findById(_id);
+    
+    const filteredFollowers = me.followers.filter(followerId => followerId.toString() !== _id.toString());
+    const filteredFollowing = me.following.filter(followingId => followingId.toString() !== _id.toString());
+    
+    const users = await UserModel.find({
+      _id: { $in: [...filteredFollowers, ...filteredFollowing] }
+    });
+    
+    if (users) {
+      res.status(200).json(users);
+    }
+    
+  }
+}) 
 
 export {
   authenticateUsers,
@@ -439,5 +466,6 @@ export {
   findMyFriends,
   findOthersProfile,
   unfollowUser,
-  followDatas
+  followDatas,
+  findFriendsList
 }

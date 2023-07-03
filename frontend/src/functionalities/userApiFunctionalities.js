@@ -503,3 +503,19 @@ export const findMyNots = ({ token, setNotifications, dispatch }) => {
     dispatch(clearLoading());
   })
 };
+
+//findig the users list
+export const findMyFriendsList = ({ token, searchInput, setUsers }) => {
+  axios.get('/users/friends/list', {
+    params: {
+      searchInput: searchInput
+    },
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }).then((res) => {
+    setUsers(res.data)
+  }).catch((err) => {
+    toast.error("Something went wrong");
+  });
+};
