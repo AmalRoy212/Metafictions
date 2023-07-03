@@ -1,37 +1,31 @@
-import React from 'react'
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import { LinkContainer } from 'react-router-bootstrap';
-import { Button} from 'react-bootstrap';
+import React from "react";
+import { Navbar, Nav, Container, Button } from 'react-bootstrap';
+import { logOutAdmin } from "../../../functionalities/AdminUsersApi";
+import { useNavigate } from "react-router-dom";
 
-function AdminHeader() {
+export default function Leftsidebar() {
+  const navigate = useNavigate();
   return (
-    <div>
-      <>
-        <Navbar bg="primary" variant="dark">
-          <Container>
-            <Navbar.Brand href="#home">Admin</Navbar.Brand>
-            <Nav className="me-auto">
-              {/* <LinkContainer to={'/admin/home'}>
-                <Nav.Link >Users</Nav.Link>
-              </LinkContainer>
-
-              <LinkContainer to={'/admin/create/user'}>
-                <Nav.Link>Create User</Nav.Link>
-              </LinkContainer> */}
-
-              {/* <LinkContainer to={'/admin/update/user'}>
-                <Nav.Link>Update User</Nav.Link>
-              </LinkContainer> */}
-            </Nav>
-          <Button className='btn-danger' style={{color:'white'}}>Log Out</Button>
-          </Container>
-        </Navbar>
-        <br />
-      </>
-    </div>
-  )
+    <>
+      <div style={{ position: "fixed", zIndex: "10", width: "100%", backgroundColor:"#D9D9D9" }}>
+        <header style={{ position: "absolute", top: 5, width: "100%", zIndex: 10 }}>
+          <Navbar  variant='white' expand='lg' collapseOnSelect>
+            <Container>
+              <Navbar.Toggle aria-controls='basic-navbar-nav' />
+              <Navbar.Collapse id='basic-navbar-nav' className="bg-dark p-2" style={{borderRadius:"10px"}}>
+                <span style={{color:"white"}}>Admin</span>
+                <Nav className='ms-auto'>
+                  <Button onClick={() => {
+                    logOutAdmin();
+                    navigate('/admin');
+                  }}
+                  >Log out</Button>
+                </Nav>
+              </Navbar.Collapse>
+            </Container>
+          </Navbar>
+        </header>
+      </div>
+    </>
+  );
 }
-
-export default AdminHeader

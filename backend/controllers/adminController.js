@@ -71,7 +71,7 @@ async function adminLoginHandler(_id, res) {
   res.status(200).json({
     user: admin.email,
     token: admin.accessToken,
-    isAdmin : admin.isAdmin
+    isAdmin: admin.isAdmin
   })
 }
 
@@ -82,23 +82,23 @@ async function adminLoginHandler(_id, res) {
   * Access : Private
 */
 
-const blockUsers = asyncHandler( async function(req,res){
+const blockUsers = asyncHandler(async function (req, res) {
   const { userId } = req.body;
-  if(userId){
-    const user = await userModel.findByIdAndUpdate({ _id : userId },{$set : {isBlocked:true}});
-    if(user){
+  if (userId) {
+    const user = await userModel.findByIdAndUpdate({ _id: userId }, { $set: { isBlocked: true } });
+    if (user) {
       res.status(200).json({
-        _id : user._id,
-        name : user.name,
-        email : user.email,
-        completed : true,
-        message : 'User blocked'
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        completed: true,
+        message: 'User blocked'
       })
-    }else{
+    } else {
       res.status(404);
       throw new Error('Couldnt find the user');
     }
-  }else{
+  } else {
     res.status(404);
     throw new Error('Id Couldnt find');
   }
@@ -111,24 +111,24 @@ const blockUsers = asyncHandler( async function(req,res){
   * Access : Private
 */
 
-const unblockUsers = asyncHandler( async function(req,res){
+const unblockUsers = asyncHandler(async function (req, res) {
   const { userId } = req.body;
 
-  if(userId){
-    const user = await userModel.findByIdAndUpdate({ _id : userId },{$set : {isBlocked:false}});
-    if(user){
+  if (userId) {
+    const user = await userModel.findByIdAndUpdate({ _id: userId }, { $set: { isBlocked: false } });
+    if (user) {
       res.status(200).json({
-        _id : user._id,
-        name : user.name,
-        email : user.email,
-        completed : true,
-        message : 'User unblocked'
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        completed: true,
+        message: 'User unblocked'
       })
-    }else{
+    } else {
       res.status(404);
       throw new Error('Couldnt find the user');
     }
-  }else{
+  } else {
     res.status(404);
     throw new Error('Id Couldnt find');
   }
@@ -141,12 +141,23 @@ const unblockUsers = asyncHandler( async function(req,res){
   * Access : Private
 */
 
-const searchUsers = asyncHandler(async function(req,res){
-  let { searchIpd } = req.params;
-searchIpd = searchIpd.replace(/\s/gi, 'i');
-  const users = await userModel.find({ name: { $regex: searchIpd } });
-  if(users){
-    res.status(200).json(users);
+const searchUsers = asyncHandler(async function (req, res) {
+  const { searchData } = req.query;
+  if (searchData) {
+    const searchInput = searchData.replace(/\s/gi, 'i');
+    const users = await userModel.find({ name: { $regex: searchInput } });
+    if (users) {
+      res.status(200).json(users);
+    } else {
+      res.json({ message: "No users found" })
+    }
+  } else {
+    const users = await userModel.find();
+    if (users) {
+      res.status(200).json(users);
+    } else {
+      res.json({ message: "No users found" })
+    }
   }
 })
 
@@ -192,20 +203,20 @@ const createUser = asyncHandler(async function (req, res) {
   * Access : Private
 */
 
-const deleteUser = asyncHandler( async function(req,res){
+const deleteUser = asyncHandler(async function (req, res) {
   const { userId } = req.body;
-  const user = await userModel.findById({ _id : userId });
+  const user = await userModel.findById({ _id: userId });
 
   let status = user.isDeleted ? false : true
 
   const deleteUser = await userModel.findByIdAndUpdate(
-    { _id : userId },
-    {$set:{isDeleted:status}}
+    { _id: userId },
+    { $set: { isDeleted: status } }
   );
-  if(deleteUser){
+  if (deleteUser) {
     res.status(200).json({
-      status : true,
-      message : 'user deleted'
+      status: true,
+      message: 'user deleted'
     })
   } else {
     res.status(404);
@@ -238,15 +249,15 @@ const updateUser = asyncHandler(async function (req, res) {
     const updatedUser = await user.save();
 
     res.status(200).json({
-      _id : updatedUser._id,
-      name : updatedUser.name,
-      email : updatedUser.email,
-      status : updatedUser.isBlocked,
-      imageSrc : updatedUser.imageSrc,
-      message : "Updated Succesfully"
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      status: updatedUser.isBlocked,
+      imageSrc: updatedUser.imageSrc,
+      message: "Updated Succesfully"
     })
-    
-  }else{
+
+  } else {
     res.status(404);
     throw new Error('user not fund')
   }
@@ -267,18 +278,18 @@ const logoutAdmin = asyncHandler(async function (req, res) {
   }
 });
 
-const getUsers = asyncHandler(async function(req,res){
+const getUsers = asyncHandler(async function (req, res) {
   const users = await userModel.find();
   res.status(200).json(users);
 })
 
-const getSingleUser = asyncHandler(async function(req, res) {
+const getSingleUser = asyncHandler(async function (req, res) {
   const { id } = req.params;
   const user = await userModel.findById(id);
   res.status(200).json(user);
 });
 
-const userEdit = asyncHandler( async function (req,res){
+const userEdit = asyncHandler(async function (req, res) {
   const { id } = req.body.data;
   const user = await userModel.findById(id);
 
@@ -298,21 +309,34 @@ const userEdit = asyncHandler( async function (req,res){
     const updatedUser = await user.save();
 
     res.status(200).json({
-      _id : updatedUser._id,
-      name : updatedUser.name,
-      email : updatedUser.email,
-      status : updatedUser.isBlocked,
-      imageSrc : updatedUser.imageSrc,
-      message : "Updated Succesfully"
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      status: updatedUser.isBlocked,
+      imageSrc: updatedUser.imageSrc,
+      message: "Updated Succesfully"
     })
-    
-  }else{
+
+  } else {
     res.status(404);
     throw new Error('user not fund')
   }
 })
 
-export  {
+//finding users on changing the users status
+
+const findCurrentUsers = asyncHandler(async function (req, res) {
+  const { searchData } = req.query;
+  const searchInput = searchData.replace(/\s/gi, 'i');
+  const users = await userModel.find({ name: { $regex: searchInput } });
+  if (users) {
+    res.status(200).json(users);
+  } else {
+    res.json({ message: "No users found" })
+  }
+})
+
+export {
   signUpAdmin,
   authAdminLogin,
   blockUsers,
@@ -324,5 +348,6 @@ export  {
   getUsers,
   unblockUsers,
   getSingleUser,
-  userEdit
+  userEdit,
+  findCurrentUsers
 }

@@ -126,17 +126,6 @@ export default function Leftsidebar({ data }) {
               <div style={{ marginLeft: "10%", marginTop: "5px", color: "black", fontSize: 15 }} className="h5">Friends</div>
             </motion.div>
           </div>
-          {/* <ul className="list-group list-group-flush">
-            <li className="list-group-item">
-              <div className="h6 text-muted">Followers</div>
-              <div className="h5">5.2342</div>
-            </li>
-            <li className="list-group-item">
-              <div className="h6 text-muted">Following</div>
-              <div className="h5">6758</div>
-            </li>
-            <li className="list-group-item">Vestibulum at eros</li>
-          </ul> */}
         </div>
       </div>
     </>

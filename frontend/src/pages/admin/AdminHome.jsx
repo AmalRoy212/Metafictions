@@ -8,7 +8,7 @@ export default function AdminHome() {
   return (
     <>
       <AdminHeader />
-      <div className="container-fluid gedf-wrapper bg-white" style={{height:"80vh"}}>
+      <div className="container-fluid gedf-wrapper" style={{height:"110vh", backgroundColor:'#D9D9D9'}}>
         <div className="row">
           <Leftsidebar/>
           <Maincontent/>

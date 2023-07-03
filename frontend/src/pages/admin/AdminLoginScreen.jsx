@@ -5,7 +5,6 @@ import AdminLogin from "../../components/admin/login/AdminLogin";
 function AdminLoginScreen() {
   return (
     <div>
-      <AdminHeader/>
       <AdminLogin />
     </div>
   )
