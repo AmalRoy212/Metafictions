@@ -11,6 +11,11 @@ import {
 } from "../redux-toolkit/actionManagerSlice";
 import { setNotLength } from "../redux-toolkit/notificationSlice";
 
+//google login
+export const googleSignUp = () => {
+  axios.get('/users/google')
+}
+
 //login 
 export const userLogin = async function (email, password, dispatch, navigate) {
   if (email && password) {

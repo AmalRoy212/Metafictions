@@ -1,5 +1,7 @@
 import express from "express";
 import { protecter } from '../middlewares/authUserMiddleware.js';
+import passport from 'passport';
+import '../configs/passportConfig.js'; 
 import {  
   authenticateUsers,
   registerUser,
@@ -32,6 +34,8 @@ import { findNotifications } from "../controllers/notificationsController.js";
 const userRouter = express.Router();
 
 userRouter.get('/', protecter, findAllUsers);
+userRouter.get('/google',passport.authenticate("google",{scope:["profile","email"]}));
+userRouter.get('/google/callback', passport.authenticate('google', { failureRedirect: '/' }), (req, res) => {})
 userRouter.get('/find', protecter, findUser);
 userRouter.get('/logout', protecter, logoutUser);
 userRouter.get('/my/post', protecter, findMyPosts);

@@ -4,7 +4,7 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from 'react-redux';
 import { motion } from "framer-motion"
 import { zoomIn, fadeIn } from "../../../utils/motions"
-import { userLogin } from "../../../functionalities/userApiFunctionalities"
+import { googleSignUp, userLogin } from "../../../functionalities/userApiFunctionalities"
 
 
 function Login() {
@@ -21,9 +21,13 @@ function Login() {
     }
   },[token,navigate])
 
-  const submitHander = async (e) =>{
+  const googleHandler = () => {
+    googleSignUp();
+  }
+
+  const submitHander = (e) =>{
     e.preventDefault();
-    await userLogin(email,password,dispatch,navigate);  
+    userLogin(email,password,dispatch,navigate);  
   }
 
   return (
@@ -57,6 +61,7 @@ function Login() {
         </Form.Group>
         <div style={{color:'white',display:'flex',justifyContent:'center', margin:'1rem'}}>
           <Button type='submit' variant='primary' className='mt-3'>Log In</Button>
+          <Button variant='info' onClick={googleHandler} className='mt-3'>Google</Button>
         </div>
         <Row>
           <Col>

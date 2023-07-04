@@ -25,11 +25,11 @@ export default function Maincontent() {
       <div className="col-md-9 gedf-main" style={{ marginBottom: "10px", marginTop: "1rem", borderRadius: "20px", paddingTop: "5rem" }}>
         <div className="card gedf-card" style={{ backgroundColor: 'white', borderRadius: "20px", overflow: "auto", padding:"1rem" }}>
           <Chart chartData={userData} />
-          <Row className="bg-white">
+          {/* <Row className="bg-white">
             <HomeCard color={"#E5E5E5"} img={img}  title={"New Users"}/>
             <HomeCard color={"#E5E5E5"} img={img1}  title={"Average Growth"}/>
             <HomeCard color={"#E5E5E5"} img={img2}  title={"Activities"}/>
-          </Row>
+          </Row> */}
         </div>
       </div>
     </>
