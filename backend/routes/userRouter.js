@@ -1,13 +1,13 @@
 import express from "express";
-import { protecter } from '../middlewares/authUserMiddleware.js';
 import passport from 'passport';
-import '../configs/passportConfig.js'; 
-import {  
+import { protecter } from '../middlewares/authUserMiddleware.js';
+import '../configs/passportConfig.js';
+import {
   authenticateUsers,
   registerUser,
   logoutUser,
   getUserProfile,
-  updateUserProfile, 
+  updateUserProfile,
   findUser,
   verfyOtp,
   findAllUsers,
@@ -19,23 +19,32 @@ import {
   followDatas,
   findFriendsList
 } from "../controllers/userController.js";
-import { 
+import {
   createComment,
-  createPost, 
-  deleteComment, 
-  deletePost, 
-  findMyPosts, 
-  getAllPost, 
-  likingPost 
+  createPost,
+  deleteComment,
+  deletePost,
+  findMyPosts,
+  getAllPost,
+  likingPost
 } from "../controllers/postController.js";
 import { findNotifications } from "../controllers/notificationsController.js";
 
 
 const userRouter = express.Router();
 
+
+
 userRouter.get('/', protecter, findAllUsers);
-userRouter.get('/google',passport.authenticate("google",{scope:["profile","email"]}));
-userRouter.get('/google/callback', passport.authenticate('google', { failureRedirect: '/' }), (req, res) => {})
+userRouter.get('/google', passport.authenticate("google", { scope: ["profile", "email"] }));
+userRouter.get('/login/fails',(req, res) => {
+  console.log("Login error");
+  res.json({message:"fails"});
+})
+userRouter.get('/google/callback', passport.authenticate('google', { failureRedirect: '/login/fails' }), (req, res) => {
+  console.log("Am the google am reached here",req.user);
+  res.json({message :"Success"})
+})
 userRouter.get('/find', protecter, findUser);
 userRouter.get('/logout', protecter, logoutUser);
 userRouter.get('/my/post', protecter, findMyPosts);
@@ -48,18 +57,18 @@ userRouter.get('/friends/list', protecter, findFriendsList);
 userRouter.post('/register', registerUser);
 userRouter.post('/auth', authenticateUsers);
 userRouter.post('/verify', verfyOtp);
-userRouter.put('/follow',protecter, followUser);
+userRouter.put('/follow', protecter, followUser);
 userRouter.put('/unfollow/:followId', protecter, unfollowUser);
-userRouter.put('/like',protecter, likingPost);
+userRouter.put('/like', protecter, likingPost);
 userRouter.put('/comment', protecter, createComment);
 userRouter.patch('/delete/comment', protecter, deleteComment);
 userRouter.delete('/delete/post', protecter, deletePost);
 userRouter.
   route('/profile').
-    get(protecter,getUserProfile).
-    put(protecter,updateUserProfile);
+  get(protecter, getUserProfile).
+  put(protecter, updateUserProfile);
 userRouter.route('/post')
-  .get(protecter,getAllPost)
-  .post(protecter,createPost);
+  .get(protecter, getAllPost)
+  .post(protecter, createPost);
 
 export default userRouter

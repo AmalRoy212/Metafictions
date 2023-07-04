@@ -13,7 +13,18 @@ import { setNotLength } from "../redux-toolkit/notificationSlice";
 
 //google login
 export const googleSignUp = () => {
-  axios.get('/users/google')
+  axios.get('/users/google', {
+    // withCredentials: true 
+  })
+    .then(response => {
+      console.log(response.data);
+      // Handle the response data
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      // Handle the error
+    });
+
 }
 
 //login 
