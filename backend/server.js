@@ -8,6 +8,8 @@ import connectDB from "./configs/db.js";
 import userRouter from "./routes/userRouter.js";
 import adminRouter from "./routes/adminRouter.js";
 import { notFount, errorHandler } from "./middlewares/errorMiddleware.js";
+// import '../configs/passportConfig.js';
+
 
 const app = express();
 connectDB();

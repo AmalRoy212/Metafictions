@@ -1,7 +1,7 @@
 import express from "express";
 import passport from 'passport';
-import { protecter } from '../middlewares/authUserMiddleware.js';
 import '../configs/passportConfig.js';
+import { protecter } from '../middlewares/authUserMiddleware.js';
 import {
   authenticateUsers,
   registerUser,
