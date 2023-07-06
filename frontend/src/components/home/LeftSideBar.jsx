@@ -86,6 +86,7 @@ export default function Leftsidebar({ data }) {
               <div style={{ marginLeft: "10%", marginTop: "5px", color: "black", fontSize: 15 }} className="h5">Profile</div>
             </motion.div>
             <motion.div
+              onClick={() => navigate('/inbox')}
               variants={fadeIn('right', 'tween', 0.3, 0.3)}
               initial="hidden"
               whileInView="show"
