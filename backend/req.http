@@ -69,3 +69,62 @@ Content-Type: application/json
 {
   "userId" : "6498179cfecb3611def07876"
 }
+
+
+###
+
+GET http://localhost:5000/api/chat
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDk5NmI4YTYxN2I1MzVlNzRiZjBhM2MiLCJpYXQiOjE2ODg3NTA4ODZ9.SIS2MnJefVDkqOXpfEY2CbZ6KPPEWHIphBmQ7lXP0GI
+
+
+###
+
+POST http://localhost:5000/api/chat/group
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDk5NmI4YTYxN2I1MzVlNzRiZjBhM2MiLCJpYXQiOjE2ODg3NTA4ODZ9.SIS2MnJefVDkqOXpfEY2CbZ6KPPEWHIphBmQ7lXP0GI
+Content-Type: application/json
+
+{
+  "name" : "test Group",
+  "users" : "[\"64996b8a617b535e74bf0a3c\",\"649e81c51ed19f8cff583961\"]"
+}
+
+
+
+###
+
+PUT http://localhost:5000/api/chat/rename
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDk5NmI4YTYxN2I1MzVlNzRiZjBhM2MiLCJpYXQiOjE2ODg3NTA4ODZ9.SIS2MnJefVDkqOXpfEY2CbZ6KPPEWHIphBmQ7lXP0GI
+Content-Type: application/json
+
+{
+  "chatId" : "64a91da954457fa5b33b20b0",
+  "chatName" : "Test update"
+}
+
+
+
+
+###
+
+PUT http://localhost:5000/api/chat/add/group
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDk5NmI4YTYxN2I1MzVlNzRiZjBhM2MiLCJpYXQiOjE2ODg3NTA4ODZ9.SIS2MnJefVDkqOXpfEY2CbZ6KPPEWHIphBmQ7lXP0GI
+Content-Type: application/json
+
+{
+  "chatId" : "64a91da954457fa5b33b20b0",
+  "userId" : "6498179cfecb3611def07876"
+}
+
+
+
+###
+
+PUT http://localhost:5000/api/chat/remove/group
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDk5NmI4YTYxN2I1MzVlNzRiZjBhM2MiLCJpYXQiOjE2ODg3NTA4ODZ9.SIS2MnJefVDkqOXpfEY2CbZ6KPPEWHIphBmQ7lXP0GI
+Content-Type: application/json
+
+{
+  "chatId" : "64a91da954457fa5b33b20b0",
+  "userId" : "6498179cfecb3611def07876"
+}
+
