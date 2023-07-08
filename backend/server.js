@@ -8,6 +8,7 @@ import connectDB from "./configs/db.js";
 import userRouter from "./routes/userRouter.js";
 import adminRouter from "./routes/adminRouter.js";
 import { notFount, errorHandler } from "./middlewares/errorMiddleware.js";
+import ChatRouter from "./routes/chatRouter.js";
 // import '../configs/passportConfig.js';
 
 
@@ -27,16 +28,13 @@ userRouter.use(
   userRouter.use(passport.initialize());
   userRouter.use(passport.session());
   
-  app.use(cors({
-    origin: "http://localhost:3000",
-    methods: "GET,POST,PUT,DELETE",
-    credentials: true
-  }));
+  app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/users', userRouter);
 app.use('/api/admin', adminRouter);
+app.use('/api/chat', ChatRouter);
 
 app.use(notFount);
 app.use(errorHandler);

@@ -60,3 +60,12 @@ Content-Type: application/json
 GET http://localhost:5000/api/users/requests
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDk5NmI4YTYxN2I1MzVlNzRiZjBhM2MiLCJpYXQiOjE2ODgxMDM2NDV9.4JcfTxrmPHbC41v5AC1jYtdxHrtOX5W2AsamGo9i4bk
 
+###
+
+POST http://localhost:5000/api/chat
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDk5NmI4YTYxN2I1MzVlNzRiZjBhM2MiLCJpYXQiOjE2ODg3NTA4ODZ9.SIS2MnJefVDkqOXpfEY2CbZ6KPPEWHIphBmQ7lXP0GI
+Content-Type: application/json
+
+{
+  "userId" : "6498179cfecb3611def07876"
+}
