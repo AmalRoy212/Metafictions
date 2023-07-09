@@ -18,7 +18,7 @@
     "bootstrap": "^5.3.0",
     "chart.js": "^4.3.0",
     "firebase": "^9.22.2",
-    "framer-motion": "^10.12.16",
+    "framer-motion": "^10.12.18",
     "framework7": "^8.1.0",
     "framework7-react": "^8.1.0",
     "html5-qrcode": "^2.3.8",
