@@ -34,7 +34,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/users', userRouter);
 app.use('/api/admin', adminRouter);
-app.use('/api/chat', ChatRouter);
+app.use('/api/chats', ChatRouter);
 
 app.use(notFount);
 app.use(errorHandler);

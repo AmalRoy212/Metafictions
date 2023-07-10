@@ -535,3 +535,52 @@ export const findMyFriendsList = ({ token, searchInput, setUsers }) => {
     toast.error("Something went wrong");
   });
 };
+
+//getting all chats of the user
+export const getChats = ({ token, setChats }) => {
+  axios.get('/chats',{
+    headers : {
+      Authorization : `Bearer ${token}`
+    }
+  }).then((res) => {
+    setChats(res.data)
+  })
+}
+
+//searching users
+export const searchChatUsers = ({ token, searchQuery, setUsers }) => {
+  axios.get('/chats/users',{
+    params: {
+      searchQuery
+    },
+    headers : {
+      Authorization : `Bearer ${token}`
+    }
+  }).then((res) => {
+    setUsers(res.data)
+  }).catch((err) => {
+    toast.error("Something went wrong");
+  })
+}
+
+// create new group chat
+export const createGroupChat = ({ token, groupChatName, selectedUsers, onClose }) => {
+  if(!groupChatName || !selectedUsers){
+    toast.error("Please fill the require feilds");
+    return
+  }
+  axios.post('/chats/group', {
+    name: groupChatName,
+    users: selectedUsers.map((user) => user._id)
+  }, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }).then((res) => {
+    console.log(res.data);
+    onClose();
+  }).catch((err) => {
+    console.log(err);
+    toast.error("Something went wrong");
+  });
+}

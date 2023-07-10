@@ -63,7 +63,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDk5NmI4Y
 ###
 
 POST http://localhost:5000/api/chat
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDk5NmI4YTYxN2I1MzVlNzRiZjBhM2MiLCJpYXQiOjE2ODg3NTA4ODZ9.SIS2MnJefVDkqOXpfEY2CbZ6KPPEWHIphBmQ7lXP0GI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDk5NmI4YTYxN2I1MzVlNzRiZjBhM2MiLCJpYXQiOjE2ODg5MTI4MTJ9.YKdrT4pz440xDGyx-mUIZOoLzvrPssJzUt1TTDiMC1c
 Content-Type: application/json
 
 {
@@ -74,7 +74,7 @@ Content-Type: application/json
 ###
 
 GET http://localhost:5000/api/chat
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDk5NmI4YTYxN2I1MzVlNzRiZjBhM2MiLCJpYXQiOjE2ODg3NTA4ODZ9.SIS2MnJefVDkqOXpfEY2CbZ6KPPEWHIphBmQ7lXP0GI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDk5NmI4YTYxN2I1MzVlNzRiZjBhM2MiLCJpYXQiOjE2ODg5MTI4MTJ9.YKdrT4pz440xDGyx-mUIZOoLzvrPssJzUt1TTDiMC1c
 
 
 ###
@@ -98,7 +98,7 @@ Content-Type: application/json
 
 {
   "chatId" : "64a91da954457fa5b33b20b0",
-  "chatName" : "Test update"
+  "chatName" : "Test new"
 }
 
 

@@ -70,21 +70,22 @@ const fetchChats = asyncHandler( async function ( req, res ){
 
 //creating new group chat
 const createGroupChat = asyncHandler( async function ( req, res) {
-  if(!req.body.users || !req.body.name){
+  const { users, name } = req.body; 
+  const { _id } = req.headers;
+
+  if(!users || !name){
     return res.status(400).json({message : "Please fill the required feilds"});
   }
-
-  const users = JSON.parse(req.body.users);
 
   if(users.length < 2){
     return res.status(400).json({ message: "Need atleast 1 user to start a group chat" });
   }
 
-  users.push(req.headers._id);
+  users.push(_id);
 
   try {
     const groupChat = await ChatModel.create({
-      chatName: req.body.name,
+      chatName: name,
       users: users,
       isGroupChat: true,
       groupAdmin : req.headers._id
@@ -154,11 +155,27 @@ const removeFromGroup = asyncHandler( async function ( req, res ){
     res.status(200).json(removed);
   }
 })
+
+//searching users
+const searchUsers = asyncHandler(async function (req, res) {
+  const { searchQuery } = req.query;
+  const { _id } = req.headers;
+  if (searchQuery) {
+    const searchInput = searchQuery.replace(/\s/gi, 'i');
+    const users = await UserModel.find({ name: { $regex: searchInput }, _id : { $ne : _id } });
+    if (users) {
+      res.status(200).json(users);
+    } else {
+      res.json({ message: "No users found" })
+    }
+  }
+})
 export {
   accesChats,
   fetchChats,
   createGroupChat,
   renameGroup,
   addToGroup,
-  removeFromGroup
+  removeFromGroup,
+  searchUsers
 }
