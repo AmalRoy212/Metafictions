@@ -4,7 +4,6 @@ import UserModel from "../models/userModel.js";
 import Chats from "../models/chatModel.js";
 
 const accesChats = asyncHandler(async function (req, res) {
-
   const { _id } = req.headers;
   const { userId } = req.body
 
@@ -44,10 +43,9 @@ const accesChats = asyncHandler(async function (req, res) {
       throw new Error(error.message);
     }
   }
-
 });
 
-//fetching the cahts 
+//fetching the chats 
 const fetchChats = asyncHandler( async function ( req, res ){
   const { _id } = req.headers;
   try {
@@ -161,8 +159,8 @@ const searchUsers = asyncHandler(async function (req, res) {
   const { searchQuery } = req.query;
   const { _id } = req.headers;
   if (searchQuery) {
-    const searchInput = searchQuery.replace(/\s/gi, 'i');
-    const users = await UserModel.find({ name: { $regex: searchInput }, _id : { $ne : _id } });
+    const searchInput = searchQuery.replace(/\s/gi);
+    const users = await UserModel.find({ name: { $regex: `^${searchInput}`, $options: 'i' }, _id: { $ne: _id } });
     if (users) {
       res.status(200).json(users);
     } else {
@@ -170,6 +168,36 @@ const searchUsers = asyncHandler(async function (req, res) {
     }
   }
 })
+
+//seraching users for creating single message
+const searchUserForChat = asyncHandler( async function ( req, res) {
+  const { searchQuery } = req.query;
+  const { _id } = req.headers;
+
+
+  if (searchQuery) {
+    const searchIpd = searchQuery.replace(/\s/gi);
+    const users = await UserModel.find({ name: { $regex: `^${searchIpd}`, $options: 'i' }, _id: { $ne: _id } });
+    if (users) {
+      res.status(200).json(users);
+    }
+  } else {
+    const me = await UserModel.findById(_id);
+
+    const filteredFollowers = me.followers.filter(followerId => followerId.toString() !== _id.toString());
+    const filteredFollowing = me.following.filter(followingId => followingId.toString() !== _id.toString());
+
+    const users = await UserModel.find({
+      _id: { $in: [...filteredFollowers, ...filteredFollowing] }
+    });
+
+    if (users) {
+      res.status(200).json(users);
+    }
+  }
+})
+
+
 export {
   accesChats,
   fetchChats,
@@ -177,5 +205,6 @@ export {
   renameGroup,
   addToGroup,
   removeFromGroup,
-  searchUsers
+  searchUsers,
+  searchUserForChat,
 }

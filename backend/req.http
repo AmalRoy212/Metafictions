@@ -13,7 +13,7 @@ POST http://localhost:5000/api/users/auth
 Content-Type: application/json
 
 {
-  "email" : "ken940005@gmail.com",
+  "email" : "azzyamal1234@gmail.com",
   "password" : "123"
 }
 
@@ -63,11 +63,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDk5NmI4Y
 ###
 
 POST http://localhost:5000/api/chat
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDk5NmI4YTYxN2I1MzVlNzRiZjBhM2MiLCJpYXQiOjE2ODg5MTI4MTJ9.YKdrT4pz440xDGyx-mUIZOoLzvrPssJzUt1TTDiMC1c
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDk4MTc5Y2ZlY2IzNjExZGVmMDc4NzYiLCJpYXQiOjE2ODg5ODM0Mjd9.eU_ad3L34l1jHzTp0q2fOQ5YAPUlojFRDL_lzyL_unU
 Content-Type: application/json
 
 {
-  "userId" : "6498179cfecb3611def07876"
+  "userId" : "64996b8a617b535e74bf0a3c"
 }
 
 

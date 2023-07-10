@@ -424,6 +424,7 @@ const followDatas = asyncHandler(async function (req, res) {
   }
 });
 
+//searching usres
 const findFriendsList = asyncHandler( async function ( req, res ){
 
   const { _id } = req.headers;
@@ -448,7 +449,6 @@ const findFriendsList = asyncHandler( async function ( req, res ){
     if (users) {
       res.status(200).json(users);
     }
-    
   }
 }) 
 

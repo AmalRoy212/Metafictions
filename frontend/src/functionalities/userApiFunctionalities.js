@@ -586,7 +586,6 @@ export const createGroupChat = ({
       Authorization: `Bearer ${token}`
     }
   }).then((res) => {
-    console.log(res.data);
     setChats([res.data, ...chats]);
     onClose();
     setSelectedUsers([]);
@@ -595,4 +594,38 @@ export const createGroupChat = ({
     console.log(err);
     toast.error("Something went wrong");
   });
+}
+
+// find my current frinends and seach user on chat box
+export const findMyChatFriends = ({token, searchQuery, setUsers}) => {
+  axios.get('/chats/users/find',{
+    params : {
+      searchQuery
+    },
+    headers : {
+      Authorization : `Bearer ${token}`
+    }
+  }).then((res) => {
+    setUsers(res.data);
+  }).catch((err) => {
+    toast.error("Oops.! Something went wrong");
+  })
+}
+
+//create a new chat
+export const createNewChat = ({ token, userId, onClose, setChats, chats, setUsers, dispatch }) => {
+  dispatch(setLoading());
+  axios.post('/chats',{userId},{
+    headers : {
+      Authorization : `Bearer ${token}`
+    }
+  }).then((res) => {
+    setChats([res.data, ...chats]);
+    onClose();
+    setUsers([]);
+    dispatch(clearLoading());
+  }).catch((err) => {
+    toast.error("Oops.! Something went wrong");
+    dispatch(clearLoading());
+  })
 }
