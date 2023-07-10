@@ -11,7 +11,7 @@ const store = configureStore({
     admin:adminAuthSlice,
     post: postSlice,
     loading : loadingSlice,
-    notification : notificationSlice
+    notification : notificationSlice,
   },
   devTools: true,
 });

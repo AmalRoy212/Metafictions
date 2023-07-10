@@ -2,8 +2,6 @@ import { Box, Button, Stack, Text } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { getChats } from '../../../functionalities/userApiFunctionalities';
-import { motion } from "framer-motion";
-import { fadeIn } from "../../../utils/motions";
 import PopUp from './PopUp';
 
 function MessgeSideBar({ setCurrentChat }) {
@@ -14,7 +12,7 @@ function MessgeSideBar({ setCurrentChat }) {
 
   useEffect(() => {
     getChats({ token, setChats })
-  }, [token, chats])
+  }, [token])
 
   return (
     <>
@@ -32,15 +30,13 @@ function MessgeSideBar({ setCurrentChat }) {
           pb={3}
           px={3}
           fontSize={{ base: "28px", md: "30px" }}
-          d="flex"
           w="100%"
-          justifyContent="space-between"
-          alignItems="center"
+          style={{ display: "flex", justifyContent:"space-between", alignItems:" center"}}
         >
           MyChats
-          <PopUp>
+          <PopUp setChats={setChats} chats={chats}>
             <Button
-              d="flex"
+              style={{display:"flex"}}
               fontSize={{ base: "17px", md: "10px", lg: "17px" }}
             // rightIcon={<AddIcon/>}
             >

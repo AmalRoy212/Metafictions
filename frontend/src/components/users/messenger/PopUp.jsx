@@ -14,13 +14,12 @@ import {
   Box,
   Text
 } from '@chakra-ui/react'
-import { createGroupChat, findMyFriendsList, searchChatUsers } from '../../../functionalities/userApiFunctionalities';
-import { useSelector } from 'react-redux';
-import { findSearchData } from '../../../functionalities/AdminUsersApi';
+import { createGroupChat, searchChatUsers } from '../../../functionalities/userApiFunctionalities';
+import {  useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import AddedUserBadge from './AddedUserBadge';
 
-function PopUp({ children }) {
+function PopUp({ children, setChats, chats }) {
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [groupChatName, setGruopChatName] = useState('');
@@ -31,7 +30,15 @@ function PopUp({ children }) {
   const { token } = useSelector((state) => state.auth);
 
   const submitHandler = () => {
-    createGroupChat({ token, groupChatName, selectedUsers, onClose})
+    createGroupChat({ 
+      token, 
+      groupChatName, 
+      selectedUsers, 
+      onClose, setChats, 
+      chats, 
+      setSelectedUsers, 
+      setUsers 
+    });
   }
 
   const searchHandler = (searchQuery) => {

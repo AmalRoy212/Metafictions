@@ -113,7 +113,7 @@ export const verifyOtp = async function ({ otp, navigate }) {
       otp
     }).then((res) => {
       navigate('/login');
-    }).catch((err) =>{
+    }).catch((err) => {
       toast.error("There is an issue with your OTP")
     })
   } catch (error) {
@@ -205,10 +205,10 @@ export const userCreatePost = async function ({
                 dispatch(clearLoading());
                 dispatch(incrementPostCount());
               })
-              .catch((error) =>{
-                  toast.error(error?.data?.message || error.error);
-                  dispatch(clearLoading());
-                }
+              .catch((error) => {
+                toast.error(error?.data?.message || error.error);
+                dispatch(clearLoading());
+              }
               );
           } catch (error) {
             toast.error(error.message);
@@ -439,10 +439,10 @@ export const findMyRequests = ({ setRequest, token, dispatch }) => {
 }
 
 //finding my friends
-export const findMyFriends = ({token,setFriends}) => {
-  axios.get('/users/get/friends',{
-    headers:{
-      Authorization : `Bearer ${token}`
+export const findMyFriends = ({ token, setFriends }) => {
+  axios.get('/users/get/friends', {
+    headers: {
+      Authorization: `Bearer ${token}`
     }
   }).then((res) => {
     setFriends(res.data)
@@ -479,7 +479,7 @@ export const unfollowUsers = ({ followId, token, dispatch }) => {
     })
     .then((res) => {
       dispatch(clearLoading());
-      toast.success("Unfollowed "+ res.data.message)
+      toast.success("Unfollowed " + res.data.message)
     })
     .catch((err) => {
       toast.error("Something went wrong");
@@ -488,11 +488,11 @@ export const unfollowUsers = ({ followId, token, dispatch }) => {
 };
 
 //find following users
-export const findMyFolloData = ({token,setFollowers, setFollowings, dispatch}) => {
+export const findMyFolloData = ({ token, setFollowers, setFollowings, dispatch }) => {
   dispatch(setLoading());
-  axios.get('/users/following/users',{
-    headers : {
-      Authorization : `Bearer ${token}`
+  axios.get('/users/following/users', {
+    headers: {
+      Authorization: `Bearer ${token}`
     }
   }).then((res) => {
     setFollowers(res.data.followerUsers);
@@ -537,24 +537,24 @@ export const findMyFriendsList = ({ token, searchInput, setUsers }) => {
 };
 
 //getting all chats of the user
-export const getChats = ({ token, setChats }) => {
-  axios.get('/chats',{
-    headers : {
-      Authorization : `Bearer ${token}`
+export const getChats = ({ token, setChats, dispatch }) => {
+  axios.get('/chats', {
+    headers: {
+      Authorization: `Bearer ${token}`
     }
   }).then((res) => {
-    setChats(res.data)
+    setChats(res.data);
   })
 }
 
 //searching users
 export const searchChatUsers = ({ token, searchQuery, setUsers }) => {
-  axios.get('/chats/users',{
+  axios.get('/chats/users', {
     params: {
       searchQuery
     },
-    headers : {
-      Authorization : `Bearer ${token}`
+    headers: {
+      Authorization: `Bearer ${token}`
     }
   }).then((res) => {
     setUsers(res.data)
@@ -564,8 +564,17 @@ export const searchChatUsers = ({ token, searchQuery, setUsers }) => {
 }
 
 // create new group chat
-export const createGroupChat = ({ token, groupChatName, selectedUsers, onClose }) => {
-  if(!groupChatName || !selectedUsers){
+export const createGroupChat = ({
+  token,
+  groupChatName,
+  selectedUsers,
+  onClose,
+  setChats,
+  chats,
+  setSelectedUsers,
+  setUsers
+}) => {
+  if (!groupChatName || !selectedUsers) {
     toast.error("Please fill the require feilds");
     return
   }
@@ -578,7 +587,10 @@ export const createGroupChat = ({ token, groupChatName, selectedUsers, onClose }
     }
   }).then((res) => {
     console.log(res.data);
+    setChats([res.data, ...chats]);
     onClose();
+    setSelectedUsers([]);
+    setUsers([]);
   }).catch((err) => {
     console.log(err);
     toast.error("Something went wrong");
