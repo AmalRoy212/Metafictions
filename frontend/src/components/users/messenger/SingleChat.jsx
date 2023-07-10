@@ -1,8 +1,11 @@
 import { Box, IconButton, Text } from '@chakra-ui/react'
 import React from 'react'
 import { FaRegTimesCircle } from 'react-icons/fa'
+import { getSender, getSenderImg } from '../../../utils/chatHelper'
+import UpdateGorupChat from './UpdateGorupChat';
 
-function SingleChat({ currentChat, setCurrentChat }) {
+function SingleChat({ currentChat, setCurrentChat, user }) {
+
   return (
     <>
       {currentChat ?
@@ -23,14 +26,33 @@ function SingleChat({ currentChat, setCurrentChat }) {
             />
             {!currentChat?.isGroupChat ?
               (<>
-                {currentChat.users[1].name}
+                <div style={{ display: "flex" }}>
+                  <div style={{ width: "50px", height: "50px", border: "2px solid black", borderRadius: "50%", marginRight: "1rem" }}>
+                    <img style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%" }} src={getSenderImg(user, currentChat.users)} alt="user" />
+                  </div>
+                  {getSender(user, currentChat.users)}
+                </div>
               </>)
               :
               (<>
-                {currentChat?.chatName.toUpperCase()}
+                <span>{currentChat?.chatName.toUpperCase()}</span>
+                <UpdateGorupChat currentChat={currentChat} setCurrentChat={setCurrentChat} user={user} />
               </>)
             }
           </Text>
+          <Box
+            display={"flex"}
+            flexDir="column"
+            justifyContent="flex-end"
+            p={3}
+            bg="#E8E8E8"
+            w="100%"
+            h="100%"
+            borderRadius="lg"
+            overflow="hidden"
+          >
+
+          </Box>
         </>)
         :
         (<>

@@ -45,8 +45,8 @@ function MessageScreen() {
           }
           <ChakraProvider>
             <div style={{ display: "flex", paddingTop: "1rem" }}>
-              <MessgeSideBar setCurrentChat={setCurrentChat} currentChat={currentChat} />
-              <ChatBox currentChat={currentChat} setCurrentChat={setCurrentChat} />
+              <MessgeSideBar setCurrentChat={setCurrentChat} currentChat={currentChat} user={user} />
+              <ChatBox currentChat={currentChat} setCurrentChat={setCurrentChat} user={user} />
             </div>
           </ChakraProvider>
         </div>

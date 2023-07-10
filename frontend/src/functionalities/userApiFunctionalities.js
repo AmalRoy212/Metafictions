@@ -8,6 +8,8 @@ import {
   setFollowCount,
   incrementFollowCount,
   clearLiked,
+  clearChatUpdate,
+  setChatUpdate,
 } from "../redux-toolkit/actionManagerSlice";
 import { setNotLength } from "../redux-toolkit/notificationSlice";
 
@@ -544,6 +546,8 @@ export const getChats = ({ token, setChats, dispatch }) => {
     }
   }).then((res) => {
     setChats(res.data);
+    dispatch(clearChatUpdate());
+  }).catch((err) => {
   })
 }
 
@@ -626,6 +630,34 @@ export const createNewChat = ({ token, userId, onClose, setChats, chats, setUser
     dispatch(clearLoading());
   }).catch((err) => {
     toast.error("Oops.! Something went wrong");
+    dispatch(clearLoading());
+  })
+}
+
+//changin the group chat name 
+export const changeGroupName = ({ 
+  token, 
+  groupChatName, 
+  chatId, 
+  dispatch, 
+  onClose,
+  setCurrentChat 
+}) => {
+  dispatch(setLoading());
+  axios.put('/chats/rename',{
+    chatId,
+    chatName : groupChatName
+  },{
+    headers : {
+      Authorization : `Bearer ${token}`
+    }
+  }).then((res) => {
+    setCurrentChat(res.data)
+    dispatch(clearLoading());
+    dispatch(setChatUpdate());
+    onClose();
+  }).catch((err) => {
+    toast.error("Oops.! Somethign went wrong")
     dispatch(clearLoading());
   })
 }

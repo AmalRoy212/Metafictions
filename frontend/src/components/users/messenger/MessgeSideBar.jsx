@@ -5,16 +5,18 @@ import { getChats } from '../../../functionalities/userApiFunctionalities';
 import PopUp from './PopUp';
 import SingleChatPopUp from './SingleChatPopUp';
 import { FaUserFriends, FaUserPlus } from 'react-icons/fa';
+import { getSender, getSenderImg } from '../../../utils/chatHelper';
 
-function MessgeSideBar({ setCurrentChat, currentChat }) {
+function MessgeSideBar({ setCurrentChat, currentChat, user }) {
 
   const [chats, setChats] = useState([]);
 
   const { token } = useSelector((state) => state.auth);
+  const { chatUpdated } = useSelector((state) => state.post);
 
   useEffect(() => {
     getChats({ token, setChats })
-  }, [token])
+  }, [token, chatUpdated])
 
   return (
     <>
@@ -34,10 +36,10 @@ function MessgeSideBar({ setCurrentChat, currentChat }) {
           px={3}
           fontSize={{ base: "28px", md: "30px" }}
           w="100%"
-          style={{ display: "flex", justifyContent:"space-between", alignItems:" center"}}
+          style={{ display: "flex", justifyContent: "space-between", alignItems: " center" }}
         >
           MyChats
-          <div style={{display:"flex"}}>
+          <div style={{ display: "flex" }}>
             <PopUp setChats={setChats} chats={chats}>
               <Button
                 style={{ display: "flex" }}
@@ -70,27 +72,42 @@ function MessgeSideBar({ setCurrentChat, currentChat }) {
           overflow="auto"
         >
           <Stack overflowY="scroll">
-            {chats?.map((chat, index) => (
-              <Box
-                key={index}
-                onClick={() => {
+            {chats && <>
+              {chats?.map((chat, index) => (
+                <Box
+                  key={index}
+                  onClick={() => {
                     setCurrentChat(chat)
                   }
-                }
-                cursor="pointer"
-                bg={currentChat === chat ? "#38B2Ac" : "#E8E8E8"}
-                color={currentChat === chat ? "white" : "black"}
-                px={3}
-                py={2}
-                borderRadius="lg"
-              >
-                <Text>
-                  {!chat.isGroupChat ? (
-                    chat.users[1].name
-                  ) : (chat.chatName)}
-                </Text>
-              </Box>
-            ))}
+                  }
+                  cursor="pointer"
+                  bg={currentChat === chat ? "#38B2Ac" : "#E8E8E8"}
+                  color={currentChat === chat ? "white" : "black"}
+                  px={3}
+                  py={2}
+                  borderRadius="lg"
+                  display={"flex"}
+                >
+                  {chat.isGroupChat ?
+                    (<>
+                      <div style={{ width: "30px", height: "30px", border: "2px solid black", borderRadius: "50%", marginRight: "1rem" }}>
+                        <img style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%" }} src="https://static.vecteezy.com/system/resources/previews/021/631/109/original/low-poly-style-group-chat-logo-symbol-people-logo-sign-free-vector.jpg" alt="user" />
+                      </div>
+                    </>)
+                    :
+                    (<>
+                      <div style={{ width: "30px", height: "30px", border: "2px solid black", borderRadius: "50%", marginRight: "1rem" }}>
+                        <img style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%" }} src={getSenderImg(user, chat.users)} alt="user" />
+                      </div>
+                    </>)}
+                  <Text>
+                    {!chat.isGroupChat ? (
+                      getSender(user, chat.users)
+                    ) : (chat.chatName)}
+                  </Text>
+                </Box>
+              ))}
+            </>}
           </Stack>
         </Box>
       </Box>

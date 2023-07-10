@@ -2,7 +2,7 @@ import { Box } from '@chakra-ui/react'
 import React from 'react'
 import SingleChat from './SingleChat'
 
-function ChatBox({ currentChat, setCurrentChat }) {
+function ChatBox({ currentChat, setCurrentChat, user }) {
   return (
     <>
       <Box
@@ -15,7 +15,7 @@ function ChatBox({ currentChat, setCurrentChat }) {
         borderRadius="lg"
         borderWidth="1px"
       >
-        <SingleChat currentChat={currentChat} setCurrentChat={setCurrentChat} /> 
+        <SingleChat currentChat={currentChat} setCurrentChat={setCurrentChat} user={user} /> 
       </Box>
     </>
   )
