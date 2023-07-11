@@ -9,6 +9,7 @@ import userRouter from "./routes/userRouter.js";
 import adminRouter from "./routes/adminRouter.js";
 import { notFount, errorHandler } from "./middlewares/errorMiddleware.js";
 import ChatRouter from "./routes/chatRouter.js";
+import messageRoute from "./routes/messageRoute.js";
 // import '../configs/passportConfig.js';
 
 
@@ -35,6 +36,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/users', userRouter);
 app.use('/api/admin', adminRouter);
 app.use('/api/chats', ChatRouter);
+app.use('/api/message', messageRoute);
 
 app.use(notFount);
 app.use(errorHandler);

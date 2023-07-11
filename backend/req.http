@@ -128,3 +128,27 @@ Content-Type: application/json
   "userId" : "6498179cfecb3611def07876"
 }
 
+
+###
+
+POST http://localhost:5000/api/message
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDk4MTc5Y2ZlY2IzNjExZGVmMDc4NzYiLCJpYXQiOjE2ODkwNTU5Nzl9.NHyScn4VZQZLcBY6RvsFwzzJg9DtxW3-Pfy2wGDoDT8
+Content-Type: application/json
+
+{
+  "content" : "How are you",
+  "chatId" : "64acf3beebca5a609bc3bdfd"
+}
+
+
+###
+
+GET http://localhost:5000/api/message
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDk4MTc5Y2ZlY2IzNjExZGVmMDc4NzYiLCJpYXQiOjE2ODkwNTU5Nzl9.NHyScn4VZQZLcBY6RvsFwzzJg9DtxW3-Pfy2wGDoDT8
+Content-Type: application/json
+
+{
+  "chatId" : "64acf3beebca5a609bc3bdfd"
+}
+
+
