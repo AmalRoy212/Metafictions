@@ -432,7 +432,7 @@ const findFriendsList = asyncHandler( async function ( req, res ){
 
   if(searchInput){
     const searchIpd = searchInput.replace(/\s/gi, 'i');
-    const users = await UserModel.find({ name: { $regex: searchIpd }, _id : {$ne : _id} });
+    const users = await UserModel.find({ name: { $regex: `^${searchIpd}`, $options: 'i' }, _id: { $ne: _id } });
     if(users){
       res.status(200).json(users);
     }

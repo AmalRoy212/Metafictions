@@ -39,20 +39,21 @@ const sendMessage  = asyncHandler( async function ( req, res ){
 })
 
 //fetching all messages 
-const fetchAllMessages = asyncHandler( async function ( req, res ){
-  const { chatId } = req.body;
-  const messages = await MessageModel.find({ chat : chatId })
-  .populate("sender", "name imgSrc email")
-  .populate("chat");
+const fetchAllMessages = asyncHandler(async function (req, res) {
+  const { chatId } = req.query;
 
-  if(messages){
+  const messages = await MessageModel.find({ chat: chatId })
+    .populate("sender", "name imgSrc email")
+    .populate("chat");
+
+  if (messages) {
     res.status(200).json(messages);
-  }else{
-    res.status(400)
-    throw new Error(error.message);
+  } else {
+    res.status(400);
+    throw new Error("Error fetching messages");
   }
+});
 
-})
 
 export {
   sendMessage,

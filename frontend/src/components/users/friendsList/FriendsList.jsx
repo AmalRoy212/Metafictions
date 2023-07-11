@@ -17,10 +17,8 @@ export default function FriendsList({ data, posts }) {
 
   const { token } = useSelector((state) => state.auth);
 
-  console.log(users);
 
   const searchHandler = () => {
-    console.log(searchInput);
   }
 
   useEffect(() => {

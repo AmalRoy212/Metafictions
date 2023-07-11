@@ -103,7 +103,6 @@ export const userSingUp = async function ({
       })
       .catch((error) => {
         toast.error("Error uploading image. Please try again.");
-        console.error(error);
       });
   }
 }
@@ -220,7 +219,6 @@ export const userCreatePost = async function ({
       })
       .catch((error) => {
         toast.error("Error uploading image. Please try again.");
-        console.error(error);
       });
   }
 }
@@ -234,7 +232,6 @@ export const userLogOut = async function ({ token, dispatch, navigate }) {
         Authorization: `Bearer ${token}`
       }
     }).then((res) => {
-      console.log(res.data);
       dispatch(logout());
       dispatch(clearLoading());
       navigate('/login');
@@ -296,7 +293,6 @@ export const choiceHandler = function ({ choice, id, token, dispatch }) {
 
 //creating comment
 export const createComment = async function ({ postId, content, token }) {
-  console.log(token);
   axios.put('/users/comment', {
     postId,
     content
@@ -706,3 +702,50 @@ export const removeUserFromGroup = ({ token, chatId, userId, setCurrentChat}) =>
     toast.error("Oops.! Somethign went wrong")
   })
 }
+
+//messegings
+export const createNewMessage = ({ 
+  token,
+  chatId,
+  content,
+  setNewMessage,
+  messages,
+  setMessages }) => {
+  setNewMessage('');
+  axios.post('/message',{
+    content,
+    chatId
+  },{
+    headers : {
+      Authorization :  `Bearer ${token}`
+    }
+  }).then((res) => {
+    setMessages([...messages, res.data])
+  }).catch((err) => {
+    toast.error("Oops.! Something goes wrong");
+  })
+}
+
+//fetching al chats 
+export const fetchMessages = ({ token, currentChat, setLoading, setMessages }) => {
+  if (!currentChat) {
+    return;
+  }
+  setLoading(true);
+  axios
+    .get('/message', {
+      params: {
+        chatId: currentChat._id,
+      },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => {
+      setMessages(res.data);
+      setLoading(false);
+    })
+    .catch((err) => {
+      toast.error("Oops! Something went wrong");
+    });
+};

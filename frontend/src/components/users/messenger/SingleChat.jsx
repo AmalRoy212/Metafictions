@@ -1,10 +1,45 @@
-import { Box, IconButton, Text } from '@chakra-ui/react'
-import React from 'react'
+import { Box, FormControl, IconButton, Input, Spinner, Text } from '@chakra-ui/react'
+import React, { useEffect, useState } from 'react'
 import { FaRegTimesCircle } from 'react-icons/fa'
 import { getSender, getSenderImg } from '../../../utils/chatHelper'
 import UpdateGorupChat from './UpdateGorupChat';
+import { createNewMessage, fetchMessages } from '../../../functionalities/userApiFunctionalities';
+import { useSelector } from 'react-redux';
+import ScrollChatBox from './ScrollChatBox';
 
 function SingleChat({ currentChat, setCurrentChat, user }) {
+
+  const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const { token }= useSelector((state) => state.auth);
+
+  // function fetchMessagesAgain (){
+  //   fetchMessages({ token, currentChat, setLoading, setMessages })
+  // }
+
+  useEffect(() => {
+    fetchMessages({ token, currentChat, setLoading, setMessages })
+  },[currentChat])
+
+  const sendMessage = (e) => {
+    if(e.key === "Enter" && newMessage){
+      createNewMessage({ 
+        token, 
+        chatId : currentChat._id, 
+        content : newMessage, 
+        setNewMessage, 
+        messages, 
+        setMessages 
+      })
+    }
+  }
+
+  const typingHandler = (e) => {
+    setNewMessage(e.target.value);
+
+  }
 
   return (
     <>
@@ -47,11 +82,29 @@ function SingleChat({ currentChat, setCurrentChat, user }) {
             p={3}
             bg="#E8E8E8"
             w="100%"
-            h="100%"
+            h="75vh"
             borderRadius="lg"
             overflow="hidden"
           >
-
+            {loading ?
+              (
+                <Spinner
+                  size="xl"
+                  h={20}
+                  w={20}
+                  alignSelf="center"
+                  margin="auto"
+                />
+              )
+              :
+              (
+                <div style={{display:"flex",flexDirection:"column", overflowY:"scroll", scrollbarWidth:"none"}}>
+                  <ScrollChatBox messages={messages} user={user} />
+                </div>
+              )}
+              <FormControl onKeyDown={sendMessage} isRequired mt={3}>
+                <Input variant="filled" bg="E0E0E0" value={newMessage} placeholder="Enter messages.." onChange={typingHandler} />
+              </FormControl>
           </Box>
         </>)
         :

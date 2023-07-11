@@ -4,6 +4,7 @@ import { fetchAllMessages, sendMessage } from "../controllers/messageController.
 
 const router = express.Router();
 
-router.route('/').post(protecter, sendMessage ).get(protecter, fetchAllMessages );
+router.route('/').post(protecter, sendMessage );
+router.route('/').get(protecter, fetchAllMessages);
 
 export default router;
