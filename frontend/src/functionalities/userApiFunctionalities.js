@@ -704,30 +704,37 @@ export const removeUserFromGroup = ({ token, chatId, userId, setCurrentChat}) =>
 }
 
 //messegings
-export const createNewMessage = ({ 
+export const createNewMessage = ({
   token,
   chatId,
   content,
   setNewMessage,
   messages,
-  setMessages }) => {
+  setMessages,
+  socket
+}) => {
   setNewMessage('');
-  axios.post('/message',{
+  axios.post('/message', {
     content,
     chatId
-  },{
-    headers : {
-      Authorization :  `Bearer ${token}`
+  }, {
+    headers: {
+      Authorization: `Bearer ${token}`
     }
-  }).then((res) => {
-    setMessages([...messages, res.data])
-  }).catch((err) => {
-    toast.error("Oops.! Something goes wrong");
   })
-}
+    .then((res) => {
+      const newMessage = res.data; // Store the newly created message
+      setMessages([...messages, newMessage]);
+      socket.emit("new message", newMessage);
+    })
+    .catch((err) => {
+      toast.error("Oops! Something went wrong");
+    });
+};
+
 
 //fetching al chats 
-export const fetchMessages = ({ token, currentChat, setLoading, setMessages }) => {
+export const fetchMessages = ({ token, currentChat, setLoading, setMessages, socket }) => {
   if (!currentChat) {
     return;
   }
@@ -744,6 +751,7 @@ export const fetchMessages = ({ token, currentChat, setLoading, setMessages }) =
     .then((res) => {
       setMessages(res.data);
       setLoading(false);
+      socket.emit("join chat", currentChat._id)
     })
     .catch((err) => {
       toast.error("Oops! Something went wrong");

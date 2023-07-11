@@ -11,6 +11,7 @@ const postSlice = createSlice({
     liked : false ,
     followDetails : false,
     chatUpdated : false,
+    Notification : []
   },
   reducers: {
     incrementPostCount : (state) => {
@@ -54,6 +55,13 @@ const postSlice = createSlice({
     },
     clearChatUpdate : (state) => {
       state.chatUpdated = false;
+    },
+    setNotifcations : (state, action) => {
+      console.log(action.payload,"**********");
+      if (state.Notification.length > 0){
+        state.Notification = [action.payload,...state.Notification]
+      }
+      state.Notification = action.payload
     }
   },
 });
@@ -72,6 +80,7 @@ export const {
   setFollowDetails,
   clearFollowDetails,
   setChatUpdate,
-  clearChatUpdate
+  clearChatUpdate,
+  setNotifcations
 } = postSlice.actions;
 export default postSlice.reducer;

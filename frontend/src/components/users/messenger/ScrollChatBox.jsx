@@ -4,7 +4,6 @@ import { isLastMessage, isSameSender, isSameSenderMargin, isSameUser } from '../
 import { Avatar, Tooltip } from '@chakra-ui/react';
 
 function ScrollChatBox({ messages, user }) {
-  console.log(user);
   return (
     <>
       <ScrollableFeed>

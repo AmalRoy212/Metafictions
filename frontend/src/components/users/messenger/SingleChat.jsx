@@ -1,44 +1,93 @@
 import { Box, FormControl, IconButton, Input, Spinner, Text } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { FaRegTimesCircle } from 'react-icons/fa'
+import Lottie from "lottie-react";
+import { io } from "socket.io-client";
 import { getSender, getSenderImg } from '../../../utils/chatHelper'
 import UpdateGorupChat from './UpdateGorupChat';
 import { createNewMessage, fetchMessages } from '../../../functionalities/userApiFunctionalities';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ScrollChatBox from './ScrollChatBox';
+import typingLoader from "../../../animations/typing.json";
+// import { setNotifcations } from '../../../redux-toolkit/actionManagerSlice';
+
+const ENDPOINT = "http://localhost:5000"
+let socket, selectedChatCampare;
 
 function SingleChat({ currentChat, setCurrentChat, user }) {
 
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const [loading, setLoading] = useState(false);
+  const [socketConnected, setSocketConnected] = useState(false);
+  const [typing, setTyping] = useState(false);
+  const [isTyping, setIsTyping] = useState(false);
+  const [notification, setNotifcations] = useState([]);
 
-  const { token }= useSelector((state) => state.auth);
+  const { token } = useSelector((state) => state.auth);
+  // const { notification } = useSelector((state) => state.post);
 
-  // function fetchMessagesAgain (){
-  //   fetchMessages({ token, currentChat, setLoading, setMessages })
-  // }
+  // const dispatch = useDispatch();
 
   useEffect(() => {
-    fetchMessages({ token, currentChat, setLoading, setMessages })
-  },[currentChat])
+    socket = io(ENDPOINT);
+    socket.on('connected', () => setSocketConnected(true));
+    socket.emit("setup",  user );
+    socket.on("typing",() => setIsTyping(true));
+    socket.on("stop typing",() => setIsTyping(false));
+  }, [user])
+
+  
+  useEffect(() => {
+    socket.on("message recieved", (newMessageRecieved) => {
+      if(!selectedChatCampare || selectedChatCampare._id !== newMessageRecieved.chat._id){
+        if(!notification.includes(newMessageRecieved)){
+          setNotifcations([newMessageRecieved, ...notification]);
+          console.log(notification);
+        }
+      }else{
+        setMessages([...messages,newMessageRecieved]);
+      }
+    });
+  },[])
+
+  useEffect(() => {
+    fetchMessages({ token, currentChat, setLoading, setMessages, socket });
+    selectedChatCampare = currentChat;
+  }, [currentChat])
 
   const sendMessage = (e) => {
-    if(e.key === "Enter" && newMessage){
-      createNewMessage({ 
-        token, 
-        chatId : currentChat._id, 
-        content : newMessage, 
-        setNewMessage, 
-        messages, 
-        setMessages 
+    if (e.key === "Enter" && newMessage) {
+      socket.emit("stop typing", currentChat._id);
+      createNewMessage({
+        token,
+        chatId: currentChat._id,
+        content: newMessage,
+        setNewMessage,
+        messages,
+        setMessages,
+        socket
       })
     }
   }
 
   const typingHandler = (e) => {
     setNewMessage(e.target.value);
-
+    if(!socketConnected) return;
+    if(!typing){
+      setTyping(true);
+      socket.emit("typing", currentChat._id);
+    }
+    let lastTypingTime = new  Date().getTime();
+    const timeLength = 3000
+    setTimeout(() => {
+      let timeNow = new Date().getTime();
+      let timeDiff = timeNow - lastTypingTime
+      if(timeDiff >= timeLength && typing){
+        socket.emit("stop typing", currentChat._id);
+        setTyping(false);
+      }
+    },timeLength)
   }
 
   return (
@@ -98,13 +147,17 @@ function SingleChat({ currentChat, setCurrentChat, user }) {
               )
               :
               (
-                <div style={{display:"flex",flexDirection:"column", overflowY:"scroll", scrollbarWidth:"none"}}>
+                <div style={{ display: "flex", flexDirection: "column", overflowY: "scroll", scrollbarWidth: "none" }}>
                   <ScrollChatBox messages={messages} user={user} />
                 </div>
               )}
-              <FormControl onKeyDown={sendMessage} isRequired mt={3}>
-                <Input variant="filled" bg="E0E0E0" value={newMessage} placeholder="Enter messages.." onChange={typingHandler} />
-              </FormControl>
+            <FormControl onKeyDown={sendMessage} isRequired mt={3}>
+              {isTyping && <div style={{width:"50px",height:"50px"}}>
+                  <Lottie animationData={typingLoader} loop={true} width={70} style={{marginBottom:15, marginLeft:0}} />
+                </div>
+              }
+              <Input variant="filled" bg="E0E0E0" value={newMessage} placeholder="Enter messages.." onChange={typingHandler} />
+            </FormControl>
           </Box>
         </>)
         :
