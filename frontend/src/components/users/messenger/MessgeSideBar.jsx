@@ -12,11 +12,11 @@ function MessgeSideBar({ setCurrentChat, currentChat, user }) {
   const [chats, setChats] = useState([]);
 
   const { token } = useSelector((state) => state.auth);
-  const { chatUpdated } = useSelector((state) => state.post);
+  // const { chatUpdated } = useSelector((state) => state.post);
 
   useEffect(() => {
     getChats({ token, setChats })
-  }, [token, chatUpdated])
+  }, [token, chats])
 
   return (
     <>
@@ -29,7 +29,8 @@ function MessgeSideBar({ setCurrentChat, currentChat, user }) {
         w={{ base: "100%", md: "31%" }}
         borderRadius="lg"
         borderWidth="1px"
-        minHeight="90vh"
+        h='90vh'
+        maxHeight="90vh"
       >
         <Box
           pb={3}
@@ -68,7 +69,7 @@ function MessgeSideBar({ setCurrentChat, currentChat, user }) {
           w="100%"
           h="100%"
           borderRadius="lg"
-          maxHeight="100vh"
+          maxHeight="90vh"
           overflow="auto"
         >
           <Stack overflowY="scroll">

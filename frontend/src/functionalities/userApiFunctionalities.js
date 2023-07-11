@@ -576,12 +576,16 @@ export const createGroupChat = ({
   setChats,
   chats,
   setSelectedUsers,
-  setUsers
+  setUsers,
+  dispatch
 }) => {
+  dispatch(setLoading())
   if (!groupChatName || !selectedUsers) {
     toast.error("Please fill the require feilds");
+    dispatch(clearLoading());
     return
   }
+  onClose();
   axios.post('/chats/group', {
     name: groupChatName,
     users: selectedUsers.map((user) => user._id)
@@ -591,11 +595,11 @@ export const createGroupChat = ({
     }
   }).then((res) => {
     setChats([res.data, ...chats]);
-    onClose();
     setSelectedUsers([]);
     setUsers([]);
+    dispatch(clearLoading());
   }).catch((err) => {
-    console.log(err);
+    dispatch(clearLoading());
     toast.error("Something went wrong");
   });
 }
@@ -634,7 +638,7 @@ export const createNewChat = ({ token, userId, onClose, setChats, chats, setUser
   })
 }
 
-//changin the group chat name 
+//changing the group chat name 
 export const changeGroupName = ({ 
   token, 
   groupChatName, 
@@ -659,5 +663,46 @@ export const changeGroupName = ({
   }).catch((err) => {
     toast.error("Oops.! Somethign went wrong")
     dispatch(clearLoading());
+  })
+}
+
+//adding new uses
+export const addNewUserToGruop = ({ 
+  token, 
+  chatId, 
+  userId, 
+  setCurrentChat, 
+  setSearch,
+  setUsers
+}) => {
+  axios.put('/chats/add/group', {
+    chatId,
+    userId
+  }, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }).then((res) => {
+    setCurrentChat(res.data)
+    setSearch('')
+    setUsers([])
+  }).catch((err) => {
+    toast.error("Oops.! Somethign went wrong")
+  })
+}
+
+//remove some one from group
+export const removeUserFromGroup = ({ token, chatId, userId, setCurrentChat}) => {
+  axios.put('/chats/remove/group', {
+    chatId,
+    userId
+  }, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }).then((res) => {
+    setCurrentChat('');
+  }).catch((err) => {
+    toast.error("Oops.! Somethign went wrong")
   })
 }

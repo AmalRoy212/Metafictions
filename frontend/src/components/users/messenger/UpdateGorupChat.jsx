@@ -13,22 +13,25 @@ import {
   Box,
   FormControl,
   Input,
-  Text
+  Text,
+  useToast
 } from '@chakra-ui/react'
 import { FaEllipsisV } from 'react-icons/fa';
 import AddedUserBadge from './AddedUserBadge';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeGroupName, searchChatUsers } from '../../../functionalities/userApiFunctionalities';
-import { setChatUpdate } from '../../../redux-toolkit/actionManagerSlice';
-import { toast } from 'react-toastify';
+import { addNewUserToGruop, changeGroupName, removeUserFromGroup, searchChatUsers } from '../../../functionalities/userApiFunctionalities';
 
 function UpdateGorupChat({currentChat, setCurrentChat, user}) {
+
+  const loggedUser = user;
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [search, setSearch] = useState();
   const [users, setUsers] = useState();
   const [groupChatName, setGroupChatName] = useState();
   const [renameloafing, setRenameloading] = useState(false);
 
+  const toast = useToast()
   const dispatch = useDispatch();
 
   const { token } = useSelector((state) => state.auth); 
@@ -43,21 +46,57 @@ function UpdateGorupChat({currentChat, setCurrentChat, user}) {
     }
   }
 
-  const handleRemove = () => {
+  const handleRemove = (removeUser) => {
+    
+    if ( removeUser === loggedUser.userId){
+      console.log("am here am leaving the group");
+      removeUserFromGroup({ token, dispatch, chatId: currentChat._id, userId: removeUser, setCurrentChat })
+      return
+    }
 
+    if (currentChat.groupAdmin._id !== loggedUser.userId) {
+      toast({
+        title: "Only admin can remove someone.!",
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+        position: "top"
+      });
+      return
+    }
+    removeUserFromGroup({ token, dispatch, chatId : currentChat._id, userId : removeUser, setCurrentChat })
   }
   const handleAddUsers = (addedUser) => {
     if(currentChat.users.find((u) => u._id === addedUser._id)){
-      toast.warning("User already added");
+      toast({
+        title: "User already added",
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+        position: "top"
+      });
       return
     }
 
-    if(currentChat.groupAdmin._id !== user._id){
-      toast.warning("Only admin can users");
+    if (currentChat.groupAdmin._id !== loggedUser.userId){
+      toast({
+        title:"Only admin can add someone.!",
+        status : "warning",
+        duration : 5000,
+        isClosable : true,
+        position : "top"
+      });
       return
     }
 
-    addNewUserToGruop({ token})
+    addNewUserToGruop({ 
+      token,  
+      chatId : currentChat._id, 
+      userId : addedUser._id, 
+      setCurrentChat, 
+      setSearch,
+      setUsers
+    })
 
   }
 
@@ -87,7 +126,7 @@ function UpdateGorupChat({currentChat, setCurrentChat, user}) {
           <ModalBody>
             <Box display="flex">
               {currentChat?.users?.map((user) => (
-                <AddedUserBadge key={user._id} user={user} handleFuntion={() => handleRemove(user)} />
+                <AddedUserBadge key={user._id} user={user} handleFuntion={() => handleRemove(user._id)} />
               ))}
             </Box>
             <FormControl display={"flex"}>
@@ -136,7 +175,7 @@ function UpdateGorupChat({currentChat, setCurrentChat, user}) {
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme='red' mr={3} onClick={() => handleRemove(user)}>
+            <Button colorScheme='red' mr={3} onClick={() => handleRemove(user.userId)}>
               Leave Group
             </Button>
           </ModalFooter>

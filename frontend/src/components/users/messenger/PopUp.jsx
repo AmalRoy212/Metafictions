@@ -15,7 +15,7 @@ import {
   Text
 } from '@chakra-ui/react'
 import { createGroupChat, searchChatUsers } from '../../../functionalities/userApiFunctionalities';
-import {  useSelector } from 'react-redux';
+import {  useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import AddedUserBadge from './AddedUserBadge';
 
@@ -27,6 +27,8 @@ function PopUp({ children, setChats, chats }) {
   const [searchInput, setSearchInput] = useState('');
   const [users, setUsers] = useState([]);
 
+  const dispatch = useDispatch();
+
   const { token } = useSelector((state) => state.auth);
 
   const submitHandler = () => {
@@ -37,7 +39,8 @@ function PopUp({ children, setChats, chats }) {
       onClose, setChats, 
       chats, 
       setSelectedUsers, 
-      setUsers 
+      setUsers,
+      dispatch
     });
   }
 
