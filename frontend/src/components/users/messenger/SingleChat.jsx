@@ -9,6 +9,7 @@ import { createNewMessage, fetchMessages } from '../../../functionalities/userAp
 import { useDispatch, useSelector } from 'react-redux';
 import ScrollChatBox from './ScrollChatBox';
 import typingLoader from "../../../animations/typing.json";
+import VideoCall from '../videoCall/VideoCall';
 // import { setNotifcations } from '../../../redux-toolkit/actionManagerSlice';
 
 const ENDPOINT = "http://localhost:5000"

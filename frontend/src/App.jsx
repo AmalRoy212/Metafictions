@@ -18,13 +18,13 @@ function App() {
   //   }
   //   return request;
   // });
-  
+
   return (
     <>
-      {loading && <Loader/>}
+      {loading && <Loader />}
       <FirebaseContext.Provider value={firebase}>
-        <ToastContainer style={{zIndex:13}}/>
-        <Outlet />
+          <ToastContainer style={{ zIndex: 13 }} />
+          <Outlet />
       </FirebaseContext.Provider>
     </>
   )

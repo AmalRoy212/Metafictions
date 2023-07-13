@@ -57,7 +57,6 @@ const postSlice = createSlice({
       state.chatUpdated = false;
     },
     setNotifcations : (state, action) => {
-      console.log(action.payload,"**********");
       if (state.Notification.length > 0){
         state.Notification = [action.payload,...state.Notification]
       }

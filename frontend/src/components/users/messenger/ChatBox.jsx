@@ -1,6 +1,9 @@
 import { Box } from '@chakra-ui/react'
 import React from 'react'
 import SingleChat from './SingleChat'
+import VideoCall from '../videoCall/VideoCall'
+import Notifications from '../videoCall/Notifications'
+import Options from '../videoCall/Options'
 
 function ChatBox({ currentChat, setCurrentChat, user }) {
   return (
@@ -17,6 +20,16 @@ function ChatBox({ currentChat, setCurrentChat, user }) {
       >
         <SingleChat currentChat={currentChat} setCurrentChat={setCurrentChat} user={user} /> 
       </Box>
+      {/* <Box 
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <VideoCall />
+        <Options>
+          <Notifications />
+        </Options>
+      </Box> */}
     </>
   )
 }
