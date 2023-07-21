@@ -14,7 +14,7 @@ import messageRoute from "./routes/messageRoute.js";
 const app = express();
 connectDB();
 const port = process.env.PORT || 5000
-  
+
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -39,9 +39,9 @@ const io = new Server(server, {
   }
 });
 
-io.on("connection" , (socket) => {
+io.on("connection", (socket) => {
   console.log("connected to socket.io");
-  socket.on("setup",(user) => {
+  socket.on("setup", (user) => {
     socket.join(user.userId);
     socket.emit('connected');
   });
@@ -56,13 +56,15 @@ io.on("connection" , (socket) => {
 
   socket.on('new message', (newMessageRecieved) => {
     let chat = newMessageRecieved.chat;
-    if(!chat.users) return console.log("no users");
+    if (!chat.users) return console.log("no users");
+
     chat.users.forEach(user => {
-      if(user._id == newMessageRecieved.sender._id){ return}
-      socket.in(user._id).emit("message recieved", newMessageRecieved); 
+      if (user._id === newMessageRecieved.sender._id) return;
+      socket.to(user._id).emit("message recieved", newMessageRecieved);
     });
-  })
-  socket.off("setup", ()=> {
+  });
+
+  socket.off("setup", () => {
     console.log("User disconned");
     socket.leave(user._id);
   })
@@ -75,7 +77,7 @@ io.on("connection" , (socket) => {
   });
 
   socket.on("calluser", ({ userToCall, signalData, from, name }) => {
-    io.to(userToCall).emit("calluser", { signal : signalData, from, name });
+    io.to(userToCall).emit("calluser", { signal: signalData, from, name });
   });
 
   socket.on("answercall", (data) => {
