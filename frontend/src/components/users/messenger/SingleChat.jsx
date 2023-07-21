@@ -44,11 +44,14 @@ function SingleChat({ currentChat, setCurrentChat, user }) {
       if(!selectedChatCampare || selectedChatCampare._id !== newMessageRecieved.chat._id){
         if(!notification.includes(newMessageRecieved)){
           setNotifcations([newMessageRecieved, ...notification]);
-          console.log(notification);
+          // console.log(notification);
+          //want to manage the user is on chat or not if user is not in the chat want to set the 
+          //notification
         }
       }else{
-        setMessages([...messages,newMessageRecieved]);
+        
       }
+      setMessages([...messages, newMessageRecieved]);
     });
   },[])
 

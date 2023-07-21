@@ -7,14 +7,14 @@ import './index.css';
 import store from './store/store.js';
 import './styles/styles.css';
 import { router } from "./routes/index";
-import { ContextProvider } from './contexts/socketContext';
+// import { ContextProvider } from './contexts/socketContext';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider store={store}>
-      <ContextProvider>
+      {/* <ContextProvider> */}
         <RouterProvider router={router} />
-      </ContextProvider>
+      {/* </ContextProvider> */}
     </Provider>
   </React.StrictMode>,
 )

@@ -15,7 +15,7 @@ function Header() {
       viewport={{ once: false , amount: 0.25}}
     >
       <div className="gradient01" />
-      <header style={{position:"absolute",top:5,width:"100%"}}>
+      <header style={{position:"absolute",top:5,width:"100%", zIndex:17}}>
         <Navbar bg='transperent' variant='dark' expand='lg' collapseOnSelect>
           <Container>
             <LinkContainer to={'/'}>

@@ -23,6 +23,9 @@ app.use('/api/users', userRouter);
 app.use('/api/admin', adminRouter);
 app.use('/api/chats', ChatRouter);
 app.use('/api/message', messageRoute);
+app.get('/', (req, res) => {
+  res.send("hey am running");
+});
 
 app.use(notFount);
 app.use(errorHandler);
@@ -55,7 +58,7 @@ io.on("connection" , (socket) => {
     let chat = newMessageRecieved.chat;
     if(!chat.users) return console.log("no users");
     chat.users.forEach(user => {
-      if(user._id == newMessageRecieved.sender._id) return
+      if(user._id == newMessageRecieved.sender._id){ return}
       socket.in(user._id).emit("message recieved", newMessageRecieved); 
     });
   })

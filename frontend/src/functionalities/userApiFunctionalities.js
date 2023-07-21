@@ -724,6 +724,7 @@ export const createNewMessage = ({
   })
     .then((res) => {
       const newMessage = res.data; // Store the newly created message
+      console.log(messages, newMessage);
       setMessages([...messages, newMessage]);
       socket.emit("new message", newMessage);
     })
