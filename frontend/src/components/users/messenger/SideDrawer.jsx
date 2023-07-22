@@ -23,7 +23,7 @@ function SideDrawer({setCurrentChat}) {
             {chats?.map((chat, index) => (
               <motion.div
                 onClick={() => setCurrentChat(chat)}
-                variants={fadeIn('right', 'tween', 0.3, 0.3)}
+                variants={fadeIn('right', 'tween', 0.7, 0.7)}
                 initial="hidden"
                 whileInView="show"
                 viewport={{ once: false, amount: 0.25 }}

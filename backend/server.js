@@ -36,6 +36,7 @@ const io = new Server(server, {
   pingTimeout: 60000,
   cors: {
     // https://metafiction.netlify.app
+    // http://localhost:3000
     origin: "https://metafiction.netlify.app",
   }
 });
@@ -62,8 +63,6 @@ io.on("connection", (socket) => {
     chat.users.filter(user => {
       if (user._id === newMessageRecieved.sender._id) return;
       socket.in(user._id).emit("message recieved", newMessageRecieved);
-  
-      console.log(user._id,"**************");
     });
   });
 

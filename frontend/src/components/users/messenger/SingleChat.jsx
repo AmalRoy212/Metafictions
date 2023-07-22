@@ -1,17 +1,20 @@
 import { Box, FormControl, IconButton, Input, Spinner, Text } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
-import { FaRegTimesCircle } from 'react-icons/fa'
+import { FaRegTimesCircle, FaPhoneSquare } from 'react-icons/fa'
 import Lottie from "lottie-react";
 import { io } from "socket.io-client";
 import { getSender, getSenderImg } from '../../../utils/chatHelper'
 import UpdateGorupChat from './UpdateGorupChat';
-import { createNewMessage, fetchMessageAgain, fetchMessages } from '../../../functionalities/userApiFunctionalities';
+import { createNewMessage, fetchMessages } from '../../../functionalities/userApiFunctionalities';
 import { useDispatch, useSelector } from 'react-redux';
 import ScrollChatBox from './ScrollChatBox';
 import typingLoader from "../../../animations/typing.json";
-import axios from "../../../configs/axios";
+import { turnOnVideoCall } from '../../../redux-toolkit/videoCallSlice';
+import VideoChatHolder from '../videoCall/VideoChatHolder';
+import VideoCallNotification from '../videoCall/VideoCallNotification';
 // import { setNotifcations } from '../../../redux-toolkit/actionManagerSlice';
 // metafiction.onrender.com
+
 const ENDPOINT = "https://metafiction.onrender.com"
 let socket, selectedChatCampare;
 
@@ -27,6 +30,9 @@ function SingleChat({ currentChat, setCurrentChat, user }) {
   const [update, setupdate] = useState(false);
 
   const { token } = useSelector((state) => state.auth);
+  const { videoCall }= useSelector((state) => state.videoCall);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     socket = io(ENDPOINT);
@@ -116,11 +122,15 @@ function SingleChat({ currentChat, setCurrentChat, user }) {
             {!currentChat?.isGroupChat ?
               (<>
                 <div style={{ display: "flex" }}>
-                  <div style={{ width: "50px", height: "50px", border: "2px solid black", borderRadius: "50%", marginRight: "1rem" }}>
+                  <div style={{ width: "30px", height: "30px", border: "2px solid black", borderRadius: "50%", marginRight: "1rem" }}>
                     <img style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%" }} src={getSenderImg(user, currentChat.users)} alt="user" />
                   </div>
-                  {getSender(user, currentChat.users)}
+                  <span style={{ display: "flex", justifyContent: 'center', alignItems: "center", fontSize:"17px" }}>{getSender(user, currentChat.users)}</span>
                 </div>
+                <IconButton
+                  icon={<FaPhoneSquare />}
+                  onClick={() => dispatch(turnOnVideoCall())}
+                />
               </>)
               :
               (<>
@@ -179,6 +189,8 @@ function SingleChat({ currentChat, setCurrentChat, user }) {
           </Box>
         </>)
       }
+      {videoCall && <VideoChatHolder currentChat={currentChat} user={user}/>}
+      {/* {user && <VideoCallNotification user={user} />} */}
     </>
   )
 }

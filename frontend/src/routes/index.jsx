@@ -20,6 +20,7 @@ import FriendsListScreen from "../pages/users/FriendsListScreen.jsx";
 import AdminPostScreen from "../pages/admin/AdminPostScreen.jsx";
 import AdminCommentScreen from "../pages/admin/AdminCommentScreen.jsx";
 import MessengerScreen from "../pages/users/MessengerScreen.jsx";
+import VideoChatHolder from "../components/users/videoCall/VideoChatHolder.jsx";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -37,6 +38,7 @@ export const router = createBrowserRouter(
         <Route path='/notifications' element={<NotificationScreen className="gradient01"/>} />
         <Route path='/friends/list' element={<FriendsListScreen className="gradient01"/>} />
         <Route path='/inbox' element={<MessengerScreen className="gradient01"/>} />
+        <Route path='/video/chat' element={<VideoChatHolder className="gradient01"/>} />
       </Route>
 
       <Route index={true}  path='/admin' element={<AdminLoginScreen />} />
