@@ -9,10 +9,9 @@ import { createNewMessage, fetchMessages } from '../../../functionalities/userAp
 import { useDispatch, useSelector } from 'react-redux';
 import ScrollChatBox from './ScrollChatBox';
 import typingLoader from "../../../animations/typing.json";
-import VideoCall from '../videoCall/VideoCall';
 // import { setNotifcations } from '../../../redux-toolkit/actionManagerSlice';
 
-const ENDPOINT = "http://localhost:5000"
+const ENDPOINT = "https://metafiction.onrender.com"
 let socket, selectedChatCampare;
 
 function SingleChat({ currentChat, setCurrentChat, user }) {
@@ -26,9 +25,6 @@ function SingleChat({ currentChat, setCurrentChat, user }) {
   const [notification, setNotifcations] = useState([]);
 
   const { token } = useSelector((state) => state.auth);
-  // const { notification } = useSelector((state) => state.post);
-
-  // const dispatch = useDispatch();
 
   useEffect(() => {
     socket = io(ENDPOINT);
@@ -44,21 +40,23 @@ function SingleChat({ currentChat, setCurrentChat, user }) {
       if(!selectedChatCampare || selectedChatCampare._id !== newMessageRecieved.chat._id){
         if(!notification.includes(newMessageRecieved)){
           setNotifcations([newMessageRecieved, ...notification]);
+          console.log("hello");
           // console.log(notification);
           //want to manage the user is on chat or not if user is not in the chat want to set the 
           //notification
         }
       }else{
-        
+        setMessages([...messages, newMessageRecieved]);
       }
-      setMessages([...messages, newMessageRecieved]);
     });
   },[])
 
   useEffect(() => {
     fetchMessages({ token, currentChat, setLoading, setMessages, socket });
     selectedChatCampare = currentChat;
-  }, [currentChat])
+  }, [currentChat]);
+
+  
 
   const sendMessage = (e) => {
     if (e.key === "Enter" && newMessage) {
