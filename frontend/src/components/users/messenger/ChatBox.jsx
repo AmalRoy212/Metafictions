@@ -20,7 +20,7 @@ function ChatBox({ currentChat, setCurrentChat, user }) {
       >
         <SingleChat currentChat={currentChat} setCurrentChat={setCurrentChat} user={user} /> 
       </Box>
-      {/* <Box 
+      <Box 
         display="flex"
         justifyContent="center"
         alignItems="center"
@@ -29,7 +29,7 @@ function ChatBox({ currentChat, setCurrentChat, user }) {
         <Options>
           <Notifications />
         </Options>
-      </Box> */}
+      </Box>
     </>
   )
 }

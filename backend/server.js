@@ -35,7 +35,9 @@ const server = app.listen(port, () => console.log(`server running on port ${port
 const io = new Server(server, {
   pingTimeout: 60000,
   cors: {
+    // https://metafiction.netlify.app
     origin: "https://metafiction.netlify.app",
+    methods : ["GET", "POST"]
   }
 });
 
