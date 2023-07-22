@@ -723,8 +723,7 @@ export const createNewMessage = ({
     }
   })
     .then((res) => {
-      const newMessage = res.data; // Store the newly created message
-      console.log(messages, newMessage);
+      const newMessage = res.data;
       setMessages([...messages, newMessage]);
       socket.emit("new message", newMessage);
     })
@@ -758,3 +757,22 @@ export const fetchMessages = ({ token, currentChat, setLoading, setMessages, soc
       toast.error("Oops! Something went wrong");
     });
 };
+
+export const fetchMessageAgain = ({ token, currentChat, setMessages }) => {
+  axios
+    .get('/message', {
+      params: {
+        chatId: currentChat._id,
+      },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => {
+      setMessages(res.data);
+      socket.emit("join chat", currentChat._id)
+    })
+    .catch((err) => {
+      toast.error("Oops! Something went wrong");
+    });
+}

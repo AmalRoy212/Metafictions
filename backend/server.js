@@ -37,7 +37,6 @@ const io = new Server(server, {
   cors: {
     // https://metafiction.netlify.app
     origin: "https://metafiction.netlify.app",
-    methods : ["GET", "POST"]
   }
 });
 
@@ -60,29 +59,16 @@ io.on("connection", (socket) => {
     let chat = newMessageRecieved.chat;
     if (!chat.users) return console.log("no users");
 
-    chat.users.forEach(user => {
+    chat.users.filter(user => {
       if (user._id === newMessageRecieved.sender._id) return;
-      socket.to(user._id).emit("message recieved", newMessageRecieved);
+      socket.in(user._id).emit("message recieved", newMessageRecieved);
+  
+      console.log(user._id,"**************");
     });
   });
 
   socket.off("setup", () => {
     console.log("User disconned");
     socket.leave(user._id);
-  })
-
-  //video chat 
-  socket.emit("me", socket.id);
-
-  socket.on('disconnect', () => {
-    socket.broadcast.emit("callended");
-  });
-
-  socket.on("calluser", ({ userToCall, signalData, from, name }) => {
-    io.to(userToCall).emit("calluser", { signal: signalData, from, name });
-  });
-
-  socket.on("answercall", (data) => {
-    io.to(data.to).emit("callaccepted", data.signal)
   })
 })

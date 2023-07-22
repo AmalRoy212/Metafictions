@@ -10,11 +10,11 @@ import { router } from "./routes/index";
 // import { ContextProvider } from './contexts/socketContext';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <Provider store={store}>
       {/* <ContextProvider> */}
         <RouterProvider router={router} />
       {/* </ContextProvider> */}
     </Provider>
-  </React.StrictMode>,
+  // </React.StrictMode>,
 )

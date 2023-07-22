@@ -5,12 +5,13 @@ import Lottie from "lottie-react";
 import { io } from "socket.io-client";
 import { getSender, getSenderImg } from '../../../utils/chatHelper'
 import UpdateGorupChat from './UpdateGorupChat';
-import { createNewMessage, fetchMessages } from '../../../functionalities/userApiFunctionalities';
+import { createNewMessage, fetchMessageAgain, fetchMessages } from '../../../functionalities/userApiFunctionalities';
 import { useDispatch, useSelector } from 'react-redux';
 import ScrollChatBox from './ScrollChatBox';
 import typingLoader from "../../../animations/typing.json";
+import axios from "../../../configs/axios";
 // import { setNotifcations } from '../../../redux-toolkit/actionManagerSlice';
-
+// metafiction.onrender.com
 const ENDPOINT = "https://metafiction.onrender.com"
 let socket, selectedChatCampare;
 
@@ -23,6 +24,7 @@ function SingleChat({ currentChat, setCurrentChat, user }) {
   const [typing, setTyping] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const [notification, setNotifcations] = useState([]);
+  const [update, setupdate] = useState(false);
 
   const { token } = useSelector((state) => state.auth);
 
@@ -37,19 +39,20 @@ function SingleChat({ currentChat, setCurrentChat, user }) {
   
   useEffect(() => {
     socket.on("message recieved", (newMessageRecieved) => {
-      if(!selectedChatCampare || selectedChatCampare._id !== newMessageRecieved.chat._id){
+      setupdate(!update);
+      if(!selectedChatCampare || selectedChatCampare?._id !== newMessageRecieved?.chat._id){
         if(!notification.includes(newMessageRecieved)){
           setNotifcations([newMessageRecieved, ...notification]);
-          console.log("hello");
+          // console.log("hello");
           // console.log(notification);
           //want to manage the user is on chat or not if user is not in the chat want to set the 
           //notification
         }
       }else{
-        setMessages([...messages, newMessageRecieved]);
+        setMessages([...messages, newMessageRecieved])
       }
     });
-  },[])
+  })
 
   useEffect(() => {
     fetchMessages({ token, currentChat, setLoading, setMessages, socket });

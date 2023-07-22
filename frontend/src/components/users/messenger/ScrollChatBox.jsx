@@ -53,7 +53,6 @@ function ScrollChatBox({ messages, user }) {
                   }
                   <span
                     style={{
-
                       backgroundColor: "#FFFFFF",
                       color: "black",
                       borderRadius: "20px",
