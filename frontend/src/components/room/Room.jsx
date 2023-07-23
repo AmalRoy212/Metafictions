@@ -18,7 +18,7 @@ const RoomPage = () => {
   const navigate = useNavigate();
 
   const handleUserJoined = useCallback(({ email, id }) => {
-    console.log(`Email ${email} joined room`);
+    // console.log(`Email ${email} joined room`);
     setRemoteSocketId(id);
   }, []);
 
@@ -40,7 +40,7 @@ const RoomPage = () => {
         video: true,
       });
       setMyStream(stream);
-      console.log(`Incoming Call`, from, offer);
+      // console.log(`Incoming Call`, from, offer);
       const ans = await peer.getAnswer(offer);
       socket.emit("call:accepted", { to: from, ans });
     },
@@ -56,7 +56,7 @@ const RoomPage = () => {
   const handleCallAccepted = useCallback(
     ({ from, ans }) => {
       peer.setLocalDescription(ans);
-      console.log("Call Accepted!");
+      // console.log("Call Accepted!");
       sendStreams();
     },
     [sendStreams]
@@ -122,7 +122,7 @@ const RoomPage = () => {
   useEffect(() => {
     peer.peer.addEventListener("track", async (ev) => {
       const remoteStream = ev.streams;
-      console.log("GOT TRACKS!!");
+      // console.log("GOT TRACKS!!");
       setRemoteStream(remoteStream[0]);
     });
   }, []);
