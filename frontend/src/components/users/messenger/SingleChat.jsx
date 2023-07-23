@@ -12,10 +12,12 @@ import typingLoader from "../../../animations/typing.json";
 import { turnOnVideoCall } from '../../../redux-toolkit/videoCallSlice';
 import VideoChatHolder from '../videoCall/VideoChatHolder';
 import VideoCallNotification from '../videoCall/VideoCallNotification';
+import VideoCallRoom from '../videoCall/VideoCallRoom';
 // import { setNotifcations } from '../../../redux-toolkit/actionManagerSlice';
-// metafiction.onrender.com
 
-const ENDPOINT = "https://metafiction.onrender.com"
+// https://metafiction.onrender.com
+// http://localhost:5000
+const ENDPOINT = "http://localhost:5000"
 let socket, selectedChatCampare;
 
 function SingleChat({ currentChat, setCurrentChat, user }) {
@@ -30,7 +32,6 @@ function SingleChat({ currentChat, setCurrentChat, user }) {
   const [update, setupdate] = useState(false);
 
   const { token } = useSelector((state) => state.auth);
-  const { videoCall }= useSelector((state) => state.videoCall);
 
   const dispatch = useDispatch();
 
@@ -49,8 +50,7 @@ function SingleChat({ currentChat, setCurrentChat, user }) {
       if(!selectedChatCampare || selectedChatCampare?._id !== newMessageRecieved?.chat._id){
         if(!notification.includes(newMessageRecieved)){
           setNotifcations([newMessageRecieved, ...notification]);
-          // console.log("hello");
-          // console.log(notification);
+          console.log(notification);
           //want to manage the user is on chat or not if user is not in the chat want to set the 
           //notification
         }
@@ -189,8 +189,7 @@ function SingleChat({ currentChat, setCurrentChat, user }) {
           </Box>
         </>)
       }
-      {videoCall && <VideoChatHolder currentChat={currentChat} user={user}/>}
-      {/* {user && <VideoCallNotification user={user} />} */}
+      <VideoCallRoom currentChat={currentChat} user={user} />
     </>
   )
 }

@@ -5,6 +5,7 @@ import { FirebaseContext } from './contexts/firebaseContexts';
 import firebase from './configs/firebase.config';
 import { useSelector } from "react-redux";
 import Loader from "./components/loader/Loader";
+import { SocketProvider } from './contexts/SocketProvider';
 import axios from 'axios';
 
 function App() {
@@ -22,10 +23,12 @@ function App() {
   return (
     <>
       {loading && <Loader />}
-      <FirebaseContext.Provider value={firebase}>
+      <SocketProvider>
+        <FirebaseContext.Provider value={firebase}>
           <ToastContainer style={{ zIndex: 13 }} />
           <Outlet />
-      </FirebaseContext.Provider>
+        </FirebaseContext.Provider>
+      </SocketProvider>
     </>
   )
 }
