@@ -4,7 +4,7 @@ import { Button, IconButton } from '@chakra-ui/react';
 import { FaBrush, FaPhoneSlash } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import { turnOffVideoCall } from '../../../redux-toolkit/videoCallSlice';
-import Peer from "simple-peer";
+// import Peer from "simple-peer";
 import io from "socket.io-client";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
