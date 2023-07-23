@@ -17,7 +17,7 @@ import VideoCallRoom from '../videoCall/VideoCallRoom';
 
 // https://metafiction.onrender.com
 // http://localhost:5000
-const ENDPOINT = "http://localhost:5000"
+const ENDPOINT = "https://metafiction.onrender.com"
 let socket, selectedChatCampare;
 
 function SingleChat({ currentChat, setCurrentChat, user }) {
@@ -189,7 +189,7 @@ function SingleChat({ currentChat, setCurrentChat, user }) {
           </Box>
         </>)
       }
-      <VideoCallRoom currentChat={currentChat} user={user} />
+      {/* <VideoCallRoom currentChat={currentChat} user={user} /> */}
     </>
   )
 }

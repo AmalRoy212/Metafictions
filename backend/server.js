@@ -37,7 +37,7 @@ const io = new Server(server, {
   cors: {
     // https://metafiction.netlify.app
     // http://localhost:3000
-    origin: "http://localhost:3000",
+    origin: "https://metafiction.netlify.app",
   }
 });
 

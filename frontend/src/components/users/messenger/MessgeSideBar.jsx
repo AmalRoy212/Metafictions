@@ -4,15 +4,17 @@ import { useSelector } from 'react-redux';
 import { getChats } from '../../../functionalities/userApiFunctionalities';
 import PopUp from './PopUp';
 import SingleChatPopUp from './SingleChatPopUp';
-import { FaUserFriends, FaUserPlus } from 'react-icons/fa';
+import { FaPhoneSquare, FaUserFriends, FaUserPlus } from 'react-icons/fa';
 import { getSender, getSenderImg } from '../../../utils/chatHelper';
+import { useNavigate } from 'react-router-dom';
 
 function MessgeSideBar({ setCurrentChat, currentChat, user }) {
 
   const [chats, setChats] = useState([]);
 
+  const navigate = useNavigate()
+
   const { token } = useSelector((state) => state.auth);
-  // const { chatUpdated } = useSelector((state) => state.post);
 
   useEffect(() => {
     getChats({ token, setChats })
@@ -41,11 +43,17 @@ function MessgeSideBar({ setCurrentChat, currentChat, user }) {
         >
           MyChats
           <div style={{ display: "flex" }}>
+            <Button
+              style={{ display: "flex", marginRight:"5px" }}
+              fontSize={{ base: "17px", md: "10px", lg: "17px" }}
+              onClick={() => navigate('/video/chat')}
+            >
+              <FaPhoneSquare />
+            </Button>
             <PopUp setChats={setChats} chats={chats}>
               <Button
                 style={{ display: "flex" }}
                 fontSize={{ base: "17px", md: "10px", lg: "17px" }}
-              // rightIcon={<AddIcon/>}
               >
                 <FaUserFriends />
               </Button>
