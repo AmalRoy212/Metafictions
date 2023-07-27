@@ -10,9 +10,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import ScrollChatBox from './ScrollChatBox';
 import typingLoader from "../../../animations/typing.json";
 import { turnOnVideoCall } from '../../../redux-toolkit/videoCallSlice';
-import VideoChatHolder from '../videoCall/VideoChatHolder';
-import VideoCallNotification from '../videoCall/VideoCallNotification';
-import VideoCallRoom from '../videoCall/VideoCallRoom';
+// import VideoChatHolder from '../videoCall/VideoChatHolder';
+// import VideoCallNotification from '../videoCall/VideoCallNotification';
+// import VideoCallRoom from '../videoCall/VideoCallRoom';
 // import { setNotifcations } from '../../../redux-toolkit/actionManagerSlice';
 
 // https://metafiction.onrender.com

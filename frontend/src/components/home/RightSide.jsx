@@ -24,8 +24,8 @@ export default function Rightsidebar({ userSugg }) {
 
   return (
     <>
-      <div className="col-md-3">
-        <div className="card gedf-card" style={{ backgroundColor: "white", borderRadius: "20px", marginTop: "1rem" }}>
+      <div className="col-md-3" style={{ backgroundColor: "white", borderRadius: "20px", marginTop: "1rem", maxHeight: "100vh", overflow: "hidden" }}>
+        <div className="card gedf-card" style={{ maxHeight: "50vh", marginTop: "1rem", overflow: "auto", borderRadius:"20px" }}>
           <div className="card-body">
             <h5 className="card-title">Requests <span class="badge bg-danger rounded-circle">{request?.length}</span></h5>
             {request.map((user, index) => (<motion.div
@@ -49,7 +49,7 @@ export default function Rightsidebar({ userSugg }) {
             }
           </div>
         </div>
-        <div className="card gedf-card" style={{ backgroundColor: "white", borderRadius: "20px", marginTop: "1rem" }}>
+        <div className="card gedf-card" style={{ maxHeight: "50vh", marginTop: "1rem", overflow: "auto", borderRadius: "20px" }}>
           <div className="card-body">
             <h5 className="card-title">Suggesions</h5>
             {userSugg.map((user, index) => (<motion.div
