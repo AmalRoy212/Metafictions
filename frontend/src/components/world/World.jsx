@@ -14,7 +14,7 @@ function World() {
         initial="hidden"
         whileInView="show"
         viewport={{ once: false, amount: 0.25 }}
-        style={{ width: "100%", height: "100vh", padding: "5%" }}
+        style={{ width: "100%", height: "50vh", padding: "5%", objectFit:"cover" }}
       >
         <motion.img
           variants={fadeIn("up", "tween", 0.5, 1)}
@@ -22,11 +22,10 @@ function World() {
           alt='map'
           style={{ width: "100%", height: "100%" }}
         />
-        <FaFly style={{ color: 'red',marginLeft:'63%',marginTop:'-58%' }} size={30} />
-        <FaFly style={{ color: 'red',marginLeft:'0%',marginTop:'-68%' }} size={30} />
+        {/* <FaFly style={{ color: 'red',marginLeft:'63%',marginTop:'-25%' }} size={30} />
+        <FaFly style={{ color: 'red',marginLeft:'-2%',marginTop:'-27%' }} size={30} /> */}
       </motion.div>
-      <div className='gradient002' />
-
+      <div className='gradient002' style={{ width: "40%" }} />
     </>
 
   )

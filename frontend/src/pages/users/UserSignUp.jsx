@@ -9,15 +9,10 @@ function UserSignUp() {
   return (
     <div>
       <Header />
-      {/* <div style={{ position: 'relative', zIndex: -1 }}>
-        <CarEnv />
-      </div> */}
-      {/* <div style={{ position: 'absolute', top: 0, left: 0, right: 50, bottom: 0,  zIndex: 3 }}> */}
-        <Signup />
-      {/* </div> */}
+      <Signup />
       <div className='feedback-gradient'></div>
       <Footer/>
-      <div className='footer-gradient'></div>
+      <div className='footer-gradient' style={{width:"40%"}}></div>
     </div>
   )
 }

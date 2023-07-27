@@ -46,7 +46,7 @@ function Discription() {
           style={{ marginLeft: '50%', marginTop: '-5%' }}
         />
       </motion.div>
-      <div className="gradient02" style={{ zIndex: 0 }} />
+      <div className="gradient02" style={{ zIndex: 0, width:"40%" }} />
 
     </section>
   )

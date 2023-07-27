@@ -12,13 +12,13 @@ const ExploreCard = ({ id, imgUrl, title, index, active, handleClick }) => (
       <img src={imgUrl} alt={title}
         style={{ width: "100%", height: "400px",objectFit:"cover",borderRadius:"20px" }}
       />
-      {
+      {/* {
         active !== id && (
           <h3 style={{color:"white",marginTop:"-15%",marginLeft:"10%"}}>
             {title}
           </h3>
         )
-      }
+      } */}
     </motion.div>
   </div>
 );

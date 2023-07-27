@@ -5,6 +5,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import { motion } from "framer-motion";
 import { navVariants } from "../../utils/motions"
 import "../../styles/styles.css";
+import "../home/HomeStyle.css"
 
 function Header() {
   return (
@@ -14,7 +15,7 @@ function Header() {
       whileInView="show"
       viewport={{ once: false , amount: 0.25}}
     >
-      <div className="gradient01" />
+      <div className="gradient01" style={{width:"40%"}} />
       <header style={{position:"absolute",top:5,width:"100%", zIndex:17}}>
         <Navbar bg='transperent' variant='dark' expand='lg' collapseOnSelect>
           <Container>
@@ -22,7 +23,7 @@ function Header() {
               <Navbar.Brand style={{fontWeight:'bold'}} href='/'>METAFICTION</Navbar.Brand>
             </LinkContainer>
             <Navbar.Toggle aria-controls='basic-navbar-nav' />
-            <Navbar.Collapse id='basic-navbar-nav'>
+            <Navbar.Collapse id='basic-navbar-nav' className='card'>
               <Nav className='ms-auto'>
                 <Nav.Link href='#about'>
                   <FaAvianex size={30} style={{ fontWeight: 'bold' }} /> Explore

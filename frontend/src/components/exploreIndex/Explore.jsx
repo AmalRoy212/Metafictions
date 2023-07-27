@@ -41,7 +41,7 @@ const Explore = () => {
           }
         </div>
       </motion.div>
-      <div className="gradient002_Orenge" />
+      <div className="gradient002_Orenge" style={{ width: "40%" }} />
     </section>
   )
 };
