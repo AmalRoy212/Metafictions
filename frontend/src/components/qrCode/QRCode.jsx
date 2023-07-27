@@ -1,5 +1,5 @@
 import React from 'react';
-import {QRCodeSVG} from 'qrcode.react';
+import { QRCodeSVG } from 'qrcode.react';
 import { APP_URL } from '../../constants/constants';
 
 function QRCode({userId}) {

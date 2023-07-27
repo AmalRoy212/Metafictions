@@ -110,15 +110,15 @@ function SecondFeed({ posts }) {
                   <div className="mr-2">
                     <img
                       className="rounded-circle"
-                      width="50px"
-                      height="50px"
+                      width="40px"
+                      height="40px"
                       src={post?.userDp}
                       alt="dp"
                       style={{ objectFit: "cover" }}
                     />
                   </div>
                   <div className="ml-2">
-                    <div className="h5 m-0 text-black m-1">{post?.userName}</div>
+                    <div className="h6 m-0 text-black m-1">{post?.userName}</div>
                   </div>
                 </div>
                 <Dropdown>
@@ -143,26 +143,22 @@ function SecondFeed({ posts }) {
             <div className="card-body">
               <div className="h7 text-black mb-2" style={{width:"100%"}}>
                 {" "}
-                <FaSafari /> <span style={{ fontSize: "small" }}> {post?.date}</span>
+                <FaSafari style={{ marginLeft: "1rem" }} /> <span style={{ fontSize: "small" }}> {post?.date}</span>
               </div>
 
-              <p className="card-text text-black">
+              <p className="card-text text-black" style={{marginLeft:"1rem", marginBottom:"1rem"}}>
                 {post?.discription}
               </p>
             </div>
             {post?.content && (
               <>
-                <div className="container m-0 p-0" style={{width:"100%"}}>
-                  <div className="row">
-                    <div className="col-md-12 m-0 p-0" style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
-                      <img src={post?.content} alt="" style={{ height: "100%", width: "100%", objectFit: "cover" }} />
-                    </div>
-                  </div>
+                <div style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%", height: "400px" }}>
+                  <img src={post?.content} alt="" style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "cover" }} />
                 </div>
               </>
             )}
             <p>{/* Content */}</p>
-            <p className="content-reactions">
+            <p className="content-reactions" style={{marginLeft:"1rem"}}>
               <i className="far fa-thumbs-up"></i>
               <span className="margin-left-quarter" style={{ color: "black" }}>
                 <a style={{ textDecoration: "none", color: "black" }} className="card-link">
