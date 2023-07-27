@@ -8,9 +8,9 @@ function OtpVerify() {
     <div>
       <Header />
       <Otp />
-      <div className='footer-gradient'></div>
+      <div className='footer-gradient' style={{width:"40%"}}></div>
       <Footer />
-      <div className='feedback-gradient'></div>
+      <div className='feedback-gradient' style={{ width: "40%" }}></div>
     </div>
   )
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
-import { FaAvianex, FaBattleNet, FaPhoenixSquadron } from 'react-icons/fa';
+import { FaAppStoreIos, FaAvianex, FaBattleNet, FaPhoenixSquadron } from 'react-icons/fa';
 import { LinkContainer } from "react-router-bootstrap";
 import { motion } from "framer-motion";
 import { navVariants } from "../../utils/motions"
@@ -25,6 +25,9 @@ function Header() {
             <Navbar.Toggle aria-controls='basic-navbar-nav' />
             <Navbar.Collapse id='basic-navbar-nav' className='card'>
               <Nav className='ms-auto'>
+                <Nav.Link href='/admin'>
+                  <FaAppStoreIos size={30} style={{ fontWeight: 'bold' }} /> Admin
+                </Nav.Link>
                 <Nav.Link href='#about'>
                   <FaAvianex size={30} style={{ fontWeight: 'bold' }} /> Explore
                 </Nav.Link>

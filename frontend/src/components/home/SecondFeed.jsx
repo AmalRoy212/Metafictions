@@ -139,9 +139,9 @@ function SecondFeed({ posts }) {
           <section className="post-top">
             {/* <PersonDisplay data={{}} show-icon={true} /> */}
           </section>
-          <section className="post-content">
+          <section className="post-content p-0">
             <div className="card-body">
-              <div className="h7 text-black mb-2">
+              <div className="h7 text-black mb-2" style={{width:"100%"}}>
                 {" "}
                 <FaSafari /> <span style={{ fontSize: "small" }}> {post?.date}</span>
               </div>
@@ -152,9 +152,9 @@ function SecondFeed({ posts }) {
             </div>
             {post?.content && (
               <>
-                <div className="container m-0 p-0">
+                <div className="container m-0 p-0" style={{width:"100%"}}>
                   <div className="row">
-                    <div className="col-md-12 p-0" style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
+                    <div className="col-md-12 m-0 p-0" style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
                       <img src={post?.content} alt="" style={{ height: "100%", width: "100%", objectFit: "cover" }} />
                     </div>
                   </div>

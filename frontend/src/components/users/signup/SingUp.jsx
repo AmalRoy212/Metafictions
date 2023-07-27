@@ -39,6 +39,7 @@ function Signup() {
       initial="hidden"
       whileInView="show"
       viewport={{ once : false, amount : 0.25 }}
+      style={{marginBottom:"5rem"}}
     >
       <MDBContainer className="h-100 w-60" style={{marginTop:'-4rem', zIndex:17}}>
         <MDBRow className="justify-content-center align-items-center h-100">

@@ -70,6 +70,10 @@ export const userSingUp = async function ({
   dispatch,
   navigate
 }) {
+  if( !name || !email || !password || !confirmPassword ) {
+    toast.warning("Please fill the feilds");
+    return
+  }
   dispatch(setLoading())
   if (password !== confirmPassword) {
     toast.error('Password doesnt not match');
@@ -95,8 +99,14 @@ export const userSingUp = async function ({
                 dispatch(clearLoading());
                 navigate('/verify');
               })
-              .catch((error) =>
-                toast.error(error?.data?.message || error.error)
+              .catch((error) =>{
+                if (error.message == "Request failed with status code 400"){
+                  toast.warning("I think you are using the an existing email");
+                }else{
+                  toast.error("Something went wrong try again later");
+                }
+                  dispatch(clearLoading());
+                }
               );
           } catch (error) {
             toast.error(error.message);
@@ -120,7 +130,7 @@ export const verifyOtp = async function ({ otp, navigate }) {
       toast.error("There is an issue with your OTP")
     })
   } catch (error) {
-    toast.error("Cannection issuse", error);
+    toast.error("Cannection issuse");
   }
 }
 

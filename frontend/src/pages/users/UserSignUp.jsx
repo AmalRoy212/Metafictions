@@ -12,7 +12,9 @@ function UserSignUp() {
       <Signup />
       <div className='feedback-gradient'></div>
       <Footer/>
-      <div className='footer-gradient' style={{width:"40%"}}></div>
+      {/* <div className='footer-gradient' style={{width:"100%", marginTop:"5rem"}}></div> */}
+      <div className='gradient002_Orenge'></div>
+
     </div>
   )
 }
