@@ -147,9 +147,10 @@ function SingleChat({ currentChat, setCurrentChat, user }) {
             alignItems="center"
           >
             <IconButton
-              display={{ base: "flex", md: "none" }}
+              display={{ base: "flex", md: "none"}}
               icon={<FaRegTimesCircle />}
               onClick={() => setCurrentChat(null)}
+              style={{ background: "none" }}
             />
             {!currentChat?.isGroupChat ?
               (<>
@@ -162,6 +163,7 @@ function SingleChat({ currentChat, setCurrentChat, user }) {
                 <IconButton
                   icon={<FaPhoneSquare />}
                   onClick={(e) => handleSubmitForm(e,currentChat._id)}
+                  style={{ background:"none" }}
                 />
               </>)
               :

@@ -44,7 +44,7 @@ function MessgeSideBar({ setCurrentChat, currentChat, user }) {
           MyChats
           <div style={{ display: "flex" }}>
             <Button
-              style={{ display: "flex", marginRight:"5px" }}
+              style={{ display: "flex", marginRight:"5px", border:"none", background:"none" }}
               fontSize={{ base: "17px", md: "10px", lg: "17px" }}
               onClick={() => navigate('/video/chat')}
             >
@@ -52,7 +52,7 @@ function MessgeSideBar({ setCurrentChat, currentChat, user }) {
             </Button>
             <PopUp setChats={setChats} chats={chats}>
               <Button
-                style={{ display: "flex" }}
+                style={{ display: "flex", border:"none", background:"none" }}
                 fontSize={{ base: "17px", md: "10px", lg: "17px" }}
               >
                 <FaUserFriends />
@@ -60,7 +60,7 @@ function MessgeSideBar({ setCurrentChat, currentChat, user }) {
             </PopUp>
             <SingleChatPopUp setChats={setChats} chats={chats}>
               <Button
-                style={{ display: "flex" }}
+                style={{ display: "flex", border:"none", background:"none" }}
                 fontSize={{ base: "17px", md: "10px", lg: "17px" }}
                 mx={1}
               >

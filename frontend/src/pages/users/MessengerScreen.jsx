@@ -31,7 +31,7 @@ function MessageScreen() {
         <div className="gradient01" style={{height:"60px",width:"100%", position:"absolute"}}/>
         <header style={{ top: 5, width: "90%", zIndex: 10, height: "50px", backgroundColor: "transparent" }}>
           {navigator ? (
-            <Button onClick={() => setNavigator(false)} style={{ maxWidth: "45px", height: "45px", zIndex: 7, position: "absolute", margin: "5px" }}><FaRegTimesCircle size={20} /></Button>
+            <Button onClick={() => setNavigator(false)} style={{ maxWidth: "45px", height: "45px", zIndex: 7, position: "absolute", margin: "5px", border:"none" }}><FaRegTimesCircle size={20} /></Button>
           ) : (
             <Button onClick={() => setNavigator(true)} style={{ maxWidth: "45px", height: "45px", zIndex: 7, position: "absolute", margin: "5px" }}><FaRegListAlt size={20} /></Button>
           )}
