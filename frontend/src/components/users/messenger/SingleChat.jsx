@@ -119,7 +119,7 @@ function SingleChat({ currentChat, setCurrentChat, user }) {
   );
 
   const handleJoinRoom = useCallback(
-    () => {
+    (room) => {
       navigate(`/room/${room}`);
     },
     [navigate]
