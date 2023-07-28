@@ -71,9 +71,9 @@ const RoomPage = () => {
     socket.off("peer:nego:final", handleNegoNeedFinal);
 
     // Step 2: Close the peer connection
-    if (peer.peer) {
-      peer.peer.close();
-    }
+    // if (peer.peer) {
+    //   peer.peer.close();
+    // }
 
     // Step 3: Clean up the streams
     if (myStream) {
