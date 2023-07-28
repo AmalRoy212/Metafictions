@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
-import { FaAvianex, FaBattleNet, FaPhoenixSquadron, FaCogs } from 'react-icons/fa';
+import { FaAvianex, FaBattleNet, FaPhoenixSquadron, FaCogs, FaOdnoklassnikiSquare } from 'react-icons/fa';
 import { LinkContainer } from "react-router-bootstrap";
 // import { motion } from "framer-motion";
 // import { navVariants } from "../../utils/motions"
@@ -16,7 +16,7 @@ function HoemNavbar() {
         <Navbar bg='transperent' variant='light' expand='lg' collapseOnSelect>
           <Container>
             <LinkContainer to={'/'}>
-              <Navbar.Brand style={{fontWeight:'bold',color:"black"}} href='/'><FaPhoenixSquadron size={30} style={{ fontWeight: 'bold' }} /> METAFICTION</Navbar.Brand>
+              <Navbar.Brand style={{ fontWeight: 'bold', color: "black" }} href='/'><FaBattleNet size={30} style={{ fontWeight: 'bold' }} /> METAFICTION</Navbar.Brand>
             </LinkContainer>
             <Navbar.Toggle aria-controls='basic-navbar-nav'/>
             <Navbar.Collapse id='basic-navbar-nav' className='card'>
@@ -26,12 +26,12 @@ function HoemNavbar() {
                 </Nav.Link>
                 <LinkContainer to={'/login'}>
                   <Nav.Link>
-                    <FaBattleNet size={30} style={{ fontWeight: 'bold' }} /> Account
+                    <FaOdnoklassnikiSquare size={30} style={{ fontWeight: 'bold' }} /> Account
                   </Nav.Link>
                 </LinkContainer> 
                 <LinkContainer to={'/'}>
                   <Nav.Link>
-                    <FaCogs size={30} style={{ fontWeight: 'bold' }} /> Service
+                    <FaBattleNet size={30} style={{ fontWeight: 'bold' }} /> Service
                   </Nav.Link>
                 </LinkContainer> 
               </Nav>

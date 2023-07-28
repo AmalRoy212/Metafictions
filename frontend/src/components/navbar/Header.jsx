@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
-import { FaAppStoreIos, FaAvianex, FaBattleNet, FaPhoenixSquadron } from 'react-icons/fa';
+import { FaAppStoreIos, FaAvianex, FaBattleNet, FaOdnoklassnikiSquare, FaPhoenixSquadron } from 'react-icons/fa';
 import { LinkContainer } from "react-router-bootstrap";
 import { motion } from "framer-motion";
 import { navVariants } from "../../utils/motions"
@@ -25,20 +25,22 @@ function Header() {
             <Navbar.Toggle aria-controls='basic-navbar-nav' />
             <Navbar.Collapse id='basic-navbar-nav' className='card'>
               <Nav className='ms-auto'>
-                <Nav.Link href='/admin'>
-                  <FaAppStoreIos size={30} style={{ fontWeight: 'bold' }} /> Admin
-                </Nav.Link>
+                <LinkContainer to={'/admin'}>
+                  <Nav.Link>
+                    <FaAppStoreIos size={30} style={{ fontWeight: 'bold' }} /> Admin
+                  </Nav.Link>
+                </LinkContainer> 
                 <Nav.Link href='#about'>
                   <FaAvianex size={30} style={{ fontWeight: 'bold' }} /> Explore
                 </Nav.Link>
                 <LinkContainer to={'/login'}>
                   <Nav.Link>
-                    <FaBattleNet size={30} style={{ fontWeight: 'bold' }} /> Account
+                    <FaOdnoklassnikiSquare size={30} style={{ fontWeight: 'bold' }} /> Account
                   </Nav.Link>
                 </LinkContainer> 
                 <LinkContainer to={'/'}>
                   <Nav.Link>
-                    <FaPhoenixSquadron size={30} style={{ fontWeight: 'bold' }} /> Service
+                    <FaBattleNet size={30} style={{ fontWeight: 'bold' }} /> Service
                   </Nav.Link>
                 </LinkContainer> 
               </Nav>
