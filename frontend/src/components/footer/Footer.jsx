@@ -38,10 +38,7 @@ function Footer() {
 
   return (
     <div style={footerStyles}>
-      <motion.div
-        variants={fadeIn('down', 'tween', 0.5, 1)}
-        initial="hidden"
-        whileInView="show"
+      <div
         style={mergedMotionDivStyles}
       >
         <a href="" style={{ textDecoration: 'none', margin: '1%' }}>
@@ -61,7 +58,7 @@ function Footer() {
             @ken940005@gmail.com
           </motion.p>
         </a>
-      </motion.div>
+      </div>
     </div>
   )
 }
