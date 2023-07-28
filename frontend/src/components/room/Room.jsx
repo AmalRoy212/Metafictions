@@ -91,7 +91,7 @@ const RoomPage = () => {
     setAnswerCall(false);
 
     // Optionally, navigate to a different page after leaving the call
-    navigate('/video/chat');
+    navigate('/inbox');
   };
 
 
@@ -209,6 +209,7 @@ const RoomPage = () => {
                   width="100%"
                   style={{objectFit:"contain", overflow:"hidden"}}
                   url={remoteStream}
+                  muted
                 />
                 <ReactPlayer
                   playing
@@ -216,6 +217,7 @@ const RoomPage = () => {
                   width="100px"
                   style={{objectFit:"contain",height:"100%", width:"100%", overflow:"hidden", zIndex:"10",marginTop:"-50%", border:"2px solid white", borderRadius:"15px"}}
                   url={myStream}
+                  muted
                 />
               </div>
             )}
