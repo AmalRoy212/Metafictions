@@ -21,9 +21,6 @@ function HoemNavbar() {
             <Navbar.Toggle aria-controls='basic-navbar-nav'/>
             <Navbar.Collapse id='basic-navbar-nav' className='card'>
               <Nav className='ms-auto'>
-                <Nav.Link href='#about'>
-                  <FaAvianex size={30} style={{ fontWeight: 'bold' }} /> Explore
-                </Nav.Link>
                 <LinkContainer to={'/login'}>
                   <Nav.Link>
                     <FaOdnoklassnikiSquare size={30} style={{ fontWeight: 'bold' }} /> Account

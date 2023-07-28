@@ -1,5 +1,5 @@
 import { Box, FormControl, IconButton, Input, Spinner, Text } from '@chakra-ui/react'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { FaRegTimesCircle, FaPhoneSquare } from 'react-icons/fa'
 import Lottie from "lottie-react";
 import { io } from "socket.io-client";
@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ScrollChatBox from './ScrollChatBox';
 import typingLoader from "../../../animations/typing.json";
 import { turnOnVideoCall } from '../../../redux-toolkit/videoCallSlice';
+import { useNavigate } from 'react-router-dom';
 // import VideoChatHolder from '../videoCall/VideoChatHolder';
 // import VideoCallNotification from '../videoCall/VideoCallNotification';
 // import VideoCallRoom from '../videoCall/VideoCallRoom';
@@ -34,6 +35,7 @@ function SingleChat({ currentChat, setCurrentChat, user }) {
   const { token } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     socket = io(ENDPOINT);
@@ -82,6 +84,13 @@ function SingleChat({ currentChat, setCurrentChat, user }) {
     }
   }
 
+  const handleJoinRoom = useCallback(
+    (id) => {
+      navigate(`/room/${id}`);
+    },
+    [navigate]
+  );
+
   const typingHandler = (e) => {
     setNewMessage(e.target.value);
     if(!socketConnected) return;
@@ -129,7 +138,7 @@ function SingleChat({ currentChat, setCurrentChat, user }) {
                 </div>
                 <IconButton
                   icon={<FaPhoneSquare />}
-                  onClick={() => dispatch(turnOnVideoCall())}
+                  onClick={() => handleJoinRoom(currentChat._id)}
                 />
               </>)
               :

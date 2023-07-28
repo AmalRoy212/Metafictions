@@ -141,7 +141,8 @@ export const loadHome = function ({
   setUser,
   setUserSugg,
   dispatch,
-  liked
+  liked,
+  navigate
 }) {
   if (!liked) {
     dispatch(setLoading());
@@ -153,6 +154,11 @@ export const loadHome = function ({
   }).then((res) => {
     setPosts(res.data);
     dispatch(setPostCount(res.data.length));
+  }).catch((err) => {
+    if (err.message == "Request failed with status code 401"){
+      localStorage.removeItem('token');
+      navigate('/login')
+    }
   })
   if (!liked) {
     dispatch(setLoading());
@@ -164,6 +170,7 @@ export const loadHome = function ({
   }).then((res) => {
     setUser(res.data);
     dispatch(setNotLength(res.data.notifications.length))
+  }).catch((err) => {
   });
   if (!liked) {
     dispatch(setLoading());
@@ -175,7 +182,8 @@ export const loadHome = function ({
   }).then((res) => {
     setUserSugg(res.data);
     dispatch(setFollowCount(res.data.length))
-  })
+  }).catch((err) => {
+  });
   dispatch(clearLoading());
   dispatch(clearLiked());
 }

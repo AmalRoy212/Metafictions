@@ -10,6 +10,7 @@ import { loadHome } from "../../functionalities/userApiFunctionalities"
 import "../../styles/styles.css";
 // import { setLiked } from "../../redux-toolkit/actionManagerSlice";
 import FollowersCounts from "../../components/users/followCounts/FollowersCounts";
+import { useNavigate } from "react-router-dom";
 
 function HomeScreen() {
 
@@ -25,6 +26,8 @@ function HomeScreen() {
   const { followDetails } = useSelector((state) => state.post);
   const dispatch = useDispatch();
 
+  const navigate = useNavigate();
+
   useEffect(() =>{
     loadHome({
       token, 
@@ -32,7 +35,8 @@ function HomeScreen() {
       setUser, 
       setUserSugg, 
       dispatch,
-      liked
+      liked,
+      navigate
     })
   },[post,token,followCount])
 
