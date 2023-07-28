@@ -79,43 +79,69 @@ export const userSingUp = async function ({
     toast.error('Password doesnt not match');
     dispatch(clearLoading());
   } else {
-    if (!image) image = "https://cdn3.vectorstock.com/i/1000x1000/30/97/flat-business-man-user-profile-avatar-icon-vector-4333097.jpg"
-    firebase
-      .storage()
-      .ref(`/image/${image.name}`)
-      .put(image)
-      .then(({ ref }) => {
-        ref.getDownloadURL().then(async (url) => {
-          let imgSrc = url;
-          try {
-            axios
-              .post("/users/register", {
-                name,
-                email,
-                password,
-                imgSrc
-              })
-              .then((res) => {
-                dispatch(clearLoading());
-                navigate('/verify');
-              })
-              .catch((error) =>{
-                if (error.message == "Request failed with status code 400"){
-                  toast.warning("I think you are using the an existing email");
-                }else{
-                  toast.error("Something went wrong try again later");
-                }
+    if (!image){
+      try {
+        axios
+          .post("/users/register", {
+            name,
+            email,
+            password,
+            imgSrc: "https://cdn3.vectorstock.com/i/1000x1000/30/97/flat-business-man-user-profile-avatar-icon-vector-4333097.jpg"
+          })
+          .then((res) => {
+            dispatch(clearLoading());
+            navigate('/verify');
+          })
+          .catch((error) => {
+            if (error.message == "Request failed with status code 400") {
+              toast.warning("I think you are using the an existing email");
+            } else {
+              toast.error("Something went wrong try again later");
+            }
+            dispatch(clearLoading());
+          }
+          );
+      } catch (error) {
+        toast.error(error.message);
+      }
+    }else{
+      firebase
+        .storage()
+        .ref(`/image/${image.name}`)
+        .put(image)
+        .then(({ ref }) => {
+          ref.getDownloadURL().then(async (url) => {
+            let imgSrc = url;
+            try {
+              axios
+                .post("/users/register", {
+                  name,
+                  email,
+                  password,
+                  imgSrc
+                })
+                .then((res) => {
+                  dispatch(clearLoading());
+                  navigate('/verify');
+                })
+                .catch((error) => {
+                  if (error.message == "Request failed with status code 400") {
+                    toast.warning("I think you are using the an existing email");
+                  } else {
+                    toast.error("Something went wrong try again later");
+                  }
                   dispatch(clearLoading());
                 }
-              );
-          } catch (error) {
-            toast.error(error.message);
-          }
+                );
+            } catch (error) {
+              toast.error(error.message);
+            }
+          });
+        })
+        .catch((error) => {
+          toast.error("Error uploading image. Please try again.");
         });
-      })
-      .catch((error) => {
-        toast.error("Error uploading image. Please try again.");
-      });
+    }
   }
 }
 
