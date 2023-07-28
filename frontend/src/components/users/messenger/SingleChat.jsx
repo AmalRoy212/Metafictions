@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ScrollChatBox from './ScrollChatBox';
 import typingLoader from "../../../animations/typing.json";
 import { turnOnVideoCall } from '../../../redux-toolkit/videoCallSlice';
+import { useSocket } from "../../../contexts/SocketProvider";
 import { useNavigate } from 'react-router-dom';
 // import VideoChatHolder from '../videoCall/VideoChatHolder';
 // import VideoCallNotification from '../videoCall/VideoCallNotification';
@@ -38,6 +39,7 @@ function SingleChat({ currentChat, setCurrentChat, user }) {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const secondSocket = useSocket()
 
   useEffect(() => {
     socket = io(ENDPOINT);
@@ -111,25 +113,24 @@ function SingleChat({ currentChat, setCurrentChat, user }) {
     (e,room) => {
       setRoom(room)
       e.preventDefault();
-      socket.emit("room:join", { room });
+      secondSocket.emit("room:join", { room });
     },
-    [email, room, socket]
+    [room, secondSocket]
   );
 
   const handleJoinRoom = useCallback(
-    (data) => {
-      const { email, room } = data;
+    () => {
       navigate(`/room/${room}`);
     },
     [navigate]
   );
 
   useEffect(() => {
-    socket.on("room:join", handleJoinRoom);
+    secondSocket.on("room:join", handleJoinRoom);
     return () => {
-      socket.off("room:join", handleJoinRoom);
+      secondSocket.off("room:join", handleJoinRoom);
     };
-  }, [socket, handleJoinRoom]);
+  }, [secondSocket, handleJoinRoom]);
 
   return (
     <>
