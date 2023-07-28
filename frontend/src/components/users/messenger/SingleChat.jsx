@@ -31,6 +31,8 @@ function SingleChat({ currentChat, setCurrentChat, user }) {
   const [isTyping, setIsTyping] = useState(false);
   const [notification, setNotifcations] = useState([]);
   const [update, setupdate] = useState(false);
+  const [room, setRoom] = useState("");
+
 
   const { token } = useSelector((state) => state.auth);
 
@@ -84,13 +86,6 @@ function SingleChat({ currentChat, setCurrentChat, user }) {
     }
   }
 
-  const handleJoinRoom = useCallback(
-    (id) => {
-      navigate(`/room/${id}`);
-    },
-    [navigate]
-  );
-
   const typingHandler = (e) => {
     setNewMessage(e.target.value);
     if(!socketConnected) return;
@@ -109,6 +104,32 @@ function SingleChat({ currentChat, setCurrentChat, user }) {
       }
     },timeLength)
   }
+
+  //video call
+
+  const handleSubmitForm = useCallback(
+    (e,room) => {
+      setRoom(room)
+      e.preventDefault();
+      socket.emit("room:join", { room });
+    },
+    [email, room, socket]
+  );
+
+  const handleJoinRoom = useCallback(
+    (data) => {
+      const { email, room } = data;
+      navigate(`/room/${room}`);
+    },
+    [navigate]
+  );
+
+  useEffect(() => {
+    socket.on("room:join", handleJoinRoom);
+    return () => {
+      socket.off("room:join", handleJoinRoom);
+    };
+  }, [socket, handleJoinRoom]);
 
   return (
     <>
@@ -138,7 +159,7 @@ function SingleChat({ currentChat, setCurrentChat, user }) {
                 </div>
                 <IconButton
                   icon={<FaPhoneSquare />}
-                  onClick={() => handleJoinRoom(currentChat._id)}
+                  onClick={() => handleSubmitForm(currentChat._id)}
                 />
               </>)
               :
