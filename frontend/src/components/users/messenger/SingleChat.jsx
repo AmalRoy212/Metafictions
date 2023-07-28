@@ -160,7 +160,7 @@ function SingleChat({ currentChat, setCurrentChat, user }) {
                 </div>
                 <IconButton
                   icon={<FaPhoneSquare />}
-                  onClick={() => handleSubmitForm(currentChat._id)}
+                  onClick={(e) => handleSubmitForm(e,currentChat._id)}
                 />
               </>)
               :
