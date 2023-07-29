@@ -56,9 +56,17 @@ function Login() {
                   <Form onSubmit={submitHander} style={{ color: 'white' }}>
                     <Form.Group className='my-p2' controlId='email'>
                       <Form.Label>Email</Form.Label>
-                      <Form.Control type='email' placeholder='Enter email'
-                        value={email} onChange={(e) => setEmail(e.target.value)}>
-                      </Form.Control>
+                    <Form.Control
+                      type='email'
+                      placeholder='Please enter email'
+                      value={email}
+                      pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      Please enter a valid email address.
+                    </Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group className='my-p2' controlId='password'>
                       <Form.Label>Password</Form.Label>

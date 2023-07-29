@@ -35,18 +35,18 @@ function Signup() {
 
   return (
     <motion.div
-      variants={zoomIn(0.5,.5)}
+      variants={zoomIn(0.5, .5)}
       initial="hidden"
       whileInView="show"
-      viewport={{ once : false, amount : 0.25 }}
-      style={{marginBottom:"5rem"}}
+      viewport={{ once: false, amount: 0.25 }}
+      style={{ marginBottom: "5rem" }}
     >
-      <MDBContainer className="h-100 w-60" style={{marginTop:'-4rem', zIndex:17}}>
+      <MDBContainer className="h-100 w-60" style={{ marginTop: '-4rem', zIndex: 17 }}>
         <MDBRow className="justify-content-center align-items-center h-100">
           <MDBCol lg="9" xl="6">
-            <MDBCard style={{ boxShadow: '0 5px 15px rgba(0, 0, 0, .5)', marginTop: '5rem',background:"none", border:'3px solid grey', backdropFilter: 'blur(5px)', borderRadius:'20px', padding:"5px" }}>
-              <h3 style={{color:"white", display:'flex',justifyContent:'center'}}>Sign Up</h3>
-              <Form onSubmit={null} style={{color:'white'}}>
+            <MDBCard style={{ boxShadow: '0 5px 15px rgba(0, 0, 0, .5)', marginTop: '5rem', background: "none", border: '3px solid grey', backdropFilter: 'blur(5px)', borderRadius: '20px', padding: "5px" }}>
+              <h3 style={{ color: "white", display: 'flex', justifyContent: 'center' }}>Sign Up</h3>
+              <Form onSubmit={submitHandler} style={{ color: 'white' }}>
                 <Form.Group className='my-2' controlId='name'>
                   <br />
                   <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -63,8 +63,14 @@ function Signup() {
                     type='text'
                     placeholder='Please enter your name'
                     value={name}
-                    onChange={(e) => setName(e.target.value)}>
-                  </Form.Control>
+                    onChange={(e) => setName(e.target.value)}
+                    pattern=".{4,}"
+                    title="Name must have at least 4 letters"
+                    required
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    Name must have at least 4 letters.
+                  </Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group className='my-2' controlId='email'>
@@ -73,8 +79,13 @@ function Signup() {
                     type='email'
                     placeholder='Please enter email'
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}>
-                  </Form.Control>
+                    pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    Please enter a valid email address.
+                  </Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group className='my-2' controlId='password'>
@@ -83,8 +94,14 @@ function Signup() {
                     type='password'
                     placeholder='Please enter Password'
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}>
-                  </Form.Control>
+                    onChange={(e) => setPassword(e.target.value)}
+                    pattern=".{5,}"
+                    title="Password must be at least 5 characters long"
+                    required
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    Password must be at least 5 characters long.
+                  </Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group className='my-2' controlId='confirmPassword'>
@@ -93,19 +110,25 @@ function Signup() {
                     type='password'
                     placeholder='Confirm Password'
                     value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}>
-                  </Form.Control>
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    pattern=".{5,}"
+                    title="Password must be at least 5 characters long"
+                    required
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    Password must be at least 5 characters long.
+                  </Form.Control.Feedback>
                 </Form.Group>
 
-                <div style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
-                  <Button type='submit' variant='primary' className='mt-3' onClick={submitHandler}>
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                  <Button type='submit' variant='primary' className='mt-3'>
                     Sign Up
                   </Button>
                 </div>
 
                 <Row className='py-3'>
-                  <Col style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
-                    <span style={{color:'white'}}> Already have an account? </span><Link to={'/login'} style={{marginLeft:"1rem"}}>Log in</Link>
+                  <Col style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <span style={{ color: 'white' }}> Already have an account? </span><Link to={'/login'} style={{ marginLeft: "1rem" }}>Log in</Link>
                   </Col>
                 </Row>
               </Form>
