@@ -140,7 +140,7 @@ export default function Maincontent({ data, posts }) {
             </div>
           </div>
         </div>
-        <SecondFeed posts={posts} />
+        <SecondFeed posts={posts} user={data} />
         {/* <Feed posts={posts} data={data} /> */}
       </div>
     </>

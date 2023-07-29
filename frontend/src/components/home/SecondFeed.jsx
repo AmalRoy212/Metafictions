@@ -37,7 +37,7 @@ function ReactFace(props) {
   );
 }
 
-function SecondFeed({ posts }) {
+function SecondFeed({ posts, user }) {
   const [isShowComments, setIsShowComments] = useState(false);
   const [isShowReactPopup, setIsShowReactPopup] = useState(false);
   const [isReactHiding, setIsReactHiding] = useState(false);
@@ -121,17 +121,19 @@ function SecondFeed({ posts }) {
                     <div className="h6 m-0 text-black m-1">{post?.userName}</div>
                   </div>
                 </div>
-                <Dropdown>
-                  <Dropdown.Toggle variant="transperent" id="dropdown-basic">
-                    <FaSteamSymbol />
-                  </Dropdown.Toggle>
+                {user?.userId == post.userId && <Dropdown>
+                    <Dropdown.Toggle variant="transperent" id="dropdown-basic">
+                      {/* <FaSteamSymbol /> */}
+                    </Dropdown.Toggle>
 
-                  <Dropdown.Menu>
-                    <Dropdown.Item onClick={() => deleteHandler(post._id)} ><FaPrescriptionBottleAlt /> Delete </Dropdown.Item>
-                    {/* <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item> */}
-                  </Dropdown.Menu>
-                </Dropdown>
+                    <Dropdown.Menu>
+                      <Dropdown.Item onClick={() => deleteHandler(post._id)} ><FaPrescriptionBottleAlt /> Delete </Dropdown.Item>
+                      {/* <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                      <Dropdown.Item href="#/action-3">Something else</Dropdown.Item> */}
+                    </Dropdown.Menu>
+                  </Dropdown>
+                }
+                {console.log(post)}
               </div>
             </div>
             {/* <h2 style={{color:"black"}}>{post.userName}</h2> */}
