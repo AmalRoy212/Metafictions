@@ -26,7 +26,7 @@ export default function PostTable() {
     <>
       <div className="col-md-9 gedf-main" style={{ marginBottom: "10px", marginTop: "1rem", borderRadius: "20px", maxHeight: "100vh", paddingTop: "5rem" }}>
         <div className="card gedf-card" style={{ backgroundColor: 'white', borderRadius: "20px", overflow: "auto" }}>
-          <Row className="p-5">
+          <Row className="p-5" style={{ maxHeight: "80vh", overflow: "auto" }}>
             <MDBTable>
               <MDBTableHead>
                 <tr>

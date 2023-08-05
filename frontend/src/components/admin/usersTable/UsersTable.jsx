@@ -39,7 +39,7 @@ export default function UsersTable() {
 
   return (
     <>
-      <div className="col-md-9 gedf-main" style={{ marginBottom: "10px", marginTop: "1rem", borderRadius: "20px", maxHeight: "100vh", paddingTop: "5rem" }}>
+      <div className="col-md-9 gedf-main" style={{ marginBottom: "10px", marginTop: "1rem", borderRadius: "20px", height: "100vh", paddingTop: "5rem" }}>
         <div className="card gedf-card" style={{ backgroundColor: 'white', borderRadius: "20px", overflow: "auto" }}>
           <div style={{ display: "flex", justifyContent: "center", height: "100px", paddingTop: "3rem" }}>
             <MDBCol md="6">
@@ -54,7 +54,7 @@ export default function UsersTable() {
               <FaSearch />
             </Button>
           </div>
-          <Row className="p-5">
+          <Row className="p-5" style={{ maxHeight: "70vh", overflow: "auto" }}>
             <MDBTable>
               <MDBTableHead>
                 <tr>
