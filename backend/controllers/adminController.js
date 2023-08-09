@@ -295,7 +295,6 @@ const userEdit = asyncHandler(async function (req, res) {
   const { id } = req.body.data;
   const user = await userModel.findById(id);
 
-  console.log(user);
 
   if (user) {
     user.name = req.body.data.name || user.name;

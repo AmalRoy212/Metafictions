@@ -23,7 +23,6 @@ export const findSearchData = ({ searchData, setUsers, adminToken }) => {
 
 // updating users on users change 
 export const fetchCurrentUsers = ({ searchData, setUsers, adminToken }) => {
-  console.log(adminToken);
   axios.get(`/admin/users/search`, {
     params: {
       searchData

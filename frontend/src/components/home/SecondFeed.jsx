@@ -133,7 +133,6 @@ function SecondFeed({ posts, user }) {
                     </Dropdown.Menu>
                   </Dropdown>
                 }
-                {console.log(post)}
               </div>
             </div>
             {/* <h2 style={{color:"black"}}>{post.userName}</h2> */}

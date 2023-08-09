@@ -49,7 +49,7 @@ function UpdateGorupChat({currentChat, setCurrentChat, user}) {
   const handleRemove = (removeUser) => {
     
     if ( removeUser === loggedUser.userId){
-      console.log("am here am leaving the group");
+      // console.log("am here am leaving the group");
       removeUserFromGroup({ token, dispatch, chatId: currentChat._id, userId: removeUser, setCurrentChat })
       return
     }

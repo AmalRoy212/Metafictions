@@ -19,11 +19,11 @@ export const googleSignUp = () => {
     // withCredentials: true 
   })
     .then(response => {
-      console.log(response.data);
+      // console.log(response.data);
       // Handle the response data
     })
     .catch(error => {
-      console.error('Error:', error);
+      // console.error('Error:', error);
       // Handle the error
     });
 
