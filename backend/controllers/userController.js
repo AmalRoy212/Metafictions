@@ -191,7 +191,7 @@ const updateUserProfile = asyncHandler(async function (req, res) {
 
   } else {
     res.status(404);
-    throw new Error('user not fund')
+    throw new Error('user not fund');
   }
 })
 
