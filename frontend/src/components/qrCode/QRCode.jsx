@@ -7,7 +7,7 @@ function QRCode({userId}) {
     <>
       <h5 style={{width:"100%", display:"flex", justifyContent:"center"}}>QR code</h5>
       <div style={{display:"flex", justifyContent:"center"}}>
-        <QRCodeSVG value={`${APP_URL}/friends/profile/${userId}/`} />,
+        <QRCodeSVG value={`${APP_URL}friends/profile/${userId}/`} />,
       </div>
     </>
   )

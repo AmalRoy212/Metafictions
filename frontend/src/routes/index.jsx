@@ -35,7 +35,7 @@ export const router = createBrowserRouter(
       <Route path='' element={<PrivateRoutes/>} >
         <Route path='/home' element={<HomeScreen className="gradient01"/>} />
         <Route path='/profile' element={<UserProfile className="gradient01"/>} />
-        <Route path='/friends/profile/:userId/' element={<FriendsProfile className="gradient01"/>} />
+          <Route path='/friends/profile/:userId/' element={<FriendsProfile className="gradient01"/>} />
         <Route path='/notifications' element={<NotificationScreen className="gradient01"/>} />
         <Route path='/friends/list' element={<FriendsListScreen className="gradient01"/>} />
         <Route path='/inbox' element={<MessengerScreen className="gradient01"/>} />

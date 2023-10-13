@@ -57,12 +57,13 @@ function QRScanner() {
   return (
     <>
       <div>
-        <h5 style={{display:"flex", justifyContent:"center", alignItems:"center"}}>Scan code</h5>
+        <h5 style={{display:"flex", justifyContent:"center", alignItems:"center"}}>Scan code{url}</h5>
         <div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
           {
             scanResult
               ?( 
-                navigate(`${url}`)
+                // navigate(`${url}`)
+                <></>
                 // <Button variant='dark' onClick={() => navigate(`${url}`)}><h6>Go to Profile</h6></Button>
               )
               : <div id='reader'></div>
